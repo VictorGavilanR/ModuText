@@ -68,7 +68,7 @@ input, button, textarea, select {
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    height: auto; /* Elimina la altura fija */
+    height: 10vh; /* Elimina la altura fija */
     transition: all 0.5s ease;
 }
 
@@ -154,64 +154,52 @@ input, button, textarea, select {
 }
 
 /*Container*/
+
+
+/* Configuración del contenedor principal */
 .container {
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* Dos columnas */
-    height: calc(100vh - 100px); /* Altura total menos el header */
-    width: 100%; 
-    align-items: center;
-    justify-items: center;
-    padding-top: 400px;
+    position: relative; /* El contenedor se vuelve el punto de referencia para elementos con position: absolute */
+    max-width: 100%;
+    height: 90vh; /* Toda la altura de la ventana */
 }
 
+/* Estilo para el texto */
 .text-content {
-    margin-top: 0;
-    grid-area: 1 / 1 / 2 / 2;
-    max-width: 100%;
-    align-self: start;
+    position: absolute; /* Permite usar coordenadas */
+    top: 40%; /* Coordina el texto al 20% desde la parte superior */
+    left: 5%; /* Coordina el texto al 10% desde la izquierda */
+    width: 40%; /* Ajusta el ancho del contenido de texto */
+    color: #1f2937; /* Color del texto */
 }
 
 .text-content h2 {
-    font-size: 60px; /* Tamaño reducido */
+    font-size: 2rem;
 }
 
 .text-content p {
-    margin-top: 10px;
-    font-size: 20px;
+    font-size: 1.125rem;
+    color: #6b7280; /* Color del texto */
 }
 
+/* Estilo para la imagen */
 .img-content {
-    grid-area: 1 / 2 / 2 / 3;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    position: absolute; /* Permite usar coordenadas */
+    bottom: 0; /* La imagen toca el borde inferior */
+    right:  0;
+    width: 50%; /* Ajusta el ancho de la imagen */
 }
 
 .img-content img {
-    width: 420px;
-    height: auto;
+    width: 60%;
+    position: absolute; /* Permite usar coordenadas */
+    bottom: 0; /* La imagen toca el borde inferior */
+    right:  0;
+
 }
 
-/* Media Query para pantallas pequeñas */
-@media (max-width: 768px) {
-    .container {
-        grid-template-columns: 1fr; /* Cambia a una columna */
-        height: auto; /* Ajusta la altura */
-        padding: 20px; /* Añade padding para un diseño más cómodo */
-    }
 
-    .text-content h2 {
-        font-size: 40px; /* Reduce el tamaño en pantallas pequeñas */
-    }
 
-    .img-content {
-        justify-content: center; /* Centra la imagen */
-    }
 
-    .img-content img {
-        width: 80%; /* Reduce el tamaño de la imagen */
-    }
-}
 
 /*SLIDE NOSOTROS Y HISTORIA*/
 
@@ -403,6 +391,8 @@ input, button, textarea, select {
     font-weight: bold;
 }
 
+
+
 /* Contenedor de los contadores */
 /* Contenedor general de la sección */
 .counter-section {
@@ -455,15 +445,49 @@ input, button, textarea, select {
     color: greenyellow;
 }
 
+
+/*PROPOSITO*/
+
+.pagina-proposito-texto {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 50px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.pagina-proposito-texto h4 {
+    font-size: 1.75rem; /* Ajusta el tamaño del título */
+    color: #1f2937; /* Color del título */
+}
+
+.pagina-proposito-texto p {
+    font-size: 1.125rem; /* Tamaño de la fuente del párrafo */
+    font-weight: 400;
+    color: #6b7280; /* Color del texto */
+    margin-top: 20px; /* Espacio entre el título y el texto */
+}
+
+.pagina-proposito-texto-hr {
+    width: 20%;
+    margin: 20px auto;
+    border: none;
+    border-top: 2px solid #e5e7eb; /* Color y grosor de la línea */
+}
+
+.color-proposito {
+    color: greenyellow; 
+}
+
+
 /*TIME LINE*/
 
 .items-center {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-
+    justify-content: center;
     padding-top: 300px;
-    max-width: 80%;
 }
 
 @media (min-width: 640px) {
@@ -489,6 +513,7 @@ input, button, textarea, select {
 .flex-container {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .icon-container {
