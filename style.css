@@ -213,6 +213,96 @@ input, button, textarea, select {
     }
 }
 
+/*SLIDE NOSOTROS Y HISTORIA*/
+
+/* Estructura del contenedor */
+.contenedor {
+    position: relative;
+    width: 80%;
+    height: 400px;
+    margin: 100px auto;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .contenedor__slide {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    transition: left 0.5s ease;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .contenedor__slide--activo {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .contenedor__imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: RED;
+  }
+  
+  .contenedor__texto {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .contenedor__titulo {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .contenedor__descripcion {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* Navegación por puntitos */
+  .contenedor__navegacion {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+  }
+  
+  .contenedor__punto {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    cursor: pointer;
+  }
+  
+  .contenedor__punto--activo {
+    background-color: #333;
+  }
+  
+  /* Responsivo */
+  @media (max-width: 768px) {
+    .contenedor__slide {
+      flex-direction: column;
+    }
+  
+    .contenedor__imagen img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
 /*Vision - Mision*/
 
 .mision-vision{

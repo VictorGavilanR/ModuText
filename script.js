@@ -30,3 +30,42 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCounter();
     });
 });
+
+/*SLIDE*/
+
+// Variables de los elementos
+const slides = document.querySelectorAll('.contenedor__slide');
+const puntos = document.querySelectorAll('.contenedor__punto');
+
+let indiceActual = 0;
+const intervaloTiempo = 3000; // Tiempo en milisegundos (3 segundos)
+
+// Función para cambiar de slide
+function cambiarSlide(indice) {
+  // Ocultar el slide actual
+  slides[indiceActual].classList.remove('contenedor__slide--activo');
+  puntos[indiceActual].classList.remove('contenedor__punto--activo');
+
+  // Mostrar el nuevo slide
+  slides[indice].classList.add('contenedor__slide--activo');
+  puntos[indice].classList.add('contenedor__punto--activo');
+
+  // Actualizar el índice actual
+  indiceActual = indice;
+}
+
+// Cambiar el slide automáticamente cada 3 segundos
+function iniciarCarrusel() {
+  setInterval(() => {
+    let nuevoIndice = (indiceActual + 1) % slides.length; // Mover al siguiente slide
+    cambiarSlide(nuevoIndice);
+  }, intervaloTiempo);
+}
+
+// Agregar eventos a los puntos
+puntos.forEach((punto, index) => {
+  punto.addEventListener('click', () => cambiarSlide(index));
+});
+
+// Iniciar el carrusel automáticamente
+iniciarCarrusel();
