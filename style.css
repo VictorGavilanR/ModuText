@@ -613,3 +613,61 @@ input, button, textarea, select {
 
 
 /*PONE EL CSS DEL FORMULARIO AQUÍ*/
+
+
+.cont2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Alinea los elementos en una columna */
+    padding-top: 50px;
+}
+.form-container {
+    background-color: #2e5205;
+    color: #f0f8ff;
+    border: 2px solid #2e5205;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%; /* Para ajustar mejor en pantallas pequeñas */
+    max-width: 800px; /* Controlar el ancho máximo */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añadir una sombra para mejorar el diseño */
+}
+
+.form-check-input:checked {
+    background-color: rgb(61, 201, 85); /* Change this color as needed */
+    border-color: rgb(61, 201, 85);    /* Change this color as needed */
+}
+
+.btn{ 
+	
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	width: 120px;
+	background: rgb(61, 201, 85);
+	color: #fff;
+	padding:10px;
+	margin: 10px auto;
+	
+	
+}
+.btn:hover{
+	background: rgba(227, 230, 78, 0.85);
+	transform: scale(1.02);
+}
+
+.contacto{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+.contacto li{
+    /*float: left;*/
+    text-align: center;
+    display: block;
+    padding: 12px 14px;
+    text-decoration: none;
+}
+
