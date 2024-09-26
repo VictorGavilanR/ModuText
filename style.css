@@ -1099,19 +1099,19 @@ input, button, textarea, select {
     padding-top: 50px;
 }
 .form-container {
-    background-color: #2e5205;
+    background-color: #6e3667;
     color: #f0f8ff;
-    border: 2px solid #2e5205;
+    border: 2px solid #6e3667;
     padding: 20px;
     border-radius: 10px;
     width: 100%; /* Para ajustar mejor en pantallas pequeñas */
     max-width: 800px; /* Controlar el ancho máximo */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añadir una sombra para mejorar el diseño */
+    box-shadow: 0 4px 6px rgba(13, 190, 28, 0.1); /* Añadir una sombra para mejorar el diseño */
 }
 
 .form-check-input:checked {
-    background-color: rgb(61, 201, 85); /* Change this color as needed */
-    border-color: rgb(61, 201, 85);    /* Change this color as needed */
+    background-color: #88D317; /* Change this color as needed */
+    border-color: #88D317;    /* Change this color as needed */
 }
 
 .btn{ 
@@ -1120,7 +1120,7 @@ input, button, textarea, select {
 	text-align: center;
 	text-decoration: none;
 	width: 120px;
-	background: rgb(61, 201, 85);
+	background: #88D317;
 	color: #fff;
 	padding:10px;
 	margin: 10px auto;
@@ -1128,7 +1128,7 @@ input, button, textarea, select {
 	
 }
 .btn:hover{
-	background: rgba(227, 230, 78, 0.85);
+	background: rgba(38, 221, 69, 0.85);
 	transform: scale(1.02);
 }
 
@@ -1140,10 +1140,17 @@ input, button, textarea, select {
 }
 
 .contacto li{
-    /*float: left;*/
+    float: left;
     text-align: center;
     display: block;
-    padding: 12px 14px;
+    padding: 30px 20px;
     text-decoration: none;
+}
+
+.medios{
+    max-height: 20px;
+    float: left;
+    padding-right: 10px;
+    padding-top: 1px;
 }
 
