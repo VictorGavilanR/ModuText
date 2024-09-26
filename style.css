@@ -156,6 +156,9 @@ input, button, textarea, select {
     width: 80px;
 
 }
+.header h1{
+    padding-left: 18%;
+}
 
 .navbar {
     display: flex;
@@ -175,6 +178,14 @@ input, button, textarea, select {
     animation-delay: calc(0.2s * var(--i));
 }
 
+
+.navbar a:hover{
+    color: royalblue;
+    border-color:royalblue ;
+
+}
+
+
 .main {
     display: flex;
     align-items: center;
@@ -191,7 +202,8 @@ input, button, textarea, select {
 }
 
 .main a:hover {
-    color: rebeccapurple;
+    color: royalblue;
+    border-color:royalblue ;
 }
 
 #menu-icon {
@@ -233,7 +245,8 @@ input, button, textarea, select {
     }
 
     .navbar a:hover {
-        color: aqua;
+        color: royalblue;
+        border-color:royalblue ;
         transform: translateY(5px);
     }
 
@@ -353,7 +366,7 @@ input, button, textarea, select {
     height: 400px;
     margin: 100px auto;
     overflow: hidden;
-    border: 1px solid #ccc;
+    border: 1px solid #09ff00;
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -965,7 +978,8 @@ input, button, textarea, select {
 
 }
 .single-footer a:hover{
-   color:#8983f7;
+    color: royalblue;
+    border-color:royalblue ;
 }
 
 
@@ -999,7 +1013,7 @@ input, button, textarea, select {
     margin-right: 10px;
 }
 
-.footer-social,  a:hover{
+.footer-social a:hover{
     color: royalblue;
     border-color:royalblue ;
 
