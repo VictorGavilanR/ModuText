@@ -1109,7 +1109,7 @@ input, button, textarea, select {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; /* Alinea los elementos en una columna */
+    flex-direction: column;
     padding-top: 50px;
 }
 .form-container {
@@ -1118,14 +1118,14 @@ input, button, textarea, select {
     border: 2px solid #6e3667;
     padding: 20px;
     border-radius: 10px;
-    width: 100%; /* Para ajustar mejor en pantallas pequeñas */
-    max-width: 800px; /* Controlar el ancho máximo */
-    box-shadow: 0 4px 6px rgba(13, 190, 28, 0.1); /* Añadir una sombra para mejorar el diseño */
+    width: 100%; 
+    max-width: 800px; 
+    box-shadow: 0 4px 6px rgba(13, 190, 28, 0.1); 
 }
 
 .form-check-input:checked {
-    background-color: #88D317; /* Change this color as needed */
-    border-color: #88D317;    /* Change this color as needed */
+    background-color: #88D317;
+    border-color: #88D317;    
 }
 
 .btn{ 

@@ -1,0 +1,101 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('img/retiro-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -2; 
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: -1; 
+}
+
+h2 {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+}
+
+.form-range {
+    fill: #6e3667;
+}
+
+.btn-custom, .btn-primary {
+    background-color: #6e3667;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 10px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-custom:hover, .btn-primary:hover {
+    background-color: #14c532;
+    color: white;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.logout-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.saludo {
+    color: white; /* Color blanco para mayor visibilidad */
+    font-size: 24px; /* Tamaño de fuente */
+    margin: 0; /* Sin margen superior */
+    position: absolute; /* Posición relativa para posicionarlo adecuadamente */
+    top: 265px; /* Ajusta esta propiedad según sea necesario para el espaciado */
+    left: 690px;
+}
+
+/*Barra*/
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background-color: #6e3667; 
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb:active{
+    transform: scale(1.2);
+    background-color: #c99fc3; 
+}
