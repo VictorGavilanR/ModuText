@@ -75,11 +75,11 @@ h2 {
 }
 
 .saludo {
-    color: white; /* Color blanco para mayor visibilidad */
-    font-size: 24px; /* Tamaño de fuente */
-    margin: 0; /* Sin margen superior */
-    position: absolute; /* Posición relativa para posicionarlo adecuadamente */
-    top: 265px; /* Ajusta esta propiedad según sea necesario para el espaciado */
+    color: white; 
+    font-size: 24px;
+    margin: 0; 
+    position: absolute;
+    top: 265px; 
     left: 690px;
 }
 
