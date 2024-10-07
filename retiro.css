@@ -77,10 +77,12 @@ h2 {
 .saludo {
     color: white; 
     font-size: 24px;
-    margin: 0; 
+    margin-bottom: 10px; 
     position: absolute;
-    top: 265px; 
-    left: 690px;
+    top: 25%; 
+    left: 50%; 
+    transform: translateX(-50%);
+    z-index: 1;
 }
 
 /*Barra*/
