@@ -1,87 +1,94 @@
+@font-face {
+    font-family: 'Canada';
+    src: url('./assets/Canada.otf') format('truetype'); /* Ajusta la ruta según donde hayas guardado la fuente */
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    font-family: 'Nunito', sans-serif;
+    display: flex;
     height: 100vh;
     margin: 0;
+    font-family: 'Nunito', sans-serif;
+    color: #F4F4F9;
+}
+
+h1,h2{
+    font-family: 'Canada', sans-serif;
+}
+
+form{
+    padding-top: 70px;
+}
+
+form label{
+    font-family: 'Canada', sans-serif;
+}
+
+.logo {
+    max-height: 100px;
+    margin-left: auto; /* Asegura que el logo se alinee a la derecha */
+}
+.main-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    flex: 1;
+    background-color: #2C1A47; 
 }
 
-body::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('img/retiro-background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    z-index: -2; 
-}
-
-body::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); 
-    z-index: -1; 
-}
-
-h2 {
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.container {
-    background-color: rgba(255, 255, 255, 0.8); 
+.left-section {
+    flex: 1; /* Ocupa 1/3 de la pantalla */
+    padding: 20px; /* Añade un poco de padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    max-width: 500px;
+}
+
+.saludo{
+    font-size: 20px; 
+    padding-left: 20px;
+}
+
+.right-section {
+    flex: 2;
+}
+
+.right-section img {
+    height: 100vh;
     width: 100%;
-    position: relative;
+    object-fit: cover;
 }
 
-.form-range {
-    fill: #601270;
+a.logout-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: #5F288F;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    font-family: 'Canada', sans-serif;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
-.btn-custom, .btn-primary {
-    background-color: #6e3667;
+a.logout-button:hover {
+    background-color: #14c532;
+}
+
+.btn-primary {
+    background-color: #14c532;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
-    margin: 10px;
-    text-align: center;
-    text-decoration: none;
+    margin-top: 20px;
+    font-family: 'Canada', sans-serif;
 }
 
-.btn-custom:hover, .btn-primary:hover {
-    background-color: #14c532;
-    color: white;
-}
-
-.back-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
-.logout-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-
-.saludo {
-    color: white; 
-    font-size: 24px;    
-    position: absolute;
-    top: 25%; 
-    left: 50%; 
-    transform: translateX(-50%);
-    z-index: 1;
+.btn-primary:hover {
+    background-color: #FFC857;
 }
 
 /*Barra*/
@@ -91,7 +98,7 @@ input[type="range"]::-webkit-slider-thumb {
     appearance: none;
     width: 18px;
     height: 18px;
-    background-color: #6e3667; 
+    background-color: #9b6594; 
     border-radius: 50%;
     cursor: pointer;
 }
@@ -102,102 +109,30 @@ input[type="range"]::-webkit-slider-thumb:active{
 }
 
 @media (max-width: 1000px) {
-    .header {
-        padding: 14px 2%;
-        transition: 0.2s;
-    }
-
-    .navbar a {
-        margin: 0px 20px;
-    }
-
-    #menu-icon {
-        display: block;
-    }
-
-    .navbar {
-        position: absolute;
-        top: 100%;
-        right: -100%;
-        width: 270px;
-        background-color: #601270;
+    .main-container {
         flex-direction: column;
-        border-radius: 10px;
-        transition: all 0.5s ease;
     }
 
-    .navbar a {
-        margin: 12px 0;
-        padding: 0 25px;
-    }
-
-    .navbar a:hover {
-        color: royalblue;
-        border-color:royalblue ;
-        transform: translateY(5px);
-    }
-
-    .navbar.open {
-        right: 2%;
-    }
-}
-
-/* Media queries para pantallas más pequeñas */
-@media (max-width: 768px) {
-    .text-content {
-        top: 50%; /* Ajusta la posición del texto */
-        left: 3%;
-        width: 50%; /* Expande el ancho del texto */
-    }
-
-    .text-content h2 {
-        font-size: 1.5rem; /* Disminuye el tamaño del título */
-    }
-
-    .text-content p {
-        font-size: 1rem; /* Disminuye el tamaño del párrafo */
-    }
-
-    .img-content {
-        width: 100%; /* La imagen ocupa todo el ancho */
-    }
-
-    .img-content img {
-        width: 50%; /* Ajusta el tamaño de la imagen */
-    }
-}
-
-/* Media queries para pantallas muy pequeñas */
-@media (max-width: 480px) {
-    .text-content {
-        top: 40%; /* Posición más centrada para pantallas pequeñas */
-        left: 2%;
-        width: 50%; /* Ancho más amplio del texto */
-    }
-
-    .text-content h2 {
-        font-size: 1.25rem; /* Disminuye el tamaño del título */
-    }
-
-    .text-content p {
-        font-size: 0.875rem; /* Ajusta el tamaño del párrafo */
-    }
-
-    .img-content img {
-        width: 60%; /* Ajusta el tamaño de la imagen para pantallas pequeñas */
-    }
-
-    .saludo {
-        top: 15%;
-    }
-
-    .container {
-        max-width: 300px;
-    }
-
-    .container h2, button{
-        text-align: center;
-        align-items: center;
+    form{
+        padding: 0;
     }
     
+    .logo{
+        padding-top: 20px;
+    }
+
+    .right-section img {
+        height: 80vh;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .right-section img {
+        height: 40vh;
+    }
 }
