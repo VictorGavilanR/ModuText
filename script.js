@@ -38,7 +38,7 @@ const slides = document.querySelectorAll('.contenedor__slide');
 const puntos = document.querySelectorAll('.contenedor__punto');
 
 let indiceActual = 0;
-const intervaloTiempo = 3000; // Tiempo en milisegundos (3 segundos)
+const intervaloTiempo = 8000;//time
 
 // Función para cambiar de slide
 function cambiarSlide(indice) {
