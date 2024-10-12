@@ -215,7 +215,10 @@ input, button, textarea, select {
 
 }
 
-
+.main .user{
+    pointer-events: none;  /* No permite hacer clic */
+    opacity: 0; 
+}
 .main {
     display: flex;
     align-items: center;
@@ -245,19 +248,16 @@ input, button, textarea, select {
     z-index: 10001;
     display: none;
 }
-
 @media (max-width: 1000px) {
     .header {
         padding: 14px 2%;
         transition: 0.2s;
     }
 
-    .navbar a {
-        margin: 0px 20px;
-    }
-
     #menu-icon {
         display: block;
+        cursor: pointer;
+        font-size: 50px;
     }
 
     .navbar {
@@ -279,14 +279,21 @@ input, button, textarea, select {
 
     .navbar a:hover {
         color: var(--color-secundario);
-        border-color:var(--color-secundario);
+        border-color: var(--color-secundario);
         transform: translateY(5px);
     }
 
     .navbar.open {
         right: 2%;
     }
+
+    /* Ajuste para el menú del usuario */
+
 }
+
+   
+
+
 
 /*Container*/
 
