@@ -600,8 +600,8 @@ input, button, textarea, select {
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     width: 100%;
-    padding-top: 20px;
     margin: 0 auto;
+    padding-top: 0;
 
 }
 
@@ -1153,7 +1153,7 @@ textarea {
 }
 
 .contact-form button:hover {
-    background-color: #481e6d;
+    background-color: var(--color-secundario);
     transition: transform 0.5s ease-in-out;
 }
 
@@ -1205,6 +1205,9 @@ textarea {
 
 .social-icon:hover {
     transform: scale(1.1);
+    color: var(--color-secundario);
+
+
 }
 
 .social-icon i {
@@ -1219,6 +1222,10 @@ textarea {
 
     .contact-form .heading {
         font-size: 20px;
+    }
+
+    .contact-list{
+        flex-direction: column;
     }
 
     .contact-form input,
@@ -1350,8 +1357,8 @@ textarea {
 }
 
 .single-footer a:hover {
-    color: var(--color-neutro-oscuro);
-    border-color: var(--color-neutro-oscuro);
+    color: var(--color-secundario);
+    border-color:  var(--color-secundario);
 }
 
 .single-footer ul li a {
@@ -1382,8 +1389,8 @@ textarea {
 }
 
 .footer-social a:hover {
-    color: var(--color-neutro-oscuro);
-    border-color: var(--color-neutro-oscuro);
+    color: var(--color-secundario);
+    border-color:  var(--color-secundario);
 }
 
 .copy {
