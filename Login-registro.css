@@ -11,12 +11,30 @@ body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
     color: #3C3C3C;
+
 }
+
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="email"]:focus, 
+input[type="number"]:focus, 
+
+
+option:focus,
+textarea:focus, 
+button:focus {
+    outline: none;
+    border: 2px solid #5F288F;
+    box-shadow: 0 0 8px rgba(95, 40, 143, 0.5);
+}
+
+
+
 
 .logo {
     max-height: 100px;
     position: absolute;
-    top: 70px;
+    top: 0px;
     padding-left: 20px;
 }
 
@@ -55,6 +73,8 @@ form label {
     font-family: 'Canada', sans-serif;
 }
 
+
+
 .left-section img {
     height: 100vh;
     width: 100%;
@@ -72,6 +92,8 @@ a.logout-button {
     border: none;
     font-family: 'Canada', sans-serif;
 }
+
+
 
 a.logout-button:hover {
     background-color: #14c532;
@@ -158,3 +180,4 @@ a.logout-button:hover {
     font-size: 14px;
     text-align: center;
 }
+
