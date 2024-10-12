@@ -69,3 +69,44 @@ puntos.forEach((punto, index) => {
 
 // Iniciar el carrusel automáticamente
 iniciarCarrusel();
+
+
+// Animaciones de entrada 
+// Selecciona todos los elementos que necesitan animaciones de entrada
+const contenedor = document.querySelector('.contenedor');
+const cards = document.querySelectorAll('.card');
+const counterSection = document.querySelector('.counter-section');
+const proposito = document.querySelector('.pagina-proposito-texto');
+const objetivos = document.querySelectorAll('.item');
+const contacto = document.querySelector('.cont2');
+
+// Configura el observer para detectar cuando los elementos son visibles
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Agrega la clase de visibilidad según el tipo de elemento
+      if (entry.target.classList.contains('contenedor')) {
+        entry.target.classList.add('contenedor--visible');
+      } else if (entry.target.classList.contains('card')) {
+        entry.target.classList.add('card--visible');
+      } else if (entry.target.classList.contains('counter-section')) {
+        entry.target.classList.add('counter-section--visible');
+      } else if (entry.target.classList.contains('pagina-proposito-texto')) {
+        entry.target.classList.add('pagina-proposito-texto--visible');
+      } else if (entry.target.classList.contains('item')) {
+        entry.target.classList.add('item--visible');
+      } else if (entry.target.classList.contains('cont2')) {
+        entry.target.classList.add('cont2--visible');
+      }
+      observer.unobserve(entry.target); // Deja de observar una vez que se activa la animación
+    }
+  });
+}, { threshold: 0.01 }); // Se activará cuando el 1% del elemento sea visible
+
+// Asocia el observer a cada elemento
+observer.observe(contenedor);
+cards.forEach(card => observer.observe(card));
+observer.observe(counterSection);
+observer.observe(proposito);
+objetivos.forEach(objetivo => observer.observe(objetivo));
+observer.observe(contacto);
