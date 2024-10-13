@@ -215,10 +215,12 @@ input, button, textarea, select {
 
 }
 
-.main .user{
-    pointer-events: none;  /* No permite hacer clic */
-    opacity: 0; 
+
+.ocultar{
+    display: none; /* O también puedes usar visibility: hidden; */
+    visibility: hidden;
 }
+
 .main {
     display: flex;
     align-items: center;
@@ -259,6 +261,9 @@ input, button, textarea, select {
         cursor: pointer;
         font-size: 50px;
     }
+    .ocultar{
+        visibility: visible;
+    }
 
     .navbar {
         position: absolute;
@@ -269,6 +274,9 @@ input, button, textarea, select {
         flex-direction: column;
         border-radius: 10px;
         transition: all 0.5s ease;
+    }
+    .navbar .user{
+        opacity: 0; 
     }
 
     .navbar a {
