@@ -217,7 +217,6 @@ input, button, textarea, select {
 
 
 .ocultar{
-    display: none; /* O también puedes usar visibility: hidden; */
     visibility: hidden;
 }
 
@@ -275,9 +274,10 @@ input, button, textarea, select {
         border-radius: 10px;
         transition: all 0.5s ease;
     }
-    .navbar .user{
-        opacity: 0; 
+    .main .user{
+        visibility: hidden;
     }
+
 
     .navbar a {
         margin: 12px 0;
@@ -375,7 +375,7 @@ input, button, textarea, select {
 .img-content img {
     width: 30%;
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     right: 30px;
     opacity: 0;
     animation: slideTop 1s ease forwards;
