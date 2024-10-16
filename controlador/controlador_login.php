@@ -14,6 +14,7 @@ if (isset($_POST["btningresar"])) {
 
             $_SESSION["id"]=$datos->id;
             $_SESSION["rut"]=$datos->rut;
+            $_SESSION["nombre"]=$datos->nombre;
             header("location: retiro.php");
         } else {
             echo "<div>Datos Incorrectos y/0 usuario no registrado </div>";

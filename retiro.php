@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+if (empty($_SESSION["id"])){
+  header("location: login.php");
+}
 ?>
 
 
@@ -18,7 +22,7 @@ session_start();
   <link rel="stylesheet" href="retiro.css"> <!-- Asegúrate de que la ruta sea correcta -->
 </head>
 <body>
-  <a href="login.html" class="logout-button btn-custom">Cerrar sesión</a>
+  <a href="controlador/controlador_cerrar_session.php" class="logout-button btn-custom">Cerrar sesión</a>
   
   <div class="main-container">
     <div class="left-section">
