@@ -19,16 +19,21 @@
       <a href="index.html" class="logout-button btn btn-custom">Volver</a>
 
       <!-- Formulario de Login -->
-      <form id="loginForm" class="form-container">
+      <form id="loginForm" class="form-container" method="post" action="">
+          <?php
+          include "conexion.php";
+          include "controlador/controlador_login.php"
+        ?>
         <div class="mb-3">
-          <label for="emailOrUsername" class="form-label">Correo o Usuario</label>
-          <input type="text" class="form-control" id="emailOrUsername" placeholder="Ingrese su correo o usuario" required>
+          <label for="emailOrUsername" class="form-label">Rut</label>
+          <input type="text" class="form-control" id="emailOrUsername"  placeholder="Ingrese rut" name="rut" >
         </div>
         <div class="mb-3">
           <label for="loginPassword" class="form-label">Contraseña</label>
-          <input type="password" class="form-control" id="loginPassword" placeholder="Ingrese su contraseña" required>
+          <input type="password" class="form-control" id="loginPassword" placeholder="Ingrese su contraseña" name="password" >
         </div>
-        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        <button name="btningresar"  class="btn btn-primary" >Iniciar Sesión</button>
+
         <p class="toggle-text">¿No tienes cuenta? <a href="#" id="showRegister">Regístrate</a></p>
       </form>
 
@@ -37,6 +42,10 @@
         <div class="mb-3">
           <label for="nombres" class="form-label">Nombres</label>
           <input type="text" class="form-control" id="nombre" placeholder="Ingrese sus nombres" required>
+        </div>
+        <div class="mb-3">
+          <label for="ruts" class="form-label">Rut</label>
+          <input type="text" class="form-control" id="rut" placeholder="Ingrese rut" required>
         </div>
         <div class="row">
           <div class="col-md-6 mb-3">

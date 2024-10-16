@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,7 +23,18 @@
   <div class="main-container">
     <div class="left-section">
       <div class="d-flex justify-content-between align-items-start mt-4">
-        <h1 class="saludo">Hola, Silvia</h1>
+        <h1 class="saludo">
+        <?php
+        // Asignar un valor a la variable de sesión si no está definida
+            if (!isset($_SESSION["nombre"])) {
+              $_SESSION["nombre"] = "Usuario"; // Asigna un valor predeterminado si no está definido
+            }
+
+            // Mostrar el mensaje
+            echo "Hola, " . $_SESSION["nombre"];
+        ?>
+
+        </h1>
         <img class="logo" src="./img/Marca - Blanco.png" alt="">
       </div>
       <div class="container mt-5">
