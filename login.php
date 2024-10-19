@@ -38,11 +38,11 @@
       </form>
 
       <!-- Formulario de Registro -->
-   <!-- Formulario de Registro -->
+<!-- Formulario de Registro -->
 <form id="registerForm" class="form-container hidden" action="controlador/controlador_registro.php" method="POST">
   <div class="mb-3">
     <label for="nombres" class="form-label">Nombres</label>
-    <input type="text" name="nombres" class="form-control" id="nombre" placeholder="Ingrese sus nombres" required>
+    <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese sus nombres" required>
   </div>
   <div class="mb-3">
     <label for="rut" class="form-label">Rut</label>
@@ -69,14 +69,13 @@
     </div>
   </div>
   <div class="mb-3">
-  <label for="tipo_usuario" class="form-label">Tipo de Usuario</label>
-  <select class="form-select" name="tipo_usuario" id="tipo_usuario" required>
-    <option selected disabled>Seleccione un tipo de usuario</option>
-    <option value="empresa">Empresa</option>
-    <option value="particular">Particular</option>
-  </select>
-</div>
-
+    <label for="tipo_usuario" class="form-label">Tipo de Usuario</label>
+    <select class="form-select" name="tipo_usuario" id="tipo_usuario" required>
+      <option selected disabled>Seleccione un tipo de usuario</option>
+      <option value="empresa">Empresa</option>
+      <option value="particular">Particular</option>
+    </select>
+  </div>
   <div class="mb-3">
     <label for="password" class="form-label">Contraseña</label>
     <input type="password" name="password" class="form-control" id="password" placeholder="Ingrese una contraseña" required>
@@ -88,6 +87,8 @@
   <button type="submit" class="btn btn-primary">Registrarse</button>
   <p class="toggle-text">¿Ya tienes cuenta? <a href="#" id="showLogin">Inicia Sesión</a></p>
 </form>
+
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
