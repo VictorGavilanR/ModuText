@@ -9,12 +9,12 @@ if (isset($_POST["btningresar"])) {
 
         $rut=$_POST["rut"];
         $password=$_POST["password"];
-        $sql = $conexion-> query(" select * from usuario where rut='$rut' and password='$password' ");
+        $sql = $conexion-> query(" select * from usuarios where rut='$rut' and password='$password' ");
         if ($datos= $sql->fetch_object()) {
 
             $_SESSION["id"]=$datos->id;
             $_SESSION["rut"]=$datos->rut;
-            $_SESSION["nombre"]=$datos->nombre;
+            $_SESSION["nombre"]=$datos->nombres;
             header("location: retiro.php");
         } else {
             echo "<div>Datos Incorrectos y/0 usuario no registrado </div>";

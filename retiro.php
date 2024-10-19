@@ -31,7 +31,7 @@ if (empty($_SESSION["id"])){
         <?php
         // Asignar un valor a la variable de sesión si no está definida
             if (!isset($_SESSION["nombre"])) {
-              $_SESSION["nombre"] = "Usuario"; // Asigna un valor predeterminado si no está definido
+              $_SESSION["nombre"] = "Usuarios"; // Asigna un valor predeterminado si no está definido
             }
 
             // Mostrar el mensaje
