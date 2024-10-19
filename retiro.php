@@ -55,10 +55,14 @@ if (empty($_SESSION["id"])){
               <option value="otro">Otro</option>
             </select>
           </div>
+          <!-- Sección de cantidad con slider y campo de texto -->
           <div class="mb-3">
             <label for="cantidad" class="form-label">Cantidad (kg)</label>
-            <input type="range" class="form-range" min="1" max="50" id="cantidad" oninput="document.getElementById('sliderValue').textContent = this.value">
-            <p class="slider-value"><span id="sliderValue">25</span> kg</p>
+            <input type="range" id="sliderValue" class="form-range" min="1" max="50" value="25" oninput="syncManualInput(this.value)">
+            <div class="input-group">
+              <input type="number" class="form-control" id="cantidadManual" min="1" max="50" value="25" oninput="syncSliderInput(this.value)">
+              <span class="input-group-text">kg</span>
+            </div>
           </div>
           <div class="mb-3">
             <label for="direccionRetiro" class="form-label">Dirección de Retiro</label>
@@ -79,5 +83,14 @@ if (empty($_SESSION["id"])){
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function syncManualInput(value) {
+      document.getElementById('cantidadManual').value = value; // Sincroniza el valor del slider con el input manual
+    }
+
+    function syncSliderInput(value) {
+      document.getElementById('sliderValue').value = value; // Sincroniza el valor del input manual con el slider
+    }
+  </script>
 </body>
 </html>
