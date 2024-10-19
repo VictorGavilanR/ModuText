@@ -47,7 +47,11 @@
   <div class="mb-3">
     <label for="rut" class="form-label">Rut</label>
     <input type="text" name="rut" class="form-control" id="rut" placeholder="Ingrese rut" required>
-  </div>
+    <div id="rutError" style="display:none; color: red;">Rut inválido</div>
+</div>
+
+
+
   <div class="row">
     <div class="col-md-6 mb-3">
       <label for="apPat" class="form-label">Apellido Paterno</label>
@@ -65,7 +69,7 @@
     </div>
     <div class="col-md-6 mb-3">
       <label for="fonoUser" class="form-label">Teléfono</label>
-      <input type="number" name="telefono" class="form-control" id="fonoUser" placeholder="Ingrese su teléfono de contacto" required>
+      <input type="number" name="telefono" class="form-control" id="fonoUser"  placeholder="Ingrese su teléfono de contacto" required>
     </div>
   </div>
   <div class="mb-3">
@@ -89,7 +93,7 @@
 </form>
 
 
-
+  <script src="formateo.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const loginForm = document.getElementById('loginForm');
@@ -108,6 +112,8 @@
       registerForm.classList.add('hidden');
       loginForm.classList.remove('hidden');
     });
+    
+    
   </script>
 </body>
 </html>
