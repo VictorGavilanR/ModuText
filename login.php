@@ -26,7 +26,7 @@
         ?>
         <div class="mb-3">
           <label for="emailOrUsername" class="form-label">Rut</label>
-          <input type="text" class="form-control" id="emailOrUsername"  placeholder="Ingrese rut" name="rut" >
+          <input type="text" class="form-control" id="emailOrUsername"  placeholder="Ingrese su rut" name="rut" >
         </div>
         <div class="mb-3">
           <label for="loginPassword" class="form-label">Contraseña</label>

@@ -42,7 +42,7 @@ if (empty($_SESSION["id"])){
         <img class="logo" src="./img/Marca - Blanco.png" alt="">
       </div>
       <div class="container mt-5">
-        <form>
+        <form method="post" action="procesar_retiro.php">
           <h2 class="mb-4">Solicitud de Retiro de Telas</h2>
           <div class="mb-3">
             <label for="tipoTela" class="form-label">Tipo de Tela</label>
