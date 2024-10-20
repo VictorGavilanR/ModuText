@@ -5,24 +5,24 @@ session_start();
 include "conexion.php";
 
 // Verificar datos con la base de datos
-if (isset($_POST["btningresar"])) {
-    if (!empty($_POST["rut"]) && !empty($_POST["password"])) {
-        $rut = $_POST["rut"];
-        $password = $_POST["password"];
+if ($_SERVER["REQUEST_METHOD"]=="POST") {
+    if (!empty($_POST["rut_usuario"]) && !empty($_POST["password_usuario"])) {
+        $rut_usuario = htmlspecialchars($_POST["rut_usuario"]);
+        $password_usuario = htmlspecialchars($_POST["password_usuario"]);
 
         // Preparar la consulta para evitar la inyección SQL
-        $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE rut = ?");
-        $stmt->bind_param("s", $rut);
+        $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE rut_usuario = ?");
+        $stmt->bind_param("s", $rut_usuario);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result && $datos = $result->fetch_object()) {
             // Verificar la contraseña cifrada
-            if (password_verify($password, $datos->password)) {
+            if (password_verify($password_usuario, $datos->password_usuario)) {
                 // Establecer las variables de sesión con los datos del usuario
-                $_SESSION["id"] = $datos->id;
-                $_SESSION["rut"] = $datos->rut;
-                $_SESSION["nombre"] = $datos->nombre; // Asegúrate de que 'nombre' es el campo correcto en tu tabla
+                $_SESSION["id_usuario"] = $datos->id_usuario;
+                $_SESSION["rut_usuario"] = $datos->rut_usuario;
+                $_SESSION["nombres_usuario"] = $datos->nombres_usuario; // Usando el nombre correcto de la tabla
 
                 // Redirigir a la página de retiro
                 header("Location: retiro.php");
@@ -40,4 +40,4 @@ if (isset($_POST["btningresar"])) {
         echo "Campos vacíos.";
     }
 }
-?>
+

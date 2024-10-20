@@ -1,33 +1,36 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const rutInput = document.getElementById('rut');
-    const rutError = document.getElementById('rutError');
+    const rutInputs = document.querySelectorAll('input[id^="rut"]'); // Selecciona todos los campos de RUT
+    const rutErrors = document.querySelectorAll('#rutError'); // Selecciona el elemento de error
 
-    // Formatear el RUT al escribir
-    rutInput.addEventListener('input', function () {
-        let rut = rutInput.value.replace(/\./g, '').replace(/-/g, '').replace(/[^\dkK]/g, '');
+    // Para cada campo de RUT encontrado en los formularios
+    rutInputs.forEach((rutInput, index) => {
+        let rutError = rutErrors[index];
 
-        if (rut.length > 1) {
-            // Formatear automáticamente el RUT con puntos y guion
-            rut = rut.slice(0, -1).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") + '-' + rut.slice(-1).toUpperCase();
-        }
+        rutInput.addEventListener('input', function () {
+            let rut = rutInput.value.replace(/\./g, '').replace(/-/g, '').replace(/[^\dkK]/g, '');
 
-        rutInput.value = rut;
+            if (rut.length > 1) {
+                // Formatear automáticamente el RUT con puntos y guion
+                rut = rut.slice(0, -1).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") + '-' + rut.slice(-1).toUpperCase();
+            }
 
-        // Validar y mostrar error si el RUT es inválido
-        if (validarRUT(rutInput.value)) {
-            rutError.style.display = 'none';
-            rutInput.classList.remove('is-invalid');
-            rutInput.classList.add('is-valid');
-        } else {
-            rutError.style.display = 'block';
-            rutInput.classList.remove('is-valid');
-            rutInput.classList.add('is-invalid');
-        }
+            rutInput.value = rut;
+
+            // Validar y mostrar error si el RUT es inválido
+            if (validarRUT(rutInput.value)) {
+                rutError.style.display = 'none';
+                rutInput.classList.remove('is-invalid');
+                rutInput.classList.add('is-valid');
+            } else {
+                rutError.style.display = 'block';
+                rutInput.classList.remove('is-valid');
+                rutInput.classList.add('is-invalid');
+            }
+        });
     });
 
     // Función para validar RUT chileno
     function validarRUT(rut) {
-        // Quitar puntos y guiones para la validación
         rut = rut.replace(/\./g, '').replace(/-/g, '');
 
         if (rut.length < 8 || rut.length > 9) {
@@ -35,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         let cuerpo = rut.slice(0, -1);
-        let dv = rut.slice(-1).toUpperCase(); // Convertir a mayúscula el DV
+        let dv = rut.slice(-1).toUpperCase();
 
         let suma = 0;
         let multiplo = 2;
@@ -48,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let dvEsperado = 11 - (suma % 11);
         if (dvEsperado === 11) dvEsperado = '0';
-        else if (dvEsperado === 10) dvEsperado = 'k'; // Asegurar que K sea considerado válido
+        else if (dvEsperado === 10) dvEsperado = 'K';
         else dvEsperado = dvEsperado.toString();
 
         return dv === dvEsperado;

@@ -1,11 +1,10 @@
 <?php
 session_start();
 
-if (empty($_SESSION["id"])){
+if (empty($_SESSION["id_usuario"])){
   header("location: login.php");
 }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -30,12 +29,12 @@ if (empty($_SESSION["id"])){
         <h1 class="saludo">
         <?php
         // Asignar un valor a la variable de sesión si no está definida
-            if (!isset($_SESSION["nombre"])) {
-              $_SESSION["nombre"] = "Usuarios"; // Asigna un valor predeterminado si no está definido
+            if (!isset($_SESSION["nombres_usuario"])) {
+              $_SESSION["nombres_usuario"] = "Usuarios"; // Asigna un valor predeterminado si no está definido
             }
 
             // Mostrar el mensaje
-            echo "Hola, " . $_SESSION["nombre"];
+            echo "Hola, " . $_SESSION["nombres_usuario"];
         ?>
 
         </h1>
@@ -60,7 +59,7 @@ if (empty($_SESSION["id"])){
             <label for="cantidad" class="form-label">Cantidad (kg)</label>
             <input type="range" id="sliderValue" class="form-range" min="1" max="50" value="25" oninput="syncManualInput(this.value)">
             <div class="input-group">
-              <input type="number" class="form-control" id="cantidadManual" min="1" max="50" value="25" oninput="syncSliderInput(this.value)">
+              <input type="float" class="form-control" id="cantidadManual" min="1" max="50" value="25" oninput="syncSliderInput(this.value)">
               <span class="input-group-text">kg</span>
             </div>
           </div>

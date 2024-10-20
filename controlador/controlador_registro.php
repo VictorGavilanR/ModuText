@@ -7,17 +7,16 @@ if ($conexion->connect_error) {
     echo "Conexión exitosa.<br>";
 }
 
-if (isset($_POST['rut'], $_POST['nombre'], $_POST['app_paterno'], $_POST['app_materno'], $_POST['correo'], $_POST['telefono'], $_POST['tipo_usuario'], $_POST['password'])) {
+if ($_SERVER["REQUEST_METHOD"]=="POST") {
     
     // Recibir los datos del formulario
     $rut = $_POST['rut'];
-    $nombre = $_POST['nombre'];
-    $apellido_paterno = $_POST['app_paterno'];
-    $apellido_materno = $_POST['app_materno'];
-    $correo = $_POST['correo'];
-    $telefono = $_POST['telefono'];
-    $tipo_usuario = $_POST['tipo_usuario'];
-    $password = $_POST['password'];
+    $nombre = htmlspecialchars($_POST['nombre']);
+    $apellido_paterno = htmlspecialchars($_POST['app_paterno']);
+    $apellido_materno = htmlspecialchars($_POST['app_materno']);
+    $correo = htmlspecialchars($_POST['correo']);
+    $telefono = htmlspecialchars($_POST['telefono']);
+    $password = htmlspecialchars($_POST['password']);
 
     echo "Datos recibidos: <br>";
     echo "Rut: $rut<br>";
@@ -26,7 +25,6 @@ if (isset($_POST['rut'], $_POST['nombre'], $_POST['app_paterno'], $_POST['app_ma
     echo "Apellido Materno: $apellido_materno<br>";
     echo "Correo: $correo<br>";
     echo "Teléfono: $telefono<br>";
-    echo "Tipo de Usuario: $tipo_usuario<br>";
     echo "Password: $password<br>";
 
     // Cifrar la contraseña antes de almacenarla
@@ -34,12 +32,12 @@ if (isset($_POST['rut'], $_POST['nombre'], $_POST['app_paterno'], $_POST['app_ma
     echo "Password Hashed: $password_hashed<br>";
 
     // Preparar la consulta para evitar inyección SQL
-    $stmt = $conexion->prepare("INSERT INTO usuarios (rut, nombre, apellido_paterno, apellido_materno, email, telefono, tipo_usuario, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conexion->prepare("INSERT INTO usuarios (rut_usuario, nombres_usuario, ap_pat_usuario, ap_mat_usuario, correo_usuario, fono_usuario, password_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
     // Verificar si la preparación de la consulta fue exitosa
     if ($stmt) {
         echo "Consulta preparada correctamente.<br>";
-        $stmt->bind_param("ssssssss", $rut, $nombre, $apellido_paterno, $apellido_materno, $correo, $telefono, $tipo_usuario, $password_hashed);
+        $stmt->bind_param("sssssss", $rut, $nombre, $apellido_paterno, $apellido_materno, $correo, $telefono, $password_hashed);
 
         if ($stmt->execute()) {
             echo "Usuario registrado con éxito";
@@ -59,4 +57,4 @@ if (isset($_POST['rut'], $_POST['nombre'], $_POST['app_paterno'], $_POST['app_ma
 } else {
     echo "Todos los campos son obligatorios.";
 }
-?>
+
