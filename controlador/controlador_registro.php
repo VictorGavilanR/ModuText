@@ -10,7 +10,7 @@ if ($conexion->connect_error) {
 if ($_SERVER["REQUEST_METHOD"]=="POST") {
     
     // Recibir los datos del formulario
-    $rut = $_POST['rut'];
+    $rut = htmlspecialchars($_POST['rut']);
     $nombre = htmlspecialchars($_POST['nombre']);
     $apellido_paterno = htmlspecialchars($_POST['app_paterno']);
     $apellido_materno = htmlspecialchars($_POST['app_materno']);
@@ -33,6 +33,8 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
     // Preparar la consulta para evitar inyección SQL
     $stmt = $conexion->prepare("INSERT INTO usuarios (rut_usuario, nombres_usuario, ap_pat_usuario, ap_mat_usuario, correo_usuario, fono_usuario, password_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)");
+
+    //FALTA AGREGAR A LA TABLA CLIENTES
 
     // Verificar si la preparación de la consulta fue exitosa
     if ($stmt) {

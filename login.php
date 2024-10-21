@@ -19,7 +19,7 @@
       <a href="index.html" class="logout-button btn btn-custom">Volver</a>
 
       <!-- Formulario de Login -->
-      <form id="loginForm" class="form-container" method="post" action="">
+      <form id="loginForm" class="form-container login-form" method="post" action="">
         <?php
           include "conexion.php";
           include "controlador/controlador_login.php";
@@ -39,7 +39,8 @@
       </form>
 
       <!-- Formulario de Registro -->
-      <form id="registerForm" class="form-container hidden" action="controlador/controlador_registro.php" method="POST">
+      <form id="registerForm" class="form-container hidden register-form" action="controlador/controlador_registro.php" method="POST">
+      <h3>Datos del Usuario</h3>
         <div class="mb-3">
             <label for="nombres" class="form-label">Nombres</label>
             <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese sus nombres" required>
@@ -69,14 +70,14 @@
                 <input type="number" name="telefono" class="form-control" id="fonoUser" placeholder="Ingrese su teléfono de contacto" required>
             </div>
         </div>
-        <!--<div class="mb-3">
+        <div class="mb-3">
             <label for="tipo_usuario" class="form-label">Tipo de Usuario</label>
             <select class="form-select" name="tipo_usuario" id="tipo_usuario" required>
-                <option selected disabled>Seleccione un tipo de usuario</option>
+                <option value="" disabled selected>Seleccione un tipo de usuario</option>
                 <option value="empresa">Empresa</option>
                 <option value="particular">Particular</option>
             </select>
-        </div> -->
+        </div>
         <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
             <input type="password" name="password" class="form-control" id="password" placeholder="Ingrese una contraseña" required>
@@ -85,6 +86,30 @@
             <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
             <input type="password" class="form-control" id="confirmPassword" placeholder="Confirme su contraseña" required>
         </div>
+
+        <!--Formulario Registro Empresa -->
+        <div class="empresa-container" id="empresaContainer">
+          <div id="empresaForm" class="mb-3">
+              <h3>Datos de la Empresa</h3>
+              <div class="mb-3">
+                  <label for="rut_cliente" class="form-label">RUT de la Empresa</label>
+                  <input type="text" name="rut_cliente" class="form-control" id="rut_cliente" placeholder="Ingrese el RUT de la empresa">
+              </div>
+              <div class="mb-3">
+                  <label for="fono_cli" class="form-label">Teléfono de la Empresa</label>
+                  <input type="text" name="fono_cli" class="form-control" id="fono_cli" placeholder="Ingrese el teléfono de la empresa">
+              </div>
+              <div class="mb-3">
+                  <label for="cod_post_cli" class="form-label">Código Postal</label>
+                  <input type="number" name="cod_post_cli" class="form-control" id="cod_post_cli" placeholder="Ingrese el código postal">
+              </div>
+              <div class="mb-3">
+                  <label for="razon_social" class="form-label">Razón Social</label>
+                  <input type="text" name="razon_social" class="form-control" id="razon_social" placeholder="Ingrese la razón social de la empresa">
+              </div>
+          </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Registrarse</button>
         <p class="toggle-text">¿Ya tienes cuenta? <a href="#" id="showLogin">Inicia Sesión</a></p>
     </form>
@@ -97,6 +122,8 @@
         const registerForm = document.getElementById('registerForm');
         const showRegister = document.getElementById('showRegister');
         const showLogin = document.getElementById('showLogin');
+        const tipoUsuario = document.getElementById('tipo_usuario');
+        const empresaContainer = document.getElementById('empresaContainer');
 
         showRegister.addEventListener('click', (e) => {
           e.preventDefault();
@@ -108,6 +135,14 @@
           e.preventDefault();
           registerForm.classList.add('hidden');
           loginForm.classList.remove('hidden');
+        });
+
+        tipoUsuario.addEventListener('change', function() {
+          if (this.value === 'empresa') {
+              empresaContainer.classList.add('show'); // Muestra el contenedor
+          } else {
+              empresaContainer.classList.remove('show'); // Oculta el contenedor
+          }
         });
       </script>
     </div>
