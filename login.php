@@ -14,10 +14,11 @@
       <img src="img/lateral-registro.jpg" alt="Imagen lateral" class="img-fluid">
     </div>
     <div class="right-section">
-      <img class="logo" id="logo-l" src="./img/Logo - Color.png" alt="Logo grande">
-      <img class="logo" id="logo-s" src="./img/Marca - Color.png" alt="Logo pequeño">
-      <a href="index.html" class="logout-button btn btn-custom">Volver</a>
-
+      <div class="fixed-logo">
+        <img class="logo" id="logo-l" src="./img/Logo - Color.png" alt="Logo grande">
+        <img class="logo" id="logo-s" src="./img/Marca - Color.png" alt="Logo pequeño">
+        <a href="index.html" class="logout-button btn btn-custom">Volver</a>
+      </div>
       <!-- Formulario de Login -->
       <form id="loginForm" class="form-container login-form" method="post" action="">
         <?php

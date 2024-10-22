@@ -11,7 +11,7 @@ body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
     color: #3C3C3C;
-
+    background-color: #F4F4F9;
 }
 
 input[type="text"]:focus, 
@@ -29,21 +29,25 @@ button:focus {
 }
 
 
-
-
 .logo {
     max-height: 100px;
-    position: absolute;
-    top: 0px;
-    padding-left: 20px;
+    width: auto;
 }
 
 #logo-s {
     display: none;
 }
 
+
 h1 {
     font-size: 25px;
+}
+
+
+h3 {
+    font-family: 'Canada','sans-serif';
+    font-size: 20px;
+    color: #3c3c3c96;
 }
 
 .main-container {
@@ -73,7 +77,16 @@ form label {
     font-family: 'Canada', sans-serif;
 }
 
+/* Mostrar empresa sólo cuando se selecciona 'empresa' */
+.empresa-container {
+    padding-top: 20px;
+    display: none;
+    max-height: 400px; /* Limitar la altura */
+}
 
+.empresa-container.show {
+    display: block;
+}
 
 .left-section img {
     height: 100vh;
@@ -129,6 +142,41 @@ a.logout-button:hover {
 
     #logo-s {
         display: block;
+    }
+}
+
+@media (min-width: 1000px){
+    
+    .right-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        position: relative;
+        overflow-y: auto; /* Habilitar scroll dentro de esta sección */
+        padding: 0px;
+    }
+    
+    .login-form{
+        padding-top: 200px;
+    }
+
+    /* Bloque del logo fijo */
+    .fixed-logo {
+        position: sticky;  /* Fijar el logo dentro de la right-section */
+        top: 0;  /* Mantenerlo en la parte superior */
+        z-index: 10;  /* Asegurar que el logo esté por encima del contenido desplazable */
+        background-color: #F4F4F9; /* Fondo para evitar que el logo se superponga */
+        padding: 20px;
+    }
+}
+
+@media (max-width: 999px) {
+    .logo {
+        max-height: 100px;
+        position: absolute;
+        top: 0px;
+        padding-left: 20px;
     }
 }
 
