@@ -97,16 +97,16 @@
                   <input type="text" name="rut_cliente" class="form-control" id="rut_cliente" placeholder="Ingrese el RUT de la empresa">
               </div>
               <div class="mb-3">
+                  <label for="razon_social" class="form-label">Razón Social</label>
+                  <input type="text" name="razon_social" class="form-control" id="razon_social" placeholder="Ingrese la razón social de la empresa">
+              </div>
+              <div class="mb-3">
                   <label for="fono_cli" class="form-label">Teléfono de la Empresa</label>
                   <input type="text" name="fono_cli" class="form-control" id="fono_cli" placeholder="Ingrese el teléfono de la empresa">
               </div>
               <div class="mb-3">
                   <label for="cod_post_cli" class="form-label">Código Postal</label>
                   <input type="number" name="cod_post_cli" class="form-control" id="cod_post_cli" placeholder="Ingrese el código postal">
-              </div>
-              <div class="mb-3">
-                  <label for="razon_social" class="form-label">Razón Social</label>
-                  <input type="text" name="razon_social" class="form-control" id="razon_social" placeholder="Ingrese la razón social de la empresa">
               </div>
           </div>
         </div>
