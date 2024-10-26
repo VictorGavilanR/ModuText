@@ -16,19 +16,26 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
     $codpost_suc=filter_input(INPUT_POST,"cod_post",FILTER_SANITIZE_NUMBER_INT);
     $calle_suc=htmlspecialchars($_POST["calle"]);
     $num_calle_suc=filter_input(INPUT_POST,"num_calle",FILTER_SANITIZE_NUMBER_INT);
-    $rut_cli="20.042.429-8";  //DE PRUEBA
+
+    //Se rescata el id del usuario actual para recuperar el rut de cliente
+    $id_us=$_SESSION["id_usuario"];
+    $stmt = $conexion->prepare("SELECT rut_cliente from clientes where id_usuario=?");
+    $stmt->bind_param("i", $id_us);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $rut_cli = $result->fetch_assoc()["rut_cliente"]; //Se recupera el rut para la inserción
 
     //Control de errores
     $errores=false;
 
     //Campos vacíos:
-    if (empty($nom_suc) || empty($fono_suc) || empty($codpost_suc)){
-        echo "<p class='cal-error'>Complete todos los campos.</p>";
+    if (empty($nom_suc) || empty($fono_suc) || empty($codpost_suc) || empty($calle_suc) || empty($num_calle_suc)){
+        echo "<p class='calc-error'>Complete todos los campos.</p>";
         $errores=true;
     }
 
     //No numeros
-    if (!is_numeric($fono_suc) || !is_numeric($codpost_suc)){
+    if (!is_numeric($fono_suc) || !is_numeric($codpost_suc) || !is_numeric($num_calle_suc)){
         echo "<p class='calc-error'>Ingrese solo números.</p>";
         $errores=true;
     }
@@ -36,15 +43,17 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
     //Registro en BD
     if (!$errores){
         echo "Nombre sucursal: " . $nom_suc . 
-        "Fono: " . $fono_suc .
-        "Código postal: " . $codpost_suc;
+        "<br>Fono: " . $fono_suc .
+        "<br>Código postal: " . $codpost_suc .
+        "<br>Calle: " . $calle_suc .
+        "<br>Num calle: " . $num_calle_suc;
 
         //Preparación de consulta:
         $stmt = $conexion->prepare("INSERT INTO sucursales (rut_cli, nom_suc, cod_post_suc, fono_suc, calle_suc, num_calle_suc) VALUES (?, ?, ?, ?, ?, ?)");
 
         if ($stmt){
             echo "Consulta preparada correctamente.<br>";
-            $stmt->bind_param("ssissi",$rut_cli, $nom_suc, $codpost_suc, $fono_suc, $calle_suc, $num_calle_suc);
+            $stmt->bind_param("ssiisi",$rut_cli, $nom_suc, $codpost_suc, $fono_suc, $calle_suc, $num_calle_suc);
 
             if ($stmt->execute()){
                 echo "Sucursal registrada exitosamente.";
@@ -54,13 +63,11 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
 
             $stmt->close();
         } else {
-            echo "Error en la preparación de la consulta: " - $conexion->error;
+            echo "Error en la preparación de la consulta: " . $conexion->error;
         }
-
-        //Cierre de conexión
-        $conexion->close();
-
+        
     } else{
-        echo "Otro error";
+        echo "Errores detectados.";
+        $conexion->close();     //Cierre de conexión
     }
 }
