@@ -63,6 +63,7 @@ if (empty($_SESSION["id_usuario"])){
               <span class="input-group-text">kg</span>
             </div>
           </div>
+          <!-- Sucursales -->
           <div class="mb-3">
             <label for="direccionRetiro" class="form-label">Dirección de Retiro</label>
             <select class="form-select" id="direccionRetiro" required>
