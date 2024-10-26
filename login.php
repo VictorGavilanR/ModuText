@@ -75,8 +75,8 @@
             <label for="tipo_usuario" class="form-label">Tipo de Usuario</label>
             <select class="form-select" name="tipo_usuario" id="tipo_usuario" required>
                 <option value="" disabled selected>Seleccione un tipo de usuario</option>
-                <option value="empresa">Empresa</option>
-                <option value="particular">Particular</option>
+                <option value="EMPRESA">Empresa</option>
+                <option value="PARTICULAR">Particular</option>
             </select>
         </div>
         <div class="mb-3">
@@ -139,7 +139,7 @@
         });
 
         tipoUsuario.addEventListener('change', function() {
-          if (this.value === 'empresa') {
+          if (this.value === 'EMPRESA') {
               empresaContainer.classList.add('show'); // Muestra el contenedor
           } else {
               empresaContainer.classList.remove('show'); // Oculta el contenedor

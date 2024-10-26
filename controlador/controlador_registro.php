@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
     $tipo_usuario = htmlspecialchars($_POST['tipo_usuario']);
 
     // Si el usuario es empresa, obtenemos datos adicionales
-    if ($tipo_usuario == 'empresa') {
+    if ($tipo_usuario == 'EMPRESA') {
         $rut_cliente = htmlspecialchars($_POST['rut_cliente']);
         $razon_social = htmlspecialchars($_POST['razon_social']);
         $fono_cli = htmlspecialchars($_POST['fono_cli']);
