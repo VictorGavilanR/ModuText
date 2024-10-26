@@ -17,46 +17,57 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
     $correo = htmlspecialchars($_POST['correo']);
     $telefono = htmlspecialchars($_POST['telefono']);
     $password = htmlspecialchars($_POST['password']);
+    $tipo_usuario = htmlspecialchars($_POST['tipo_usuario']);
 
-    echo "Datos recibidos: <br>";
-    echo "Rut: $rut<br>";
-    echo "Nombre: $nombre<br>";
-    echo "Apellido Paterno: $apellido_paterno<br>";
-    echo "Apellido Materno: $apellido_materno<br>";
-    echo "Correo: $correo<br>";
-    echo "Teléfono: $telefono<br>";
-    echo "Password: $password<br>";
+    // Si el usuario es empresa, obtenemos datos adicionales
+    if ($tipo_usuario == 'empresa') {
+        $rut_cliente = htmlspecialchars($_POST['rut_cliente']);
+        $razon_social = htmlspecialchars($_POST['razon_social']);
+        $fono_cli = htmlspecialchars($_POST['fono_cli']);
+        $cod_post_cli = htmlspecialchars($_POST['cod_post_cli']);
+    }
 
     // Cifrar la contraseña antes de almacenarla
     $password_hashed = password_hash($password, PASSWORD_DEFAULT);
-    echo "Password Hashed: $password_hashed<br>";
 
-    // Preparar la consulta para evitar inyección SQL
+    // Insertar datos en la tabla usuarios
     $stmt = $conexion->prepare("INSERT INTO usuarios (rut_usuario, nombres_usuario, ap_pat_usuario, ap_mat_usuario, correo_usuario, fono_usuario, password_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-    //FALTA AGREGAR A LA TABLA CLIENTES
-
-    // Verificar si la preparación de la consulta fue exitosa
     if ($stmt) {
-        echo "Consulta preparada correctamente.<br>";
         $stmt->bind_param("sssssss", $rut, $nombre, $apellido_paterno, $apellido_materno, $correo, $telefono, $password_hashed);
-
+        
         if ($stmt->execute()) {
-            echo "Usuario registrado con éxito";
+            echo "Usuario registrado con éxito<br>";
+
+            // Obtener el ID del usuario insertado
+            $id_usuario = $conexion->insert_id;
+
+            // Preparar la consulta para insertar en clientes
+            $stmt_cliente = $conexion->prepare("INSERT INTO clientes (id_usuario, tipo_cli, rut_cliente, razon_social, fono_cli, cod_post_cli) VALUES (?, ?, ?, ?, ?, ?)");
+
+            if ($stmt_cliente) {
+                $stmt_cliente->bind_param("isssss", $id_usuario, $tipo_usuario, $rut_cliente, $razon_social, $fono_cli, $cod_post_cli);
+
+                if ($stmt_cliente->execute()) {
+                    echo "Cliente registrado con éxito en la tabla clientes.<br>";
+                } else {
+                    echo "Error al registrar el cliente: " . $stmt_cliente->error;
+                }
+                $stmt_cliente->close();
+            } else {
+                echo "Error en la preparación de la consulta para clientes: " . $conexion->error;
+            }
         } else {
-            echo "Error en la ejecución de la consulta: " . $stmt->error;
+            echo "Error al registrar el usuario: " . $stmt->error;
         }
 
-        // Cerrar la declaración
         $stmt->close();
     } else {
-        // Mostrar el error de la preparación de la consulta
-        echo "Error en la preparación de la consulta: " . $conexion->error;
+        echo "Error en la preparación de la consulta para usuarios: " . $conexion->error;
     }
 
-    // Cerrar la conexión
     $conexion->close();
 } else {
     echo "Todos los campos son obligatorios.";
 }
-
+?>
