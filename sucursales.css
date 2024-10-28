@@ -102,11 +102,16 @@ form label {
     background-color: #14c532;
 }
 
+.btn-orange {
+    background-color: orange; 
+    color: white; 
+}
+
 .saludo {
-    color: white; /* Color blanco para mayor visibilidad */
-    font-size: 24px; /* Tamaño de fuente */
-    margin: 0 0 20px 0; /* Añadir un margen inferior */
-    text-align: center; /* Centrar el saludo */
+    color: white; 
+    font-size: 24px;
+    margin: 0 0 20px 0;
+    text-align: center; 
 }
 
 
@@ -133,3 +138,28 @@ form label {
     font-size: 14px;
     text-align: center;
 }
+
+/*Lista de sucursales*/
+
+ul.sucursal-list {
+    list-style-type: none !important; /* Quita viñetas */
+    padding: 0;
+    margin: 0;
+  }
+  ul.sucursal-list li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
+    border-radius: 5px;
+  }
+  
+  #edit-delete-buttons.hidden {
+    display: none;
+  }
+  
+  #edit-delete-buttons {
+    margin-top: 10px;
+  }
