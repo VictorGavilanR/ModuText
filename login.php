@@ -9,6 +9,11 @@
   <link rel="stylesheet" href="login-registro.css">
 </head>
 <body>
+<?php
+  if (isset($_GET['mensaje'])) {
+      echo '<div class="alert alert-success" role="alert">' . htmlspecialchars($_GET['mensaje']) . '</div>';
+  }
+  ?>
   <div class="main-container">
     <div class="left-section">
       <img src="img/lateral-registro.jpg" alt="Imagen lateral" class="img-fluid">

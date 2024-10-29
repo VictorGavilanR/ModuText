@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
         $password_usuario = htmlspecialchars($_POST["password_usuario"]);
 
         // Preparar la consulta para evitar la inyección SQL
-        $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE rut_usuario = ?");
+        $stmt = $conexion->prepare("SELECT * FROM usuario WHERE rut_usuario = ?");
         $stmt->bind_param("s", $rut_usuario);
         $stmt->execute();
         $result = $stmt->get_result();
