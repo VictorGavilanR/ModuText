@@ -65,37 +65,38 @@ if (empty($_SESSION["id_usuario"])){
         </form>
 
  <!-- Listar Sucursales -->
+<!-- Listar Sucursales -->
 <div id="sucursal-list">
     <h2 class="mb-4">Mis Sucursales</h2>
     <ul class="sucursal-list" style="list-style-type: none; margin: 0; padding: 0;">
-    <?php
-    include 'conexion.php';
+        <?php
+        include 'conexion.php';
 
-    // Se obtiene el id del usuario actual
-    $id_us = $_SESSION["id_usuario"];
-    $stmt = $conexion->prepare("SELECT id_suc, nom_suc FROM sucursales WHERE rut_cli = (SELECT rut_cliente FROM clientes WHERE id_usuario = ?)");
-    $stmt->bind_param("i", $id_us);
-    $stmt->execute();
-    $result = $stmt->get_result();
+        // Se obtiene el id del usuario actual
+        $id_us = $_SESSION["id_usuario"];
+        $stmt = $conexion->prepare("SELECT id_suc, nom_suc FROM sucursales WHERE rut_cli = (SELECT rut_cliente FROM clientes WHERE id_usuario = ?)");
+        $stmt->bind_param("i", $id_us);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    while ($row = $result->fetch_assoc()) {
-        echo '<li>
-                <label>
-                    ' . $row['nom_suc'] . '
-                </label>
-                
-                <a href="editar_sucursal.php?id=' . $row['id_suc'] . '" class="btn btn-warning btn-sm">Editar</a>
-                <form method="POST" action="crud_sucursales/eliminar_sucursal.php" style="display:inline;">
-                    <input type="hidden" name="id_suc" value="' . $row['id_suc'] . '">
-                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'¿Estás seguro de que deseas eliminar esta sucursal?\');">Eliminar</button>
-                </form>
-            </li>';
-    }
+        while ($row = $result->fetch_assoc()) {
+            echo '<li>
+                    <label>
+                        ' . $row['nom_suc'] . '
+                    </label>
+                    <a href="crud_sucursales/editar_sucursal.php?id=' . $row['id_suc'] . '" class="btn btn-warning btn-sm">Editar</a>
+                    <form method="POST" action="crud_sucursales/eliminar_sucursal.php" style="display:inline;">
+                        <input type="hidden" name="id_suc" value="' . $row['id_suc'] . '">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'¿Estás seguro de que deseas eliminar esta sucursal?\');">Eliminar</button>
+                    </form>
+                </li>';
+        }
 
-    $stmt->close();
-    $conexion->close();
-    ?>
-</ul>
+        $stmt->close();
+        $conexion->close();
+        ?>
+    </ul>
+</div>
 
     <!-- Botón de edición/borrado que se muestra al seleccionar una sucursal -->
     <div id="edit-delete-buttons" class="hidden">
