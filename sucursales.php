@@ -64,66 +64,84 @@ if (empty($_SESSION["id_usuario"])){
             <button class="btn btn-primary" onclick="toggleForms()">Mis Sucursales</button>
         </form>
 
-        <!--Modificar Sucursal-->
-        <div id="sucursal-list" >
-      <h2 class="mb-4">Mis Sucursales</h2>
-      <div class="d-flex justify-content-between mb-3">
-        <ul class="sucursal-list" style="list-style-type: none; margin: 0; padding: 0;">
-            <li>
+ <!-- Listar Sucursales -->
+<div id="sucursal-list">
+    <h2 class="mb-4">Mis Sucursales</h2>
+    <ul class="sucursal-list" style="list-style-type: none; margin: 0; padding: 0;">
+    <?php
+    include 'conexion.php';
+
+    // Se obtiene el id del usuario actual
+    $id_us = $_SESSION["id_usuario"];
+    $stmt = $conexion->prepare("SELECT id_suc, nom_suc FROM sucursales WHERE rut_cli = (SELECT rut_cliente FROM clientes WHERE id_usuario = ?)");
+    $stmt->bind_param("i", $id_us);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        echo '<li>
                 <label>
-                    <input type="radio" name="selected_sucursal" onclick="selectSucursal(this, 'Sucursal Centro')">
-                    Sucursal Centro
+                    ' . $row['nom_suc'] . '
                 </label>
-            </li>
-            <li>
-                <label>
-                    <input type="radio" name="selected_sucursal" onclick="selectSucursal(this, 'Sucursal Norte')">
-                    Sucursal Norte
-                </label>
-            </li>
-            <!-- Agrega más sucursales aquí-->
-        </ul>
+                
+                <a href="editar_sucursal.php?id=' . $row['id_suc'] . '" class="btn btn-warning btn-sm">Editar</a>
+                <form method="POST" action="crud_sucursales/eliminar_sucursal.php" style="display:inline;">
+                    <input type="hidden" name="id_suc" value="' . $row['id_suc'] . '">
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'¿Estás seguro de que deseas eliminar esta sucursal?\');">Eliminar</button>
+                </form>
+            </li>';
+    }
 
-        <!-- Botón de edición/borrado que se muestra al seleccionar una sucursal -->
-        <button class="btn btn-success ms-3 btn-agregar" onclick="toggleForms()">Agregar Sucursal</button>
-        </div>
-        <div id="edit-delete-buttons" class="hidden">
-            <p id="selected-sucursal"></p>
-            <button class="btn btn-secondary btn-sm me-2"><i class="fas fa-edit"></i> Editar</button>
-            <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Borrar</button>
-        </div>
-        </div>
-        </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <script>
-    function toggleForms() {
-        const sucursalList = document.getElementById("sucursal-list");
-        const ingSucursales = document.getElementById("ingSucursales");
-        const agregarButton = document.querySelector('.btn-success'); // Selecciona el botón "Agregar Sucursal"
+    $stmt->close();
+    $conexion->close();
+    ?>
+</ul>
 
-        // Log para verificar que se está ejecutando la función
-        console.log("Toggling forms...");
+    <!-- Botón de edición/borrado que se muestra al seleccionar una sucursal -->
+    <div id="edit-delete-buttons" class="hidden">
+        <p id="selected-sucursal"></p>
+        <a href="update_sucursal.php?id_suc=' . $row['id_suc'] . '" class="btn btn-secondary btn-sm"><i class="fas fa-trash"></i> Editar</a>
+        <a href="actions/delete_sucursal.php?id_suc=<?= $row['id_suc'] ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Borrar</a>
+    </div>
+</div>
 
-        // Alternar visibilidad de la lista de sucursales y el formulario
-        sucursalList.classList.toggle("hidden");
-        ingSucursales.classList.toggle("hidden");
 
-        // Ocultar el botón "Agregar Sucursal" cuando se muestra el formulario
-        if (!ingSucursales.classList.contains("hidden")) {
-            agregarButton.classList.add("hidden"); // Oculta el botón
-        } else {
-            agregarButton.classList.remove("hidden"); // Muestra el botón si el formulario está oculto
+
+            <!-- Botón para agregar una nueva sucursal -->
+            <button class="btn btn-success mt-3 btn-agregar" onclick="toggleForms()">Agregar Sucursal</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        function toggleForms() {
+            const sucursalList = document.getElementById("sucursal-list");
+            const ingSucursales = document.getElementById("ingSucursales");
+            const agregarButton = document.querySelector('.btn-success'); // Selecciona el botón "Agregar Sucursal"
+
+            // Log para verificar que se está ejecutando la función
+            console.log("Toggling forms...");
+
+            // Alternar visibilidad de la lista de sucursales y el formulario
+            sucursalList.classList.toggle("hidden");
+            ingSucursales.classList.toggle("hidden");
+
+            // Ocultar el botón "Agregar Sucursal" cuando se muestra el formulario
+            if (!ingSucursales.classList.contains("hidden")) {
+                agregarButton.classList.add("hidden"); // Oculta el botón
+            } else {
+                agregarButton.classList.remove("hidden"); // Muestra el botón si el formulario está oculto
+            }
         }
-    }
-    function selectSucursal(radioButton, sucursalName) {
-      const buttonsContainer = document.getElementById("edit-delete-buttons");
-      buttonsContainer.classList.remove("hidden");
 
-      const selectedSucursal = document.getElementById("selected-sucursal");
-      selectedSucursal.textContent = "Sucursal seleccionada: " + sucursalName;
-    }
-  </script>
+        function selectSucursal(radioButton, sucursalName) {
+            const buttonsContainer = document.getElementById("edit-delete-buttons");
+            buttonsContainer.classList.remove("hidden");
+
+            const selectedSucursal = document.getElementById("selected-sucursal");
+            selectedSucursal.textContent = "Sucursal seleccionada: " + sucursalName;
+        }
+    </script>
 </body>
 </html>
