@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Canada';
-    src: url('./assets/Canada.otf') format('truetype');
+    src: url('./assets/Canada.otf') format('truetype'); /* Ajusta la ruta según donde hayas guardado la fuente */
     font-weight: normal;
     font-style: normal;
 }
@@ -26,18 +26,33 @@ form label {
 }
 
 .input-group .form-control {
-    max-width: 100px;
+    max-width: 100px; /* Ajusta el ancho del input manual */
 }
 
 .logo {
     max-height: 100px;
-    margin-left: auto;
+    margin-left: auto; /* Asegura que el logo se alinee a la derecha */
 }
 
 .main-container {
     display: flex;
     flex: 1;
     background-color: #2C1A47; 
+}
+
+.left-section {
+    flex: 1; /* Ocupa 1/3 de la pantalla */
+    padding: 20px; /* Añade un poco de padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end; /* Alinea los elementos hacia la derecha */
+    text-align: left; /* Alinea el texto hacia la derecha */
+}
+
+.saludo {
+    font-size: 20px; 
+    padding-left: 20px;
 }
 
 .right-section {
@@ -48,19 +63,6 @@ form label {
     height: 100vh;
     width: 100%;
     object-fit: cover;
-}
-
-.left-section {
-    flex: 2;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.saludo {
-    font-size: 20px;
-    padding-left: 20px;
 }
 
 a.logout-button {
@@ -74,6 +76,7 @@ a.logout-button {
     border: none;
     font-family: 'Canada', sans-serif;
     padding: 10px 20px;
+    border-radius: 5px;
 }
 
 a.logout-button:hover {
@@ -95,20 +98,23 @@ a.logout-button:hover {
 }
 
 /* Barra de rango */
+
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 18px;
     height: 18px;
-    background-color: #9b6594;
+    background-color: #9b6594; 
     border-radius: 50%;
     cursor: pointer;
 }
 
 input[type="range"]::-webkit-slider-thumb:active {
     transform: scale(1.2);
-    background-color: #c99fc3;
+    background-color: #c99fc3; 
 }
+
+/* Responsivo */
 
 @media (max-width: 1000px) {
     .main-container {
@@ -118,7 +124,7 @@ input[type="range"]::-webkit-slider-thumb:active {
     form {
         padding: 0;
     }
-
+    
     .logo {
         padding-top: 20px;
     }
