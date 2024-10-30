@@ -23,6 +23,9 @@ if (empty($_SESSION["id_usuario"])){
     <a href="controlador/controlador_cerrar_session.php" class="logout-button btn-custom">Cerrar sesión</a>
   
     <div class="main-container">
+    <div class="right-section">
+            <img src="img/lateral-retiro.jpg" class="img-fluid">
+        </div>
         <div class="left-section">
             <div class="d-flex justify-content-between align-items-start mt-4">
                 <h1 class="saludo">
@@ -72,14 +75,12 @@ if (empty($_SESSION["id_usuario"])){
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
-                    <a href="sucursales.php" class="btn btn-primary">Añadir Sucursales</a>
+                    <a href="sucursales.php" class="btn btn-primary">Añadir S</a>
 
                 </form>
             </div>
         </div>
-        <div class="right-section">
-            <img src="img/lateral-retiro.jpg" class="img-fluid">
-        </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
