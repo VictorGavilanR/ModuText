@@ -54,6 +54,7 @@ h3 {
     display: flex;
     flex: 1;
     background-color: #F4F4F9;
+    
 }
 
 .left-section {
@@ -81,7 +82,6 @@ form label {
 .empresa-container {
     padding-top: 20px;
     display: none;
-    max-height: 400px; /* Limitar la altura */
 }
 
 .empresa-container.show {
@@ -211,6 +211,7 @@ a.logout-button:hover {
 
 .form-container {
     transition: all 0.5s ease-in-out;
+    
 }
 
 .hidden {
@@ -229,3 +230,25 @@ a.logout-button:hover {
     text-align: center;
 }
 
+/* Ajustes para la disposición de formularios */
+.form-container {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .empresa-container, .particular-container {
+    display: none; /* Ocultar ambos por defecto */
+  }
+  
+  .show {
+    display: block; /* Mostrar cuando sea necesario */
+  }
+  
+  button[type="submit"] {
+    margin-top: 20px;
+  }
+  

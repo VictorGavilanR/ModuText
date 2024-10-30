@@ -57,3 +57,20 @@ document.addEventListener('DOMContentLoaded', function () {
         return dv === dvEsperado;
     }
 });
+
+// Datos de usuario
+document.addEventListener('DOMContentLoaded', function() {
+    const tipoUsuarioSelect = document.getElementById('tipo_usuario');
+    const particularContainer = document.getElementById('particularContainer');
+    const empresaContainer = document.getElementById('empresaContainer');
+  
+    tipoUsuarioSelect.addEventListener('change', function() {
+      if (tipoUsuarioSelect.value === 'PARTICULAR') {
+        particularContainer.style.display = 'block';
+        empresaContainer.style.display = 'none';
+      } else if (tipoUsuarioSelect.value === 'EMPRESA') {
+        particularContainer.style.display = 'none';
+        empresaContainer.style.display = 'block';
+      }
+    });
+  });

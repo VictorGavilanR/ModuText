@@ -1,6 +1,6 @@
 <?php
 
-$conexion = new mysqli("localhost:3306", "root", "", "modutex");
+$conexion = new mysqli("localhost:3307", "root", "", "modutex");
 
 // Comprobar la conexión
 if ($conexion->connect_error) {
