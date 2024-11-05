@@ -72,7 +72,7 @@ if (empty($_SESSION["rut_usuario"])) {
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
-                    <a href="sucursales.php" class="btn btn-primary">Añadir Sucursal</a>
+                    <a href="sucursales.php" class="btn btn-primary">Administrar Direcciones</a>
 
                 </form>
             </div>
