@@ -1,8 +1,10 @@
 <?php
 session_start();
 
-if (empty($_SESSION["id_usuario"])){
-    header("location: login.php");
+// Verificar si hay una sesión activa
+if (empty($_SESSION["rut_usuario"])) {
+    header("Location: login.php");
+    exit();
 }
 ?>
 
@@ -16,27 +18,22 @@ if (empty($_SESSION["id_usuario"])){
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="retiro.css"> <!-- Asegúrate de que la ruta sea correcta -->
 </head>
 <body>
     <a href="controlador/controlador_cerrar_session.php" class="logout-button btn-custom">Cerrar sesión</a>
   
     <div class="main-container">
-    <div class="right-section">
+        <div class="right-section">
             <img src="img/lateral-retiro.jpg" class="img-fluid">
         </div>
         <div class="left-section">
             <div class="d-flex justify-content-between align-items-start mt-4">
                 <h1 class="saludo">
-                <?php
-                    // Asignar un valor a la variable de sesión si no está definida
-                    if (!isset($_SESSION["nombres_usuario"])) {
-                        $_SESSION["nombres_usuario"] = "Usuarios"; // Asigna un valor predeterminado si no está definido
-                    }
-                    // Mostrar el mensaje
-                    echo "Hola, " . $_SESSION["nombres_usuario"];
-                ?>
+                    <?php
+                    // Mostrar el RUT del usuario desde la sesión
+                    echo "Hola, " . $_SESSION["rut_usuario"];
+                    ?>
                 </h1>
                 <img class="logo" src="./img/Marca - Blanco.png" alt="">
             </div>
@@ -75,12 +72,11 @@ if (empty($_SESSION["id_usuario"])){
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
-                    <a href="sucursales.php" class="btn btn-primary">Añadir S</a>
+                    <a href="sucursales.php" class="btn btn-primary">Añadir Sucursal</a>
 
                 </form>
             </div>
         </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

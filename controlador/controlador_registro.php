@@ -55,19 +55,7 @@ function validarRut($rut, $conexion) {
     return false; // El rut no está registrado
 }
 
-// Aquí comienza la lógica principal del registro
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $tipo_usuario = htmlspecialchars($_POST['tipo_usuario']);
-    $errores = false;
 
-    if ($tipo_usuario === 'PARTICULAR') {
-        // Código para registrar un usuario "PARTICULAR"
-        // ...
-    } elseif ($tipo_usuario === 'EMPRESA') {
-        // Código para registrar un usuario "EMPRESA"
-        // ...
-    }
-}
 if ($conexion->connect_error) {
     die("Conexión fallida: " . $conexion->connect_error);
 }

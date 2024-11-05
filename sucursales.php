@@ -16,7 +16,6 @@
     <a href="login.php" class="back-button btn btn-custom">Volver</a>
     <h1 class="saludo">
     <?php
-        // Saludo con nombre de usuario
         session_start();
         if (!isset($_SESSION["nombres_usuario"])) {
             $_SESSION["nombres_usuario"] = "Usuario"; // Dice "Usuario" si no se tiene un nombre
@@ -30,27 +29,22 @@
         <form id="ingSucursales" class="form-container" method="POST" action="controlador/controlador_sucursales.php">
             <h2 class="mb-4">Ingreso de Sucursales</h2>
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" name="nom_suc" class="form-control" id="nombre" placeholder="Nombre de la sucursal" required>
+                <label for="nombre" class="form-label">Nombre Dirección</label>
+                <input type="text" name="nombre_dir" class="form-control" id="nombre" placeholder="Ingrese Dirección de retiro" required>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-8">
                     <label for="calle" class="form-label">Calle</label>
-                    <input type="text" name="calle_suc" class="form-control" id="calle" placeholder="Nombre calle" required>
+                    <input type="text" name="calle_dir" class="form-control" id="calle" placeholder="Calle" required>
                 </div>
                 <div class="mb-3 col-md-4">
                     <label for="numcalle" class="form-label">Número</label>
-                    <input type="number" name="num_calle_suc" class="form-control" id="numcalle" placeholder="Nº de calle" required>
+                    <input type="number" name="num_calle_dir" class="form-control" id="numcalle" placeholder="Nº de calle" required>
                 </div>
             </div>
-            <div class="row">
-                <div class="mb-3 col-md-6">
-                    <label for="cod_post" class="form-label">Código Postal</label>
-                    <input type="number" name="cod_post_suc" class="form-control" id="cod_post" placeholder="Código postal" required>
-                </div>
                 <div class="mb-3 col-md-6">
                     <label for="fono" class="form-label">Teléfono</label>
-                    <input type="number" name="fono_suc" class="form-control" id="fono" placeholder="Teléfono de contacto" required>
+                    <input type="number" name="fono_dir" class="form-control" id="fono" placeholder="Teléfono de contacto" required> 
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Ingresar Sucursal</button>

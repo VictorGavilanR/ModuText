@@ -1,17 +1,24 @@
 <?php
 session_start();
+include "./conexion.php"; // Asegúrate de que la ruta sea correcta
 
-// Incluir la conexión a la base de datos
-include "conexion.php";
+// Verificar que la conexión a la base de datos esté establecida
+if (!$conexion) {
+    die("Error en la conexión a la base de datos.");
+}
 
 // Verificar datos con la base de datos
-if ($_SERVER["REQUEST_METHOD"]=="POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST["rut_usuario"]) && !empty($_POST["password_usuario"])) {
         $rut_usuario = htmlspecialchars($_POST["rut_usuario"]);
         $password_usuario = htmlspecialchars($_POST["password_usuario"]);
 
         // Preparar la consulta para evitar la inyección SQL
-        $stmt = $conexion->prepare("SELECT * FROM usuario WHERE rut_usuario = ?");
+        $stmt = $conexion->prepare("SELECT rut_usuario, password_usuario FROM usuario WHERE rut_usuario = ?");
+        if (!$stmt) {
+            die("Error en la preparación de la consulta: " . $conexion->error);
+        }
+        
         $stmt->bind_param("s", $rut_usuario);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -19,10 +26,27 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
         if ($result && $datos = $result->fetch_object()) {
             // Verificar la contraseña cifrada
             if (password_verify($password_usuario, $datos->password_usuario)) {
-                // Establecer las variables de sesión con los datos del usuario
-                $_SESSION["id_usuario"] = $datos->id_usuario;
+                // Establecer las variables de sesión
                 $_SESSION["rut_usuario"] = $datos->rut_usuario;
-                $_SESSION["nombres_usuario"] = $datos->nombres_usuario; // Usando el nombre correcto de la tabla
+
+                // Verificar si es una persona natural o una empresa y guardar los IDs correspondientes
+                $stmt_per = $conexion->prepare("SELECT id_per FROM persona_natural WHERE rut_usuario = ?");
+                $stmt_per->bind_param("s", $rut_usuario);
+                $stmt_per->execute();
+                $result_per = $stmt_per->get_result();
+
+                if ($result_per && $datos_per = $result_per->fetch_object()) {
+                    $_SESSION["id_per"] = $datos_per->id_per;
+                }
+
+                $stmt_emp = $conexion->prepare("SELECT id_emp FROM empresa WHERE rut_usuario = ?");
+                $stmt_emp->bind_param("s", $rut_usuario);
+                $stmt_emp->execute();
+                $result_emp = $stmt_emp->get_result();
+
+                if ($result_emp && $datos_emp = $result_emp->fetch_object()) {
+                    $_SESSION["id_emp"] = $datos_emp->id_emp;
+                }
 
                 // Redirigir a la página de retiro
                 header("Location: retiro.php");
@@ -34,10 +58,9 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
             echo "<div>Usuario no registrado.</div>";
         }
 
-        // Cerrar la declaración
         $stmt->close();
     } else {
-        echo "Campos vacíos.";
+        echo "<div>Campos vacíos.</div>";
     }
 }
-
+?>

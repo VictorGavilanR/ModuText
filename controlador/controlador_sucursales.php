@@ -1,77 +1,66 @@
 <?php
 session_start();
-include "../conexion.php";
+include "../conexion.php"; // Asegúrate de que la ruta sea correcta
 
-// Validar conexión
-if ($conexion->connect_error) {
-    die("Conexión fallida: " . $conexion->connect_error);
+// Verificar que la conexión a la base de datos esté establecida
+if (!$conexion) {
+    die("Error en la conexión a la base de datos.");
 }
 
-// Validar datos recibidos
+// Verificar que el método de la solicitud sea POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom_suc = htmlspecialchars($_POST["nom_suc"]);
-    $fono_suc = filter_input(INPUT_POST, "fono_suc", FILTER_SANITIZE_NUMBER_INT);
-    $cod_post_suc = filter_input(INPUT_POST, "cod_post_suc", FILTER_SANITIZE_NUMBER_INT);
-    $calle_suc = htmlspecialchars($_POST["calle_suc"]);
-    $num_calle_suc = filter_input(INPUT_POST, "num_calle_suc", FILTER_SANITIZE_NUMBER_INT);
+    if (!empty($_POST["nombre_dir"]) && !empty($_POST["calle_dir"]) && !empty($_POST["num_calle_dir"]) && !empty($_POST["fono_dir"])) {
+        $nombre_dir = htmlspecialchars($_POST["nombre_dir"]);
+        $calle_dir = htmlspecialchars($_POST["calle_dir"]);
+        $num_calle_dir = (int) $_POST["num_calle_dir"];
+        $fono_dir = (int) $_POST["fono_dir"];
 
-    // Se rescata el id del usuario actual para recuperar el rut de cliente
-    $id_us = $_SESSION["id_usuario"];
-    $stmt = $conexion->prepare("SELECT rut_usuario FROM usuario WHERE id_usuario = ?");
-    
-    if (!$stmt) {
-        die("Error en la preparación de la consulta SELECT: " . $conexion->error);
-    }
+        // Obtener los IDs de la sesión
+        $id_per = isset($_SESSION["id_per"]) ? $_SESSION["id_per"] : NULL;
+        $id_emp = isset($_SESSION["id_emp"]) ? $_SESSION["id_emp"] : NULL;
 
-    $stmt->bind_param("i", $id_us);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows > 0) {
-        $rut_cli = $result->fetch_assoc()["rut_usuario"]; // Se recupera el rut para la inserción
-    } else {
-        die("No se encontró ningún registro en la tabla usuario con id_usuario = " . $id_us);
-    }
+        // Asegurarse de que solo uno de los ID esté presente
+        if ($id_per && $id_emp) {
+            echo "Error: Se detectaron múltiples IDs de usuario.";
+        } elseif ($id_per) {
+            // Insertar los datos en la tabla direccion_retiro con id_per
+            $stmt = $conexion->prepare("INSERT INTO direccion_retiro (id_per, nom_dir, calle_dir, num_calle_dir, fono_dir) VALUES (?, ?, ?, ?, ?)");
+            if (!$stmt) {
+                die("Error en la preparación de la consulta: " . $conexion->error);
+            }
+            // Vincular parámetros para id_per
+            $stmt->bind_param("issii", $id_per, $nombre_dir, $calle_dir, $num_calle_dir, $fono_dir);
+            $stmt->execute();
 
-    // Control de errores
-    $errores = false;
+            if ($stmt->affected_rows > 0) {
+                echo "Sucursal ingresada correctamente.";
+            } else {
+                echo "Error al ingresar la sucursal.";
+            }
 
-    // Campos vacíos
-    if (empty($nom_suc) || empty($fono_suc) || empty($cod_post_suc) || empty($calle_suc) || empty($num_calle_suc)) {
-        echo "<p class='calc-error'>Complete todos los campos.</p>";
-        $errores = true;
-    }
+            $stmt->close();
+        } elseif ($id_emp) {
+            // Insertar los datos en la tabla direccion_retiro con id_emp
+            $stmt = $conexion->prepare("INSERT INTO direccion_retiro (id_emp, nom_dir, calle_dir, num_calle_dir, fono_dir) VALUES (?, ?, ?, ?, ?)");
+            if (!$stmt) {
+                die("Error en la preparación de la consulta: " . $conexion->error);
+            }
+            // Vincular parámetros para id_emp
+            $stmt->bind_param("issii", $id_emp, $nombre_dir, $calle_dir, $num_calle_dir, $fono_dir);
+            $stmt->execute();
 
-    // No números
-    if (!is_numeric($fono_suc) || !is_numeric($cod_post_suc) || !is_numeric($num_calle_suc)) {
-        echo "<p class='calc-error'>Ingrese solo números.</p>";
-        $errores = true;
-    }
+            if ($stmt->affected_rows > 0) {
+                echo "Sucursal ingresada correctamente.";
+            } else {
+                echo "Error al ingresar la sucursal.";
+            }
 
-    // Registro en BD
-    if (!$errores) {
-        // Preparación de consulta
-        $stmt = $conexion->prepare("INSERT INTO sucursal (rut_cliente, nom_suc, cod_post_suc, fono_suc, calle_suc, num_calle_suc) VALUES (?, ?, ?, ?, ?, ?)");
-        
-        if (!$stmt) {
-            die("Error en la preparación de la consulta INSERT: " . $conexion->error);
-        }
-
-        $stmt->bind_param("ssiisi", $rut_cli, $nom_suc, $cod_post_suc, $fono_suc, $calle_suc, $num_calle_suc);
-
-        if ($stmt->execute()) {
-            echo "Sucursal registrada exitosamente.";
-            header("Location: ../sucursales.php");
-            exit();
+            $stmt->close();
         } else {
-            echo "Error en la inserción: " . $stmt->error;
+            echo "Error: No se pudo identificar al usuario.";
         }
-
-        $stmt->close();
     } else {
-        echo "Errores detectados.";
+        echo "Todos los campos son obligatorios.";
     }
-
-    $conexion->close(); // Cierre de conexión
 }
 ?>

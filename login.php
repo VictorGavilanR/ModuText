@@ -94,7 +94,7 @@
         <div id="particularContainer" action="controlador/controlador_registro.php" style="display: none; ">
           <div class="mb-3">
             <label for="nombre" class="form-label">Nombres</label>
-            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese sus nombres" >
+            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese sus nombres "  >
           </div>
           <div class="mb-3">
             <label for="rut" class="form-label">Rut</label>
