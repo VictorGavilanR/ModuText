@@ -57,7 +57,7 @@
         </div>
 
         <!-- Datos de la Empresa -->
-        <div id="empresaContainer" class="empresa-container" style="display: none;">
+        <div id="empresaContainer" class="empresa-container" action="controlador/controlador_registro.php" style="display: none;">
           <div id="empresaForm" class="mb-3">
             <h3>Datos de la Empresa</h3>
             <div class="mb-3">
@@ -91,7 +91,7 @@
         </div>
 
         <!-- Datos del Particular -->
-        <div id="particularContainer" style="display: none;">
+        <div id="particularContainer" action="controlador/controlador_registro.php" style="display: none; ">
           <div class="mb-3">
             <label for="nombre" class="form-label">Nombres</label>
             <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese sus nombres" >
