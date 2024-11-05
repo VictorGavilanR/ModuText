@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Establecer las variables de sesión
                 $_SESSION["rut_usuario"] = $datos->rut_usuario;
 
-                // Verificar si es una persona natural o una empresa y guardar los IDs correspondientes
+                // Verificar si es una persona natural o una empresa y guardar el ID correspondiente
                 $stmt_per = $conexion->prepare("SELECT id_per FROM persona_natural WHERE rut_usuario = ?");
                 $stmt_per->bind_param("s", $rut_usuario);
                 $stmt_per->execute();
@@ -37,15 +37,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if ($result_per && $datos_per = $result_per->fetch_object()) {
                     $_SESSION["id_per"] = $datos_per->id_per;
-                }
+                    $_SESSION["id_emp"] = null; // Asegurarse de que id_emp sea nulo
+                } else {
+                    $stmt_emp = $conexion->prepare("SELECT id_emp FROM empresa WHERE rut_usuario = ?");
+                    $stmt_emp->bind_param("s", $rut_usuario);
+                    $stmt_emp->execute();
+                    $result_emp = $stmt_emp->get_result();
 
-                $stmt_emp = $conexion->prepare("SELECT id_emp FROM empresa WHERE rut_usuario = ?");
-                $stmt_emp->bind_param("s", $rut_usuario);
-                $stmt_emp->execute();
-                $result_emp = $stmt_emp->get_result();
-
-                if ($result_emp && $datos_emp = $result_emp->fetch_object()) {
-                    $_SESSION["id_emp"] = $datos_emp->id_emp;
+                    if ($result_emp && $datos_emp = $result_emp->fetch_object()) {
+                        $_SESSION["id_emp"] = $datos_emp->id_emp;
+                        $_SESSION["id_per"] = null; // Asegurarse de que id_per sea nulo
+                    }
                 }
 
                 // Redirigir a la página de retiro
