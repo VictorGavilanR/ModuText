@@ -6,6 +6,8 @@
     <title>Mis Sucursales</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"> <!-- Bootstrap Icons -->
+
     <link rel="stylesheet" href="sucursales.css">
 
 </head>
@@ -83,8 +85,13 @@
                         <td><?php echo htmlspecialchars($sucursal['num_calle_dir']); ?></td>
                         <td><?php echo htmlspecialchars($sucursal['fono_dir']); ?></td>
                         <td>
-                            <a href="crud_sucursales/modificar_sucursal.php?id_dir=<?php echo $sucursal['id_dir']; ?>" class="btn btn-warning btn-sm">Modificar</a>
-                            <a href="crud_sucursales/eliminar_sucursal.php?id_dir=<?php echo $sucursal['id_dir']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta sucursal?');">Eliminar</a>
+                        <!-- Íconos de Bootstrap para Modificar y Eliminar -->
+                        <a href="crud_sucursales/modificar_sucursal.php?id_dir=<?php echo $sucursal['id_dir']; ?>" class="icon-action" title="Modificar">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="crud_sucursales/eliminar_sucursal.php?id_dir=<?php echo $sucursal['id_dir']; ?>" class="icon-action" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta sucursal?');">
+                                <i class="bi bi-trash"></i>
+                            </a>
                         </td>
                     </tr>
                     <?php endwhile; ?>
@@ -104,8 +111,37 @@
         .form-container, .table-container {
             flex: 1;
         }
-        .table-container {
-            overflow-x: auto;
+
+          /* Estilos de la tabla */
+          .table-container h2 {
+            color: #333333; /* Cambiar el color del título */
+        }
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            background-color: #f8f9fa; /* Color de fondo de la tabla */
+        }
+        .table thead {
+            background-color: #5F288F; /* Color de fondo de encabezado */
+            color: #ffffff; /* Color del texto del encabezado */
+        }
+        .table th, .table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #dddddd; /* Color del borde inferior */
+        }
+        .table tbody tr:hover {
+            background-color: #f1f1f1; /* Efecto hover en las filas */
+        }
+        .table .icon-action {
+            color: #5F288F; /* Color base de los iconos */
+            font-size: 20px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .table .icon-action:hover {
+            color: #88D317; /* Color de hover para los iconos */
         }
     </style>
 
