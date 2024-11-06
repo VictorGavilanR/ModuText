@@ -62,14 +62,15 @@ if (empty($_SESSION["rut_usuario"])) {
                     </div>
                     
                     <div class="mb-3">
-                        <label for="direccionRetiro" class="form-label">Dirección de Retiro</label>
-                        <select class="form-select" id="direccionRetiro" name="direccionRetiro" required>
-                            <option selected disabled>Seleccione una dirección</option>
-                            <option value="almacen1">Almacén Central</option>
-                            <option value="almacen2">Sucursal Norte</option>
-                            <option value="almacen3">Sucursal Sur</option>
-                        </select>
-                    </div>
+    <label for="direccionRetiro" class="form-label">Dirección de Retiro</label>
+    <select class="form-select" id="direccionRetiro" name="direccionRetiro" required>
+        <option selected disabled>Seleccione una dirección</option>
+        <option value="10">Almacén Central</option> <!-- ID 10 en la base de datos -->
+        <option value="11">Sucursal Norte</option>   <!-- ID 11 en la base de datos -->
+        <option value="12">Sucursal Sur</option>     <!-- ID 12 en la base de datos -->
+    </select>
+</div>
+<!-- lo que va en value es el id de la direccion  -->
                     
                     <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
                     <a href="sucursales.php" class="btn btn-primary">Administrar Direcciones</a>

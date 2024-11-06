@@ -1,62 +1,54 @@
 <?php
 session_start();
+include 'conexion.php'; // Asegúrate de que tienes este archivo para conectar a tu base de datos
 
-// Verifica si el usuario ha iniciado sesión
-if (empty($_SESSION["id_usuario"])) {
-    header("location: login.php");
+// Verificar si hay una sesión activa
+if (empty($_SESSION["rut_usuario"])) {
+    header("Location: login.php");
     exit();
 }
 
-// Conexión a la base de datos
-$mysqli = new mysqli("localhost", "root", "", "modutex");
+// Validar que los datos hayan sido enviados correctamente
+if (isset($_POST['tipoTela'], $_POST['cantidad'], $_POST['direccionRetiro'])) {
+    // Obtener datos del formulario
+    $rut_usuario = $_SESSION['rut_usuario'];
+    $tipoTela = $_POST['tipoTela'];
+    $cantidad = $_POST['cantidad'];
+    $direccionRetiro = $_POST['direccionRetiro'];
+    $fechaSolicitud = date('Y-m-d H:i:s');
 
-// Verifica si la conexión se estableció correctamente
-if ($mysqli->connect_error) {
-    die("Error de conexión: " . $mysqli->connect_error);
-}
+    // Obtener el ID del residuo en la tabla `residuo` según el tipo de tela
+    $queryRes = "SELECT id_res FROM residuo WHERE nombre_res = ?";
+    $stmtRes = $conexion->prepare($queryRes);  // Usar $conexion en lugar de $conn
+    $stmtRes->bind_param("s", $tipoTela);
+    $stmtRes->execute();
+    $resultRes = $stmtRes->get_result();
 
-// Obtiene los datos del formulario
-$id_usuario = $_SESSION["id_usuario"]; // ID del usuario que inicia sesión
-$cantidad = $_POST["cantidad"]; // Cantidad de tela
-$tipoTela = $_POST["tipoTela"]; // Tipo de tela (ajusta si es necesario)
-$direccionRetiro = $_POST["direccionRetiro"]; // Dirección de retiro
-$fecha_sol = date("Y-m-d H:i:s"); // Fecha y hora actual
-$fecha_ret = date("Y-m-d H:i:s"); // Puedes ajustar esto según tu lógica
+    if ($resultRes->num_rows > 0) {
+        $rowRes = $resultRes->fetch_assoc();
+        $id_residuo = $rowRes['id_res'];
 
-// Mapeo de direcciones a ID de sucursal
-$mapaSucursales = [
-    "almacen1" => 1, // Cambia 1 al ID correspondiente en la tabla sucursal
-    "almacen2" => 2, // Cambia 2 al ID correspondiente en la tabla sucursal
-    "almacen3" => 3  // Cambia 3 al ID correspondiente en la tabla sucursal
-];
+        // Insertar la solicitud en la tabla `solicitud`
+        $queryInsert = "INSERT INTO solicitud (rut_usuario, id_dir, id_res, fecha_sol) VALUES (?, ?, ?, ?)";
+        $stmtInsert = $conexion->prepare($queryInsert);  // Usar $conexion en lugar de $conn
+        $stmtInsert->bind_param("siis", $rut_usuario, $direccionRetiro, $id_residuo, $fechaSolicitud);
 
-// Obtén el ID de sucursal correspondiente
-$id_suc = isset($mapaSucursales[$direccionRetiro]) ? $mapaSucursales[$direccionRetiro] : null;
+        if ($stmtInsert->execute()) {
+            echo "Solicitud enviada con éxito.";
+            header("Location: retiro.php?mensaje=success"); // Redirigir con mensaje de éxito
+        } else {
+            echo "Error al enviar la solicitud. Inténtalo de nuevo.";
+        }
 
-if ($id_suc === null) {
-    die("Error: La dirección de retiro no es válida.");
-}
+        $stmtInsert->close();
+    } else {
+        echo "Error: Tipo de tela no encontrado.";
+    }
 
-// Preparar la consulta SQL
-$sql = "INSERT INTO solicitud (id_usuario, fecha_sol, fecha_ret, id_suc) VALUES (?, ?, ?, ?)";
-$stmt = $mysqli->prepare($sql);
-
-// Verifica si la preparación fue exitosa
-if ($stmt === false) {
-    die("Error en la preparación de la consulta: " . $mysqli->error);
-}
-
-// Bind de parámetros
-$stmt->bind_param("isss", $id_usuario, $fecha_sol, $fecha_ret, $id_suc);
-
-// Ejecutar la consulta
-if ($stmt->execute()) {
-    echo "Solicitud de retiro registrada exitosamente.";
+    $stmtRes->close();
 } else {
-    echo "Error al registrar la solicitud: " . $stmt->error;
+    echo "Error: Todos los campos son obligatorios.";
 }
 
-// Cerrar la conexión
-$stmt->close();
-$mysqli->close();
+$conexion->close();  // Usar $conexion en lugar de $conn
 ?>
