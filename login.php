@@ -1,8 +1,4 @@
 
-
-
-
-
 <!DOCTYPE html> 
 <html lang="es">
 <head>
@@ -83,7 +79,7 @@
             </div>
             <div class="col-md-6 mb-3">
               <label for="fono_emp" class="form-label">Teléfono</label>
-              <input type="number" name="fono_emp" class="form-control" id="fono_emp" placeholder="Ingrese su teléfono de contacto" >
+              <input type="text" name="fono_emp" class="form-control" id="fono_emp" placeholder="Ingrese su teléfono de contacto" >
             </div>
             </div>
               <div class="mb-3">
@@ -125,7 +121,7 @@
             </div>
             <div class="col-md-6 mb-3">
               <label for="fonoUser" class="form-label">Teléfono</label>
-              <input type="number" name="telefono" class="form-control" id="fonoUser" placeholder="Ingrese su teléfono de contacto" >
+              <input type="text" name="telefono" class="form-control" id="fonoUser" placeholder="Ingrese su teléfono de contacto" >
             </div>
           </div>
           <div class="mb-3">
@@ -205,6 +201,38 @@
               empresaContainer.classList.remove('show'); // Oculta el contenedor
           }
         });
+        document.addEventListener('DOMContentLoaded', function() {    // formateo telefono
+          const phoneInputs = document.querySelectorAll('#fono_emp, #fonoUser');
+
+          function formatPhoneNumber(event) {
+              let phoneInput = event.target;
+              let value = phoneInput.value.replace(/\D/g, '');
+
+              if (!value.startsWith("56")) {
+                  value = "56" + value;
+              }
+
+              const maxDigits = 9;
+              const phoneNumber = value.slice(2, 2 + maxDigits); 
+              phoneInput.value = `+56 ${phoneNumber}`;
+          }
+
+          phoneInputs.forEach((phoneInput) => {
+              if (phoneInput.value === "" || !phoneInput.value.startsWith("+56")) {
+                  phoneInput.value = "+56 ";
+              }
+
+              phoneInput.addEventListener('input', formatPhoneNumber);
+              phoneInput.addEventListener('keydown', function(event) {
+                  const caretPosition = phoneInput.selectionStart;
+                  if (caretPosition <= 4 && (event.key === "Backspace" || event.key === "Delete")) {
+                      event.preventDefault();
+                  }
+              });
+          });
+      });
+
+
       </script>
       <script src="mensajes.js"></script>
       <script>

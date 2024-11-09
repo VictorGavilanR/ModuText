@@ -55,6 +55,20 @@ function validarRut($rut, $conexion) {
     return false; // El rut no está registrado
 }
 
+// Función para validar el telefono
+function validarTelefono($telefono) {
+    if (substr($telefono, 0, 3) === "+56") {
+        $telefono = substr($telefono, 3); // Elimina el '56'
+    }
+    if (strlen($telefono) == 9) {
+        return array($telefono,false); // Número válido
+    } else {
+        echo "El número de teléfono debe tener 9 dígitos.<br>";
+        return array(null, true); // Número inválido
+    }
+}
+
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tipo_usuario = htmlspecialchars($_POST['tipo_usuario']);
@@ -71,11 +85,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = htmlspecialchars($_POST['passwordP']);
         $confirm_password = htmlspecialchars($_POST['confirmPasswordP']);
 
+        list($fono_validado, $fonoOK) = validarTelefono($fono_per);
         // Validación de campos
         if (verificarCamposVacios($rut, $nombre, $apellido_paterno, $apellido_materno, $correo, $fono_per, $password, $confirm_password) ||
             validarContraseñasCoinciden($password, $confirm_password) ||
             !validarFormatoContraseña($password) ||
-            validarRut($rut, $conexion)) {
+            validarRut($rut, $conexion) || $fonoOK) {
             $errores = true;
         }
 
@@ -91,10 +106,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 // Insertar en tabla `persona_natural`
-                $stmt_particular = $conexion->prepare("INSERT INTO persona_natural (rut_usuario, nombres_per, ap_pat_per, ap_mat_per, fono_per, correo_per) VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt_particular->bind_param("sssssi", $rut, $nombre, $apellido_paterno, $apellido_materno, $fono_per, $correo);
-                if (!$stmt_particular->execute()) {
-                    throw new Exception("Error al registrar en la tabla persona_natural: " . $stmt_particular->error);
+                if ($fono_validado !== null) {
+                    $stmt_particular = $conexion->prepare("INSERT INTO persona_natural (rut_usuario, nombres_per, ap_pat_per, ap_mat_per, fono_per, correo_per) VALUES (?, ?, ?, ?, ?, ?)");
+                    $stmt_particular->bind_param("sssssi", $rut, $nombre, $apellido_paterno, $apellido_materno, $fono_validado, $correo);
+                    if (!$stmt_particular->execute()) {
+                        throw new Exception("Error al registrar en la tabla persona_natural: " . $stmt_particular->error);
+                    }
                 }
 
                 $conexion->commit();
@@ -114,15 +131,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = htmlspecialchars($_POST['passwordE']);
         $confirm_password = htmlspecialchars($_POST['confirmPasswordE']);
 
+        list($fono_validado, $fonoOK) = validarTelefono($fono_emp); 
+
         // Validación de campos
         if (verificarCamposVacios($rut_usuario, $razon_social, $correo_emp, $fono_emp, $password, $confirm_password) ||
             validarContraseñasCoinciden($password, $confirm_password) ||
             !validarFormatoContraseña($password) ||
-            validarRut($rut_usuario, $conexion)) {
+            validarRut($rut_usuario, $conexion) || $fonoOK) {
             $errores = true;
         }
 
         if (!$errores) {
+            
             $password_hashed = password_hash($password, PASSWORD_DEFAULT);
             $conexion->begin_transaction();
             try {
@@ -134,12 +154,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 // Insertar en tabla `empresa`
-                $stmt_empresa = $conexion->prepare("INSERT INTO empresa (rut_usuario, razon_social, fono_emp, correo_emp) VALUES (?, ?, ?, ?)");
-                $stmt_empresa->bind_param("ssis", $rut_usuario, $razon_social, $fono_emp, $correo_emp);
-                if (!$stmt_empresa->execute()) {
-                    throw new Exception("Error al registrar en la tabla empresa: " . $stmt_empresa->error);
+                if ($fono_validado !== null) {
+                    $stmt_empresa = $conexion->prepare("INSERT INTO empresa (rut_usuario, razon_social, fono_emp, correo_emp) VALUES (?, ?, ?, ?)");
+                    $stmt_empresa->bind_param("ssis", $rut_usuario, $razon_social, $fono_validado, $correo_emp);
+                    if (!$stmt_empresa->execute()) {
+                        throw new Exception("Error al registrar en la tabla empresa: " . $stmt_empresa->error);
+                    }
                 }
-
+                
                 $conexion->commit();
                 header("Location: ../login.php?registro=exitoso");
                 exit();
