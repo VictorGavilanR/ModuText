@@ -201,6 +201,8 @@
               empresaContainer.classList.remove('show'); // Oculta el contenedor
           }
         });
+      </script>
+      <script>
         document.addEventListener('DOMContentLoaded', function() {    // formateo telefono
           const phoneInputs = document.querySelectorAll('#fono_emp, #fonoUser');
 
@@ -231,7 +233,6 @@
               });
           });
       });
-
 
       </script>
       <script src="mensajes.js"></script>
