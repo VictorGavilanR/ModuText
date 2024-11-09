@@ -116,9 +116,21 @@ document.addEventListener('DOMContentLoaded', function() {
       if (selectedValue === 'EMPRESA') {
         empresaContainer.style.display = 'block';
         particularContainer.style.display = 'none';
+        document.querySelectorAll('#empresaContainer input').forEach(input => {
+            input.setAttribute('required', 'true'); // Agregar required
+        });
+        document.querySelectorAll('#particularContainer input').forEach(input => {
+            input.removeAttribute('required'); // Quitar required
+        });
       } else if (selectedValue === 'PARTICULAR') {
         empresaContainer.style.display = 'none';
         particularContainer.style.display = 'block';
+        document.querySelectorAll('#particularContainer input').forEach(input => {
+            input.setAttribute('required', 'true'); // Agregar required
+        });
+        document.querySelectorAll('#empresaContainer input').forEach(input => {
+            input.removeAttribute('required'); // Quitar required
+        });
       } else {
         empresaContainer.style.display = 'none';
         particularContainer.style.display = 'none';
@@ -133,7 +145,8 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
-document.addEventListener('DOMContentLoaded', function() {    // formateo telefono
+//Formateo telefono
+document.addEventListener('DOMContentLoaded', function() {  
   const phoneInputs = document.querySelectorAll('#fono_emp, #fonoUser');
 
   function formatPhoneNumber(event) {
