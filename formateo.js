@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
         rutInput.addEventListener('input', function () {
             let rut = rutInput.value.replace(/\./g, '').replace(/-/g, '').replace(/[^\dkK]/g, '');
 
+            rut = rut.slice(0, 9);
+
             if (rut.length > 1) {
                 // Formatear automáticamente el RUT con puntos y guion
                 rut = rut.slice(0, -1).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") + '-' + rut.slice(-1).toUpperCase();
@@ -130,3 +132,34 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       });
     });
+
+document.addEventListener('DOMContentLoaded', function() {    // formateo telefono
+  const phoneInputs = document.querySelectorAll('#fono_emp, #fonoUser');
+
+  function formatPhoneNumber(event) {
+      let phoneInput = event.target;
+      let value = phoneInput.value.replace(/\D/g, '');
+
+      if (!value.startsWith("56")) {
+          value = "56" + value;
+      }
+
+      const maxDigits = 9;
+      const phoneNumber = value.slice(2, 2 + maxDigits); 
+      phoneInput.value = `+56 ${phoneNumber}`;
+  }
+
+  phoneInputs.forEach((phoneInput) => {
+      if (phoneInput.value === "" || !phoneInput.value.startsWith("+56")) {
+          phoneInput.value = "+56 ";
+      }
+
+      phoneInput.addEventListener('input', formatPhoneNumber);
+      phoneInput.addEventListener('keydown', function(event) {
+          const caretPosition = phoneInput.selectionStart;
+          if (caretPosition <= 4 && (event.key === "Backspace" || event.key === "Delete")) {
+              event.preventDefault();
+          }
+      });
+  });
+});

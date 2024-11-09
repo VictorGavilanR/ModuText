@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Insertar en tabla `persona_natural`
                 if ($fono_validado !== null) {
                     $stmt_particular = $conexion->prepare("INSERT INTO persona_natural (rut_usuario, nombres_per, ap_pat_per, ap_mat_per, fono_per, correo_per) VALUES (?, ?, ?, ?, ?, ?)");
-                    $stmt_particular->bind_param("sssssi", $rut, $nombre, $apellido_paterno, $apellido_materno, $fono_validado, $correo);
+                    $stmt_particular->bind_param("ssssis", $rut, $nombre, $apellido_paterno, $apellido_materno, $fono_validado, $correo);
                     if (!$stmt_particular->execute()) {
                         throw new Exception("Error al registrar en la tabla persona_natural: " . $stmt_particular->error);
                     }

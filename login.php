@@ -65,7 +65,7 @@
             <h3>Datos de la Empresa</h3>
             <div class="mb-3">
               <label for="rut" class="form-label">RUT de la Empresa</label>
-              <input type="text" name="rut_emp" class="form-control" id="rut" placeholder="Ingrese el RUT de la empresa" >
+              <input type="text" name="rut_emp" class="form-control" id="rut" placeholder="Ingrese el RUT de la empresa">
               <div id="rutError" style="display:none; color: red;">Rut inválido</div>
             </div>
             <div class="mb-3">
@@ -79,7 +79,7 @@
             </div>
             <div class="col-md-6 mb-3">
               <label for="fono_emp" class="form-label">Teléfono</label>
-              <input type="text" name="fono_emp" class="form-control" id="fono_emp" placeholder="Ingrese su teléfono de contacto" >
+              <input type="text" name="fono_emp" class="form-control" id="fono_emp" placeholder="Ingrese su teléfono de contacto">
             </div>
             </div>
               <div class="mb-3">
@@ -101,7 +101,7 @@
           </div>
           <div class="mb-3">
             <label for="rut" class="form-label">Rut</label>
-            <input type="text" name="rut" class="form-control" id="rut" placeholder="Ingrese rut" >
+            <input type="text" name="rut" class="form-control" id="rut" placeholder="Ingrese rut">
             <div id="rutError" style="display:none; color: red;">Rut inválido</div>
           </div>
           <div class="row">
@@ -121,7 +121,7 @@
             </div>
             <div class="col-md-6 mb-3">
               <label for="fonoUser" class="form-label">Teléfono</label>
-              <input type="text" name="telefono" class="form-control" id="fonoUser" placeholder="Ingrese su teléfono de contacto" >
+              <input type="text" name="telefono" class="form-control" id="fonoUser" placeholder="Ingrese su teléfono de contacto">
             </div>
           </div>
           <div class="mb-3">
@@ -140,115 +140,22 @@
           <p class="toggle-text">¿Ya tienes cuenta? <a href="#" id="showLogin">Inicia Sesión</a></p>
         </div>
       </form>
-    
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        const tipoUsuarioSelect = document.getElementById('tipo_usuario');
-        const empresaContainer = document.getElementById('empresaContainer');
-        const particularContainer = document.getElementById('particularContainer');
-        const registerButton = document.querySelector('button[type="submit"]');
-
-        tipoUsuarioSelect.addEventListener('change', function() {
-          const selectedValue = this.value;
-
-          if (selectedValue === 'EMPRESA') {
-            empresaContainer.style.display = 'block';
-            particularContainer.style.display = 'none';
-          } else if (selectedValue === 'PARTICULAR') {
-            empresaContainer.style.display = 'none';
-            particularContainer.style.display = 'block';
-          } else {
-            empresaContainer.style.display = 'none';
-            particularContainer.style.display = 'none';
-          }
-
-          // Mostrar el botón de registro cuando se selecciona un tipo de usuario válido
-          if (selectedValue) {
-            registerButton.style.display = 'block';
-          } else {
-            registerButton.style.display = 'none';
-          }
-          });
-        });
-      </script>
 
       <script src="formateo.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-      <script>
-        const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const showRegister = document.getElementById('showRegister');
-        const showLogin = document.getElementById('showLogin');
-        const tipoUsuario = document.getElementById('tipo_usuario');
-        const empresaContainer = document.getElementById('empresaContainer');
-
-        showRegister.addEventListener('click', (e) => {
-          e.preventDefault();
-          loginForm.classList.add('hidden');
-          registerForm.classList.remove('hidden');
-        });
-
-        showLogin.addEventListener('click', (e) => {
-          e.preventDefault();
-          registerForm.classList.add('hidden');
-          loginForm.classList.remove('hidden');
-        });
-
-        tipoUsuario.addEventListener('change', function() {
-          if (this.value === 'EMPRESA') {
-              empresaContainer.classList.add('show'); // Muestra el contenedor
-          } else {
-              empresaContainer.classList.remove('show'); // Oculta el contenedor
-          }
-        });
-      </script>
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {    // formateo telefono
-          const phoneInputs = document.querySelectorAll('#fono_emp, #fonoUser');
-
-          function formatPhoneNumber(event) {
-              let phoneInput = event.target;
-              let value = phoneInput.value.replace(/\D/g, '');
-
-              if (!value.startsWith("56")) {
-                  value = "56" + value;
-              }
-
-              const maxDigits = 9;
-              const phoneNumber = value.slice(2, 2 + maxDigits); 
-              phoneInput.value = `+56 ${phoneNumber}`;
-          }
-
-          phoneInputs.forEach((phoneInput) => {
-              if (phoneInput.value === "" || !phoneInput.value.startsWith("+56")) {
-                  phoneInput.value = "+56 ";
-              }
-
-              phoneInput.addEventListener('input', formatPhoneNumber);
-              phoneInput.addEventListener('keydown', function(event) {
-                  const caretPosition = phoneInput.selectionStart;
-                  if (caretPosition <= 4 && (event.key === "Backspace" || event.key === "Delete")) {
-                      event.preventDefault();
-                  }
-              });
-          });
-      });
-
-      </script>
       <script src="mensajes.js"></script>
       <script>
-    // Verifica si el parámetro "registro" está en la URL y tiene el valor "exitoso"
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('registro') && urlParams.get('registro') === 'exitoso') {
-        Swal.fire({
-            icon: 'success',
-            title: 'Registro exitoso',
-            text: '¡Tu cuenta ha sido creada con éxito!',
-            confirmButtonText: 'Aceptar'
-        });
-    }
-</script>
-
+        // Verifica si el parámetro "registro" está en la URL y tiene el valor "exitoso"
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('registro') && urlParams.get('registro') === 'exitoso') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Registro exitoso',
+                text: '¡Tu cuenta ha sido creada con éxito!',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+      </script>
     </div>
   </div>
 </body>
