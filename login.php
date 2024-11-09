@@ -7,6 +7,7 @@
   <title>Login y Registro</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
   <link rel="stylesheet" href="login-registro.css">
@@ -84,11 +85,21 @@
             </div>
               <div class="mb-3">
               <label for="passwordE" class="form-label">Contraseña</label>
-              <input type="password" name="passwordE" class="form-control" id="passwordE" placeholder="Ingrese una contraseña" >
+              <div class="input-group">
+                <input type="password" name="passwordE" class="form-control" id="passwordE" placeholder="Ingrese una contraseña">
+                <button type="button" class="btn btn-outline-secondary toggle-password" data-target="passwordE">
+                  <i class="bi bi-eye-slash" id="eyeIconE"></i>
+                </button>
+              </div>
             </div>
             <div class="mb-3">
               <label for="confirmPasswordE" class="form-label">Confirmar Contraseña</label>
-              <input type="password" name="confirmPasswordE" class="form-control" id="confirmPasswordE" placeholder="Confirme su contraseña" >
+              <div class="input-group">
+                <input type="password" name="confirmPasswordE" class="form-control" id="confirmPasswordE" placeholder="Confirme su contraseña">
+                <button type="button" class="btn btn-outline-secondary toggle-password" data-target="confirmPasswordE">
+                  <i class="bi bi-eye-slash" id="eyeIconConfirmE"></i>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -126,11 +137,21 @@
           </div>
           <div class="mb-3">
             <label for="passwordP" class="form-label">Contraseña</label>
-            <input type="password" name="passwordP" class="form-control" id="passwordP" placeholder="Ingrese una contraseña" >
+            <div class="input-group">
+              <input type="password" name="passwordP" class="form-control" id="passwordP" placeholder="Ingrese una contraseña">
+              <button type="button" class="btn btn-outline-secondary toggle-password" data-target="passwordP">
+                <i class="bi bi-eye-slash" id="eyeIconP"></i>
+              </button>
+            </div>
           </div>
           <div class="mb-3">
             <label for="confirmPasswordP" class="form-label">Confirmar Contraseña</label>
-            <input type="password" class="form-control" name="confirmPasswordP" id="confirmPasswordP" placeholder="Confirme su contraseña" >
+            <div class="input-group">
+              <input type="password" name="confirmPasswordP" class="form-control" id="confirmPasswordP" placeholder="Confirme su contraseña">
+              <button type="button" class="btn btn-outline-secondary toggle-password" data-target="confirmPasswordP">
+                <i class="bi bi-eye-slash" id="eyeIconConfirmP"></i>
+              </button>
+            </div>
           </div>
         </div>
         

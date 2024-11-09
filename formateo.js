@@ -176,3 +176,51 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 });
+
+//Ojo password
+document.querySelectorAll('.toggle-password').forEach(function(button) {
+  button.addEventListener('mousedown', function() {
+    const targetId = button.getAttribute('data-target');
+    const passwordField = document.getElementById(targetId);
+    const eyeIcon = button.querySelector('i');
+
+    //visible
+    passwordField.type = 'text';
+    eyeIcon.classList.remove('bi-eye-slash');
+    eyeIcon.classList.add('bi-eye');
+  });
+
+  button.addEventListener('mouseup', function() {
+    const targetId = button.getAttribute('data-target');
+    const passwordField = document.getElementById(targetId);
+    const eyeIcon = button.querySelector('i');
+
+    // oculta
+    passwordField.type = 'password';
+    eyeIcon.classList.remove('bi-eye');
+    eyeIcon.classList.add('bi-eye-slash');
+  });
+
+  // para dispositivos touch
+  button.addEventListener('touchstart', function() {
+    const targetId = button.getAttribute('data-target');
+    const passwordField = document.getElementById(targetId);
+    const eyeIcon = button.querySelector('i');
+
+    //visible
+    passwordField.type = 'text';
+    eyeIcon.classList.remove('bi-eye-slash');
+    eyeIcon.classList.add('bi-eye');
+  });
+
+  button.addEventListener('touchend', function() {
+    const targetId = button.getAttribute('data-target');
+    const passwordField = document.getElementById(targetId);
+    const eyeIcon = button.querySelector('i');
+
+    //oculta
+    passwordField.type = 'password';
+    eyeIcon.classList.remove('bi-eye');
+    eyeIcon.classList.add('bi-eye-slash');
+  });
+});
