@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"> <!-- Bootstrap Icons -->
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="sucursales.css">
 
 </head>
@@ -48,7 +48,8 @@
                     <label for="fono" class="form-label">Teléfono</label>
                     <input type="number" name="fono_dir" class="form-control" id="fono" placeholder="Teléfono de contacto" required> 
                 </div>
-                <button type="submit" class="btn btn-primary">Añadir Dirección</button>
+                <button type="button" class="btn btn-primary" onclick="confirmarFormulario()">Añadir Dirección</button>
+
             </form>
         </div>
 
@@ -89,7 +90,7 @@
                         <a href="crud_sucursales/modificar_sucursal.php?id_dir=<?php echo $sucursal['id_dir']; ?>" class="icon-action" title="Modificar">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a href="crud_sucursales/eliminar_sucursal.php?id_dir=<?php echo $sucursal['id_dir']; ?>" class="icon-action" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta sucursal?');">
+                            <a href="crud_sucursales/eliminar_sucursal.php?id_dir=<?php echo $sucursal['id_dir']; ?>" class="icon-action" title="Eliminar"  onclick="eliminarFormulario(<?php echo $sucursal['id_dir']; ?>); return false;">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>
@@ -101,7 +102,113 @@
         </div>
     </div>
 </div>
+<script>
+    // Función para confirmar la acción antes de enviar el formulario
+    function confirmarFormulario() {
+        // Mostrar el mensaje de confirmación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Quieres añadir esta dirección!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, añadir',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, el formulario se envía
+                Swal.fire(
+                    'Añadido!',
+                    'La dirección ha sido añadida correctamente.',
+                    'success'
+                ).then(() => {
+                    // Enviar el formulario después de la confirmación
+                    document.getElementById("ingSucursales").submit();
+                });
+            } else {
+                // Si el usuario cancela, no se hace nada
+                Swal.fire(
+                    'Cancelado',
+                    'No se ha añadido la dirección.',
+                    'error'
+                );
+                return false; // Evita el envío del formulario
+            }
+        });
+
+        // Evitar que el formulario se envíe inmediatamente
+        return false;
+    }
+</script>
+
+<script>
+    // Función para eliminar formulario
+    // Función para eliminar formulario
+function eliminarFormulario(id_dir) {
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, ¡bórralo!",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Hacer una solicitud a eliminar_sucursal.php usando Fetch API
+            fetch(`crud_sucursales/eliminar_sucursal.php?id_dir=${id_dir}`)
+                .then(response => response.text())
+                .then(data => {
+                    Swal.fire({
+                        title: "¡Eliminado!",
+                        text: data,
+                        icon: "success"
+                    }).then(() => {
+                        // Redirigir o actualizar la página después de eliminar
+                        window.location.href = './sucursales.php';
+                    });
+                })
+                .catch(error => {
+                    Swal.fire({
+                        title: "¡Error!",
+                        text: "Hubo un error al eliminar el archivo.",
+                        icon: "error"
+                    });
+                });
+        }
+    });
+}
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('updated') && urlParams.get('updated') === 'success') {
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "La sucursal ha sido actualizada correctamente.",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    } else if (urlParams.has('updated') && urlParams.get('updated') === 'error') {
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Hubo un error al actualizar la sucursal.",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+});
+</script>
+
+
+
+
 <style>
+
+
         /* CSS adicional para disposición en columnas */
         .main-container {
             display: flex;

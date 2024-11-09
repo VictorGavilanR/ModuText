@@ -1,3 +1,8 @@
+
+
+
+
+
 <!DOCTYPE html> 
 <html lang="es">
 <head>
@@ -6,6 +11,8 @@
   <title>Login y Registro</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
   <link rel="stylesheet" href="login-registro.css">
 </head>
 <body>
@@ -199,6 +206,20 @@
           }
         });
       </script>
+      <script src="mensajes.js"></script>
+      <script>
+    // Verifica si el parámetro "registro" está en la URL y tiene el valor "exitoso"
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('registro') && urlParams.get('registro') === 'exitoso') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Registro exitoso',
+            text: '¡Tu cuenta ha sido creada con éxito!',
+            confirmButtonText: 'Aceptar'
+        });
+    }
+</script>
+
     </div>
   </div>
 </body>

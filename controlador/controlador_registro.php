@@ -56,10 +56,6 @@ function validarRut($rut, $conexion) {
 }
 
 
-if ($conexion->connect_error) {
-    die("Conexión fallida: " . $conexion->connect_error);
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tipo_usuario = htmlspecialchars($_POST['tipo_usuario']);
     $errores = false;
@@ -102,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 $conexion->commit();
-                header("Location: ../login.php?mensaje=Registro+exitoso");
+                header("Location: ../login.php?registro=exitoso");
                 exit();
             } catch (Exception $e) {
                 $conexion->rollback();
@@ -145,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 $conexion->commit();
-                header("Location: ../login.php?mensaje=Registro+exitoso");
+                header("Location: ../login.php?registro=exitoso");
                 exit();
             } catch (Exception $e) {
                 $conexion->rollback();

@@ -36,14 +36,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Ejecutar la consulta y verificar el resultado
         $stmt->execute();
         if ($stmt->affected_rows > 0) {
-            echo "Sucursal ingresada correctamente.";
+            // Redirige a la página de sucursales después de insertar la dirección
+            header("Location: ../sucursales.php");
+            exit();
         } else {
-            echo "Error al ingresar la sucursal.";
+            echo "Error: No se pudo añadir la dirección.";
         }
 
         $stmt->close();
     } else {
-        echo "Todos los campos son obligatorios.";
+        echo "Por favor, completa todos los campos.";
     }
 }
 ?>

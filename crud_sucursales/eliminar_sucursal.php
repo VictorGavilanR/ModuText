@@ -19,16 +19,11 @@ if ($id_dir && ($id_per || $id_emp)) {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        echo "Sucursal eliminada correctamente.";
     } else {
-        echo "No se pudo eliminar la sucursal.";
     }
     $stmt->close();
 } else {
-    echo "ID de sucursal inválido o sin permisos.";
 }
 
-// Redirigir de vuelta a la lista de sucursales
-header("Location: ../sucursales.php");
-exit();
+$conexion->close();
 ?>

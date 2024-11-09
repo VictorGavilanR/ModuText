@@ -23,15 +23,15 @@ if ($id_dir && ($id_per || $id_emp)) {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        echo "Sucursal actualizada correctamente.";
+        header("Location: ../sucursales.php?updated=success");
     } else {
-        echo "No se pudo actualizar la sucursal.";
+        header("Location: ../sucursales.php?updated=error");
     }
     $stmt->close();
 } else {
-    echo "ID de sucursal inválido o sin permisos.";
+    header("Location: ../sucursales.php?updated=error");
 }
 
-header("Location: ../sucursales.php");
+$conexion->close();
 exit();
 ?>

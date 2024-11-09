@@ -74,3 +74,59 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
+  const showRegister = document.getElementById('showRegister');
+  const showLogin = document.getElementById('showLogin');
+  const tipoUsuario = document.getElementById('tipo_usuario');
+  const empresaContainer = document.getElementById('empresaContainer');
+
+  showRegister.addEventListener('click', (e) => {
+    e.preventDefault();
+    loginForm.classList.add('hidden');
+    registerForm.classList.remove('hidden');
+  });
+
+  showLogin.addEventListener('click', (e) => {
+    e.preventDefault();
+    registerForm.classList.add('hidden');
+    loginForm.classList.remove('hidden');
+  });
+
+  tipoUsuario.addEventListener('change', function() {
+    if (this.value === 'EMPRESA') {
+        empresaContainer.classList.add('show'); // Muestra el contenedor
+    } else {
+        empresaContainer.classList.remove('show'); // Oculta el contenedor
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const tipoUsuarioSelect = document.getElementById('tipo_usuario');
+    const empresaContainer = document.getElementById('empresaContainer');
+    const particularContainer = document.getElementById('particularContainer');
+    const registerButton = document.querySelector('button[type="submit"]');
+
+    tipoUsuarioSelect.addEventListener('change', function() {
+      const selectedValue = this.value;
+
+      if (selectedValue === 'EMPRESA') {
+        empresaContainer.style.display = 'block';
+        particularContainer.style.display = 'none';
+      } else if (selectedValue === 'PARTICULAR') {
+        empresaContainer.style.display = 'none';
+        particularContainer.style.display = 'block';
+      } else {
+        empresaContainer.style.display = 'none';
+        particularContainer.style.display = 'none';
+      }
+
+      // Mostrar el botón de registro cuando se selecciona un tipo de usuario válido
+      if (selectedValue) {
+        registerButton.style.display = 'block';
+      } else {
+        registerButton.style.display = 'none';
+      }
+      });
+    });
