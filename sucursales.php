@@ -250,6 +250,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
         .table .icon-action:hover {
             color: #88D317; /* Color de hover para los iconos */
         }
+
+        @media (max-width: 1000px) {
+            
+        .main-container {
+            display: flex;
+            flex-direction:column;
+            gap: 40px; /* Aumentar el espacio entre las columnas */
+        }
+    }
+
     </style>
 
 </body>
