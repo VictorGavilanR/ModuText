@@ -251,4 +251,66 @@ a.logout-button:hover {
   button[type="submit"] {
     margin-top: 20px;
   }
+  .swal2-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999 !important;
+}
+
+.swal2-popup {
+    max-width: 500px !important;
+    max-height: 300px !important;
+    overflow: hidden !important;
+    padding: 20px !important;
+    margin: 0 auto !important;
+}
+
+/* Estilos para los botones de SweetAlert2 */
+.swal2-confirm {
+    background-color: #5F288F !important; /* Color de fondo del botón de confirmación */
+    color: white !important; /* Color del texto del botón de confirmación */
+    border: none !important; /* Sin borde */
+    border-radius: 5px !important; /* Borde redondeado */
+    padding: 10px 20px !important; /* Espaciado interno */
+    font-family: 'Canada', sans-serif !important; /* Fuente */
+    font-size: 16px !important; /* Tamaño de fuente */
+}
+
+.swal2-cancel {
+    background-color: gray !important; /* Color de fondo del botón de cancelar */
+    color: white !important; /* Color del texto del botón de cancelar */
+    border: none !important; /* Sin borde */
+    border-radius: 5px !important; /* Borde redondeado */
+    padding: 10px 20px !important; /* Espaciado interno */
+    font-family: 'Canada', sans-serif !important; /* Fuente */
+    font-size: 16px !important; /* Tamaño de fuente */
+}
+
+.swal2-deny {
+    background-color: #5F288F !important; /* Color de fondo del botón de negar */
+    color: white !important; /* Color del texto del botón de negar */
+    border: none !important; /* Sin borde */
+    border-radius: 5px !important; /* Borde redondeado */
+    padding: 10px 20px !important; /* Espaciado interno */
+    font-family: 'Canada', sans-serif !important; /* Fuente */
+    font-size: 16px !important; /* Tamaño de fuente */
+}
+
+.swal2-confirm:hover, .swal2-deny:hover {
+    background-color: #14c532 !important; /* Color de fondo al pasar el ratón sobre los botones de confirmación y negar */
+}
+
+.swal2-cancel:hover {
+    background-color: darkgray !important; /* Color de fondo al pasar el ratón sobre el botón de cancelar */
+}
+
+
   
