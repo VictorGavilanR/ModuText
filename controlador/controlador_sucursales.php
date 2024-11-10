@@ -14,6 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $calle_dir = htmlspecialchars($_POST["calle_dir"]);
         $num_calle_dir = (int) $_POST["num_calle_dir"];
         $fono_dir = (int) $_POST["fono_dir"];
+        $comuna_dir = htmlspecialchars($_POST["comuna_dir"]); // Nuevo campo comuna_dir
+
 
         // Obtener los IDs de la sesión
         $id_per = isset($_SESSION["id_per"]) ? $_SESSION["id_per"] : NULL;
@@ -22,17 +24,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Asegurarse de que solo uno de los ID esté presente
         if ($id_per && !$id_emp) {
             // Insertar los datos en la tabla direccion_retiro con id_per
-            $stmt = $conexion->prepare("INSERT INTO direccion_retiro (id_per, nom_dir, calle_dir, num_calle_dir, fono_dir) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("issii", $id_per, $nombre_dir, $calle_dir, $num_calle_dir, $fono_dir);
+            $stmt = $conexion->prepare("INSERT INTO direccion_retiro (id_per, nom_dir, calle_dir, num_calle_dir, fono_dir, comuna_dir) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("issiis", $id_per, $nombre_dir, $calle_dir, $num_calle_dir, $fono_dir, $comuna_dir); // Corregir el tipo de los parámetros
         } elseif ($id_emp && !$id_per) {
             // Insertar los datos en la tabla direccion_retiro con id_emp
-            $stmt = $conexion->prepare("INSERT INTO direccion_retiro (id_emp, nom_dir, calle_dir, num_calle_dir, fono_dir) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("issii", $id_emp, $nombre_dir, $calle_dir, $num_calle_dir, $fono_dir);
+            $stmt = $conexion->prepare("INSERT INTO direccion_retiro (id_emp, nom_dir, calle_dir, num_calle_dir, fono_dir, comuna_dir) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("issiis", $id_emp, $nombre_dir, $calle_dir, $num_calle_dir, $fono_dir, $comuna_dir); // Corregir el tipo de los parámetros
         } else {
             echo "Error: No se pudo identificar al usuario.";
             exit();
         }
-
         // Ejecutar la consulta y verificar el resultado
         $stmt->execute();
         if ($stmt->affected_rows > 0) {

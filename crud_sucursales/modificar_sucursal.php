@@ -12,7 +12,7 @@ $id_dir = isset($_GET["id_dir"]) ? (int) $_GET["id_dir"] : 0;
 $id_per = isset($_SESSION["id_per"]) ? $_SESSION["id_per"] : null;
 $id_emp = isset($_SESSION["id_emp"]) ? $_SESSION["id_emp"] : null;
 
-$stmt = $conexion->prepare("SELECT nom_dir, calle_dir, num_calle_dir, fono_dir FROM direccion_retiro WHERE id_dir = ? AND (id_per = ? OR id_emp = ?)");
+$stmt = $conexion->prepare("SELECT nom_dir, calle_dir, num_calle_dir, fono_dir, comuna_dir FROM direccion_retiro WHERE id_dir = ? AND (id_per = ? OR id_emp = ?)");
 $stmt->bind_param("iii", $id_dir, $id_per, $id_emp);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -66,6 +66,11 @@ if ($result->num_rows > 0) {
                 <div class="mb-3">
                     <label for="fono" class="form-label">Teléfono</label>
                     <input type="number" name="fono_dir" class="form-control" id="fono" placeholder="Teléfono de contacto" value="<?php echo htmlspecialchars($sucursal['fono_dir']); ?>" required> 
+                </div>
+                <!-- Nuevo campo para comuna -->
+                <div class="mb-3">
+                    <label for="comuna" class="form-label">Comuna</label>
+                    <input type="text" name="comuna_dir" class="form-control" id="comuna" placeholder="Ingrese Comuna" value="<?php echo htmlspecialchars($sucursal['comuna_dir']); ?>" required>
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Actualizar Dirección</button>
