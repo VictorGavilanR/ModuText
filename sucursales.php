@@ -48,6 +48,10 @@
                     <label for="fono" class="form-label">Teléfono</label>
                     <input type="number" name="fono_dir" class="form-control" id="fono" placeholder="Teléfono de contacto" required> 
                 </div>
+                <div class="mb-3">
+                    <label for="comuna" class="form-label">Comuna</label>
+                    <input type="text" name="comuna_dir" class="form-control" id="comuna" placeholder="Ingrese Comuna" required>
+                </div>
                 <button type="button" class="btn btn-primary" onclick="confirmarFormulario()">Añadir Dirección</button>
 
             </form>
@@ -63,6 +67,7 @@
                         <th>Calle</th>
                         <th>Número</th>
                         <th>Teléfono</th>
+                        <th>Comuna</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -73,7 +78,7 @@
                         $id_emp = isset($_SESSION["id_emp"]) ? $_SESSION["id_emp"] : null;
 
                         // Consultar sucursales del usuario actual
-                        $stmt = $conexion->prepare("SELECT id_dir, nom_dir, calle_dir, num_calle_dir, fono_dir FROM direccion_retiro WHERE id_per = ? OR id_emp = ?");
+                        $stmt = $conexion->prepare("SELECT id_dir, nom_dir, calle_dir, num_calle_dir, fono_dir, comuna_dir FROM direccion_retiro WHERE id_per = ? OR id_emp = ?");
                         $stmt->bind_param("ii", $id_per, $id_emp);
                         $stmt->execute();
                         $result = $stmt->get_result();
@@ -85,6 +90,8 @@
                         <td><?php echo htmlspecialchars($sucursal['calle_dir']); ?></td>
                         <td><?php echo htmlspecialchars($sucursal['num_calle_dir']); ?></td>
                         <td><?php echo htmlspecialchars($sucursal['fono_dir']); ?></td>
+                        <td><?php echo htmlspecialchars($sucursal['comuna_dir']); ?></td>
+
                         <td>
                         <!-- Íconos de Bootstrap para Modificar y Eliminar -->
                         <a href="crud_sucursales/modificar_sucursal.php?id_dir=<?php echo $sucursal['id_dir']; ?>" class="icon-action" title="Modificar">
