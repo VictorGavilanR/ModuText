@@ -13,6 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
+    overflow: auto; /* Permite el desplazamiento */
 }
 
 body::before {
@@ -27,6 +28,7 @@ body::before {
 
 body::after {
     content: '';
+    position: absolute;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
@@ -110,8 +112,8 @@ form label {
 .saludo {
     color: white;
     font-size: 24px;
-    padding-bottom: 30px;
     margin: 0 0 20px 0;
+    margin-bottom: 60px;
     text-align: center;
 }
 
@@ -139,8 +141,7 @@ form label {
     text-align: center;
 }
 
-/*Lista de sucursales*/
-
+/* Lista de sucursales */
 ul.sucursal-list {
     list-style-type: none !important;
     padding: 0;
@@ -191,7 +192,7 @@ ul.sucursal-list li {
 @media (max-width: 1000px) {
     body {
         font-size: 16px;
-        display: block; /* Asegura que el body no esté en modo flex */
+        display: block;
     }
 
     .container {
@@ -251,12 +252,14 @@ ul.sucursal-list li {
     .table thead {
         font-size: 16px;
     }
+
+
 }
 
 @media (max-width: 768px) {
     body {
         font-size: 14px;
-        display: block; /* Asegura que el body no esté en modo flex */
+        display: block;
     }
 
     .back-button {
@@ -303,4 +306,6 @@ ul.sucursal-list li {
     .form-range {
         width: 100%;
     }
+
+
 }
