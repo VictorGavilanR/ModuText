@@ -186,3 +186,126 @@ ul.sucursal-list {
     padding: 20px !important;
     margin: 0 auto !important;
 }
+
+/* Ajustes generales para pantallas pequeñas */
+@media (max-width: 1000px) {
+    body {
+        font-size: 16px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 15px;
+        flex-direction: column;
+        min-width: 100%;
+    }
+
+    /* Títulos más pequeños */
+    h1, h2 {
+        font-size: 22px;
+    }
+
+    .back-button {
+        font-size: 14px; 
+        padding: 8px 16px;
+        width: 80px;
+    }
+
+    .btn-primary, .btn-orange {
+        padding: 8px 16px; 
+        font-size: 14px;
+    }
+
+    /* Formulario */
+    .form-container input, .form-container select, .form-container button {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    /* Tabla responsiva */
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .table th, .table td {
+        padding: 8px 12px; 
+    }
+
+    .table .icon-action {
+        font-size: 18px; 
+        margin: 0 3px;
+    }
+
+    /* Formulario de sucursales */
+    .form-container {
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+
+    /* Espaciado entre filas en la tabla */
+    .table tbody tr {
+        padding: 5px;
+    }
+
+    .table thead {
+        font-size: 16px;
+    }
+}
+
+/* Ajustes para pantallas más pequeñas (768px o menos) */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px; 
+    }
+
+    .back-button {
+        width: 70px;
+    }
+
+    .table th, .table td {
+        padding: 5px 8px; 
+    }
+
+    .btn-primary, .btn-orange {
+        padding: 6px 12px; 
+        font-size: 12px;
+    }
+
+    .form-container input, .form-container select, .form-container button {
+        font-size: 14px; 
+        padding: 8px;
+    }
+
+    .saludo {
+        font-size: 20px; 
+    }
+
+    .container {
+        padding: 10px; 
+        min-width: 300px;
+        width: 85%;
+    }
+
+    .table-container {
+        font-size: 14px;
+    }
+
+    /* Estilo de la tabla */
+    .table {
+        font-size: 14px;
+        border-spacing: 0;
+    }
+
+    .form-container {
+        margin-top: 10px;
+    }
+
+    .form-range {
+        width: 100%; 
+    }
+}
