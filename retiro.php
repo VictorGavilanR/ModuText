@@ -62,14 +62,38 @@ if (empty($_SESSION["rut_usuario"])) {
                     </div>
                     
                     <div class="mb-3">
-    <label for="direccionRetiro" class="form-label">Dirección de Retiro</label>
-    <select class="form-select" id="direccionRetiro" name="direccionRetiro" required>
-        <option selected disabled>Seleccione una dirección</option>
-        <option value="10">Almacén Central</option> <!-- ID 10 en la base de datos -->
-        <option value="11">Sucursal Norte</option>   <!-- ID 11 en la base de datos -->
-        <option value="12">Sucursal Sur</option>     <!-- ID 12 en la base de datos -->
-    </select>
+                    <label for="direccionRetiro" class="form-label">Dirección de Retiro</label>
+                    <select class="form-select" id="direccionRetiro" name="direccionRetiro" required>
+                        <option selected disabled>Seleccione una dirección</option>
+                            <?php
+                                include "conexion.php";  // Asegúrate de incluir la conexión a la base de datos.
+
+                                $id_per = isset($_SESSION["id_per"]) ? $_SESSION["id_per"] : null;
+                                $id_emp = isset($_SESSION["id_emp"]) ? $_SESSION["id_emp"] : null;
+
+                                // Consultar direcciones del usuario
+                                $stmt = $conexion->prepare("SELECT id_dir, nom_dir, calle_dir, num_calle_dir, comuna_dir FROM direccion_retiro WHERE id_per = ? OR id_emp = ?");
+                                $stmt->bind_param("ii", $id_per, $id_emp);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+
+                                // Llenar las opciones del select con las direcciones
+                                while ($sucursal = $result->fetch_assoc()):
+                                 ?>
+                                <option value="<?php echo $sucursal['id_dir']; ?>">
+                                    <?php 
+                                        // Concatenar comuna, nombre de dirección, calle y número
+                                        echo htmlspecialchars($sucursal['comuna_dir']) . " - " .
+                                            htmlspecialchars($sucursal['nom_dir']) . " - " .
+                                            htmlspecialchars($sucursal['calle_dir']) . " " . 
+                                            htmlspecialchars($sucursal['num_calle_dir']);
+                                    ?>
+                                </option>
+                            <?php endwhile; ?>
+                         <?php $stmt->close(); ?>
+                </select>
 </div>
+
 <!-- lo que va en value es el id de la direccion  -->
                     
                     <button type="submit" class="btn btn-primary">Enviar Solicitud</button>

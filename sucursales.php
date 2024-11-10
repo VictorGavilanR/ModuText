@@ -210,9 +210,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 </script>
 
-
-
-
 <style>
 
 
