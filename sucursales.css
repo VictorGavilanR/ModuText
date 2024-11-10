@@ -1,8 +1,8 @@
 @font-face {
-    font-family: 'Canada'; /* Nombre que le darás a la fuente */
-    src: url('./assets/Canada.otf') format('truetype'); /* Ajusta la ruta según donde hayas guardado la fuente */
-    font-weight: normal; /* Ajusta según el peso de la fuente */
-    font-style: normal; /* Ajusta según el estilo de la fuente */
+    font-family: 'Canada';
+    src: url('./assets/Canada.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
@@ -13,7 +13,6 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-    overflow: hidden; /* Evita el desplazamiento adicional */
 }
 
 body::before {
@@ -23,20 +22,19 @@ body::before {
     height: 100%;
     background: url('img/retiro-background.jpg') no-repeat center center fixed;
     background-size: cover;
-    z-index: -2; 
+    z-index: -2;
 }
 
 body::after {
     content: '';
-    position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); 
-    z-index: -1; 
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
 }
 
 option:focus,
-textarea:focus, 
+textarea:focus,
 button:focus {
     outline: none;
     border: 2px solid #5F288F;
@@ -45,20 +43,20 @@ button:focus {
 
 h1 {
     font-size: 25px;
-    font-family: 'Canada','sans-serif';
+    font-family: 'Canada', 'sans-serif';
 }
 
 h2 {
     font-size: 25px;
     font-weight: bold;
-    font-family: 'Canada','sans-serif';
+    font-family: 'Canada', 'sans-serif';
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.8); 
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     min-width: 500px;
     width: 100%;
     position: relative;
@@ -73,7 +71,7 @@ form label {
     font-size: 20px;
 }
 
-.back-button{
+.back-button {
     position: absolute;
     top: 10px;
     left: 20px;
@@ -105,17 +103,17 @@ form label {
 }
 
 .btn-orange {
-    background-color: orange; 
-    color: white; 
+    background-color: orange;
+    color: white;
 }
 
 .saludo {
-    color: white; 
+    color: white;
     font-size: 24px;
+    padding-bottom: 30px;
     margin: 0 0 20px 0;
-    text-align: center; 
+    text-align: center;
 }
-
 
 .hidden {
     display: none;
@@ -144,11 +142,12 @@ form label {
 /*Lista de sucursales*/
 
 ul.sucursal-list {
-    list-style-type: none !important; /* Quita viñetas */
+    list-style-type: none !important;
     padding: 0;
     margin: 0;
-  }
-  ul.sucursal-list li {
+}
+
+ul.sucursal-list li {
     display: flex;
     align-items: center;
     padding: 10px;
@@ -156,17 +155,17 @@ ul.sucursal-list {
     border: 1px solid #ddd;
     margin-bottom: 8px;
     border-radius: 5px;
-  }
-  
-  #edit-delete-buttons.hidden {
-    display: none;
-  }
-  
-  #edit-delete-buttons {
-    margin-top: 10px;
-  }
+}
 
-  .swal2-container {
+#edit-delete-buttons.hidden {
+    display: none;
+}
+
+#edit-delete-buttons {
+    margin-top: 10px;
+}
+
+.swal2-container {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -177,12 +176,13 @@ ul.sucursal-list {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 9999 !important; /* Asegura que esté encima de todo */
+    z-index: 9999 !important;
 }
+
 .swal2-popup {
-    max-width: 500px !important; /* Tamaño máximo del modal */
-    max-height: 300px !important; /* Ajusta según el contenido */
-    overflow: hidden !important; /* Evita desplazamientos internos */
+    max-width: 500px !important;
+    max-height: 300px !important;
+    overflow: hidden !important;
     padding: 20px !important;
     margin: 0 auto !important;
 }
@@ -191,6 +191,7 @@ ul.sucursal-list {
 @media (max-width: 1000px) {
     body {
         font-size: 16px;
+        display: block; /* Asegura que el body no esté en modo flex */
     }
 
     .container {
@@ -200,29 +201,26 @@ ul.sucursal-list {
         min-width: 100%;
     }
 
-    /* Títulos más pequeños */
     h1, h2 {
         font-size: 22px;
     }
 
     .back-button {
-        font-size: 14px; 
+        font-size: 14px;
         padding: 8px 16px;
         width: 80px;
     }
 
     .btn-primary, .btn-orange {
-        padding: 8px 16px; 
+        padding: 8px 16px;
         font-size: 14px;
     }
 
-    /* Formulario */
     .form-container input, .form-container select, .form-container button {
         font-size: 16px;
         padding: 10px;
     }
 
-    /* Tabla responsiva */
     .table-container {
         overflow-x: auto;
     }
@@ -233,21 +231,19 @@ ul.sucursal-list {
     }
 
     .table th, .table td {
-        padding: 8px 12px; 
+        padding: 8px 12px;
     }
 
     .table .icon-action {
-        font-size: 18px; 
+        font-size: 18px;
         margin: 0 3px;
     }
 
-    /* Formulario de sucursales */
     .form-container {
         margin-bottom: 20px;
         padding: 20px;
     }
 
-    /* Espaciado entre filas en la tabla */
     .table tbody tr {
         padding: 5px;
     }
@@ -257,10 +253,10 @@ ul.sucursal-list {
     }
 }
 
-/* Ajustes para pantallas más pequeñas (768px o menos) */
 @media (max-width: 768px) {
     body {
-        font-size: 14px; 
+        font-size: 14px;
+        display: block; /* Asegura que el body no esté en modo flex */
     }
 
     .back-button {
@@ -268,25 +264,25 @@ ul.sucursal-list {
     }
 
     .table th, .table td {
-        padding: 5px 8px; 
+        padding: 5px 8px;
     }
 
     .btn-primary, .btn-orange {
-        padding: 6px 12px; 
+        padding: 6px 12px;
         font-size: 12px;
     }
 
     .form-container input, .form-container select, .form-container button {
-        font-size: 14px; 
+        font-size: 14px;
         padding: 8px;
     }
 
     .saludo {
-        font-size: 20px; 
+        font-size: 20px;
     }
 
     .container {
-        padding: 10px; 
+        padding: 10px;
         min-width: 300px;
         width: 85%;
     }
@@ -295,7 +291,6 @@ ul.sucursal-list {
         font-size: 14px;
     }
 
-    /* Estilo de la tabla */
     .table {
         font-size: 14px;
         border-spacing: 0;
@@ -306,6 +301,6 @@ ul.sucursal-list {
     }
 
     .form-range {
-        width: 100%; 
+        width: 100%;
     }
 }
