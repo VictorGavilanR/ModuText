@@ -29,16 +29,16 @@ if (empty($_SESSION["rut_usuario"])) {
         </div>
         <div class="left-section">
             <div class="d-flex justify-content-between align-items-start mt-4">
-                <h1 class="saludo">
-                    <?php
-                    // Mostrar el RUT del usuario desde la sesión
-                    echo "Hola, " . $_SESSION["rut_usuario"];
-                    ?>
-                </h1>
                 <img class="logo" src="./img/Marca - Blanco.png" alt="">
             </div>
-            <div class="container mt-5">
+            <div class="container ">
                 <form method="post" action="procesar_retiro.php">
+                <h2 class="saludo">
+                    <?php
+                    // Mostrar el RUT del usuario desde la sesión
+                     echo "Hola, " . $_SESSION["rut_usuario"];
+                     ?>
+                </h2>
                     <h2 class="mb-4">Solicitud de Retiro de Telas</h2>
                     <div class="mb-3">
                         <label for="tipoTela" class="form-label">Tipo de Tela</label>
