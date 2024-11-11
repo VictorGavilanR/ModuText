@@ -159,6 +159,7 @@ a.logout-button:hover {
     
     .login-form{
         padding-top: 200px;
+        
     }
 
     /* Bloque del logo fijo */
@@ -314,3 +315,49 @@ a.logout-button:hover {
 
 
   
+/*Animaciones */
+/* Animación de deslizamiento desde abajo */
+@keyframes slideBottom {
+    0% {
+        transform: translateY(-50px); /* Inicia un poco más arriba */
+        opacity: 0; /* Inicia invisible */
+    }
+    100% {
+        transform: translateY(0); /* Termina en su posición original */
+        opacity: 1; /* Termina visible */
+    }
+}
+
+.form-container {
+    animation: slideBottom 0.5s ease-out; /* Aplica la animación */
+    animation-fill-mode: forwards; /* Mantiene el estado final de la animación */
+    opacity: 0; /* Asegúrate de que el formulario sea invisible antes de la animación */
+    transform: translateY(-50px); /* Inicia fuera de la pantalla */
+}
+
+/* Asegúrate de que el formulario se muestre después de cargar */
+.form-container.show {
+    opacity: 1;
+    transform: translateY(0); /* Hace que el formulario se mueva a su lugar original */
+}
+
+/* Estilo para ocultar los contenedores al inicio */
+.hidden {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.5s ease-out;
+}
+
+/* Mostrar los contenedores con una animación de despliegue */
+#empresaContainer,
+#particularContainer {
+    max-height: 2000px; /* Un valor alto para permitir el deslizamiento */
+    opacity: 1;
+    transition: all 0.5s ease-in;
+}
+
+/* Opcional: transición para el select */
+select {
+    transition: all 0.3s ease;
+}

@@ -224,3 +224,4 @@ document.querySelectorAll('.toggle-password').forEach(function(button) {
     eyeIcon.classList.add('bi-eye-slash');
   });
 });
+
