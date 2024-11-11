@@ -10,7 +10,7 @@ if ($conexion->connect_error) {
 function verificarCamposVacios(...$campos) {
     foreach ($campos as $campo) {
         if (empty($campo)) {
-            echo "Complete los campos vacíos.<br>";
+            $_SESSION['errores'][] = "Complete los campos vacíos.";
             return true;
         }
     }
@@ -20,7 +20,7 @@ function verificarCamposVacios(...$campos) {
 // Función para validar si las contraseñas coinciden
 function validarContraseñasCoinciden($password, $confirm_password) {
     if ($password !== $confirm_password) {
-        echo "Las contraseñas no coinciden.<br>";
+        $_SESSION['errores'][] = "Las contraseñas no coinciden.";
         return true;
     }
     return false;
@@ -29,7 +29,7 @@ function validarContraseñasCoinciden($password, $confirm_password) {
 // Función para validar el formato de la contraseña (ejemplo: al menos 8 caracteres, incluyendo letras y números)
 function validarFormatoContraseña($password) {
     if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/", $password)) {
-        echo "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra y un número.<br>";
+        $_SESSION['errores'][] = "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra y un número.";
         return false;
     }
     return true;
@@ -45,12 +45,12 @@ function validarRut($rut, $conexion) {
         
         if ($rut_check->num_rows > 0) {
             $rut_check->close();
-            echo "El rut ya está registrado.<br>";
+            $_SESSION['errores'][] = "El rut ya está registrado.";
             return true; // El rut ya está registrado
         }
         $rut_check->close();
     } else {
-        echo "Error en la preparación de la consulta: " . $conexion->error;
+        $_SESSION['errores'][] = "Error en la preparación de la consulta: " . $conexion->error;
     }
     return false; // El rut no está registrado
 }
@@ -63,16 +63,15 @@ function validarTelefono($telefono) {
     if (strlen($telefono) == 9) {
         return array($telefono,false); // Número válido
     } else {
-        echo "El número de teléfono debe tener 9 dígitos.<br>";
+        $_SESSION['errores'][] = "El número de teléfono debe tener 9 dígitos.";
         return array(null, true); // Número inválido
     }
 }
 
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tipo_usuario = htmlspecialchars($_POST['tipo_usuario']);
     $errores = false;
+    $_SESSION['errores'] = []; // Inicializar el array de errores
 
     if ($tipo_usuario === 'PARTICULAR') {
         // Datos del usuario "PARTICULAR"
@@ -119,8 +118,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             } catch (Exception $e) {
                 $conexion->rollback();
-                echo "Error: " . $e->getMessage();
+                $_SESSION['errores'][] = "Error: " . $e->getMessage();
+                header("Location: ../registro.php"); // Redirigir de vuelta al formulario
+                exit();
             }
+        } else {
+            header("Location: ../registro.php"); // Redirigir de vuelta al formulario
+            exit();
         }
     } elseif ($tipo_usuario === 'EMPRESA') {
         // Datos del usuario "EMPRESA"
@@ -167,8 +171,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             } catch (Exception $e) {
                 $conexion->rollback();
-                echo "Error: " . $e->getMessage();
+                $_SESSION['errores'][] = "Error: " . $e->getMessage();
+                header("Location: ../login.php"); // Redirigir de vuelta al formulario
+                exit();
             }
+        } else {
+            header("Location: ../login.php"); // Redirigir de vuelta al formulario
+            exit();
         }
     }
 }

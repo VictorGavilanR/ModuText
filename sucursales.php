@@ -15,14 +15,8 @@
 
 <div class="e">
     <a href="retiro.php" class="back-button btn btn-custom">Volver</a>
-    <h1 class="saludo">
-        <?php
-            session_start();
-            if (!isset($_SESSION["nombres_usuario"])) {
-                $_SESSION["nombres_usuario"] = "Usuario"; // Muestra "Usuario" si no se tiene un nombre
-            }
-            echo "Hola, " . $_SESSION["nombres_usuario"];
-        ?>
+    <h1 class="saludo ">
+        Direcciones
     </h1>
 
     <div class="container main-container">

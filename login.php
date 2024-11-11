@@ -49,118 +49,132 @@
       </form>
 
       <!-- Formulario de Registro -->
-      <form id="registerForm" class="form-container hidden register-form" action="controlador/controlador_registro.php" method="POST">
-        <h3>Datos del Usuario</h3>
-        <div class="mb-3">
-          <label for="tipo_usuario" class="form-label">Tipo de Usuario</label>
-          <select class="form-select" name="tipo_usuario" id="tipo_usuario" >
+<form id="registerForm" class="form-container hidden register-form" action="controlador/controlador_registro.php" method="POST">
+    <h3>Datos del Usuario</h3>
+    
+    <!-- Mostrar mensajes de error -->
+    <?php
+    if (isset($_SESSION['errores']) && !empty($_SESSION['errores'])) {
+        echo '<div class="alert alert-danger">';
+        foreach ($_SESSION['errores'] as $error) {
+            echo '<p>' . $error . '</p>';
+        }
+        echo '</div>';
+        unset($_SESSION['errores']); // Limpiar los errores después de mostrarlos
+    }
+    ?>
+
+    <div class="mb-3">
+        <label for="tipo_usuario" class="form-label">Tipo de Usuario</label>
+        <select class="form-select" name="tipo_usuario" id="tipo_usuario" >
             <option value="" disabled selected>Seleccione un tipo de usuario</option>
             <option value="EMPRESA">Empresa</option>
             <option value="PARTICULAR">Particular</option>
-          </select>
-        </div>
+        </select>
+    </div>
 
-        <!-- Datos de la Empresa -->
-        <div id="empresaContainer" class="empresa-container" action="controlador/controlador_registro.php" style="display: none;">
-          <div id="empresaForm" class="mb-3">
+    <!-- Datos de la Empresa -->
+    <div id="empresaContainer" class="empresa-container" action="controlador/controlador_registro.php" style="display: none;">
+        <div id="empresaForm" class="mb-3">
             <h3>Datos de la Empresa</h3>
             <div class="mb-3">
-              <label for="rut" class="form-label">RUT de la Empresa</label>
-              <input type="text" name="rut_emp" class="form-control" id="rut" placeholder="Ingrese el RUT de la empresa">
-              <div id="rutError" style="display:none; color: red;">Rut inválido</div>
+                <label for="rut" class="form-label">RUT de la Empresa</label>
+                <input type="text" name="rut_emp" class="form-control" id="rut" placeholder="Ingrese el RUT de la empresa">
+                <div id="rutError" style="display:none; color: red;">Rut inválido</div>
             </div>
             <div class="mb-3">
-              <label for="razon_social" class="form-label">Razón Social</label>
-              <input type="text" name="razon_social" class="form-control" id="razon_social" placeholder="Ingrese la razón social de la empresa" >
+                <label for="razon_social" class="form-label">Razón Social</label>
+                <input type="text" name="razon_social" class="form-control" id="razon_social" placeholder="Ingrese la razón social de la empresa" >
             </div>
             <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="email" class="form-label">Correo Electrónico</label>
-              <input type="email" name="correoE" class="form-control" id="email" placeholder="Ingrese su correo electrónico" >
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="fono_emp" class="form-label">Teléfono</label>
-              <input type="text" name="fono_emp" class="form-control" id="fono_emp" placeholder="Ingrese su teléfono de contacto">
-            </div>
-            </div>
-              <div class="mb-3">
-              <label for="passwordE" class="form-label">Contraseña</label>
-              <div class="input-group">
-                <input type="password" name="passwordE" class="form-control" id="passwordE" placeholder="Ingrese una contraseña">
-                <button type="button" class="btn btn-outline-secondary toggle-password" data-target="passwordE">
-                  <i class="bi bi-eye-slash" id="eyeIconE"></i>
-                </button>
-              </div>
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input type="email" name="correoE" class="form-control" id="email" placeholder="Ingrese su correo electrónico" >
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fono_emp" class="form-label">Teléfono</label>
+                    <input type="text" name="fono_emp" class="form-control" id="fono_emp" placeholder="Ingrese su teléfono de contacto">
+                </div>
             </div>
             <div class="mb-3">
-              <label for="confirmPasswordE" class="form-label">Confirmar Contraseña</label>
-              <div class="input-group">
-                <input type="password" name="confirmPasswordE" class="form-control" id="confirmPasswordE" placeholder="Confirme su contraseña">
-                <button type="button" class="btn btn-outline-secondary toggle-password" data-target="confirmPasswordE">
-                  <i class="bi bi-eye-slash" id="eyeIconConfirmE"></i>
-                </button>
-              </div>
+                <label for="passwordE" class="form-label">Contraseña</label>
+                <div class="input-group">
+                    <input type="password" name="passwordE" class="form-control" id="passwordE" placeholder="Ingrese una contraseña">
+                    <button type="button" class="btn btn-outline-secondary toggle-password" data-target="passwordE">
+                        <i class="bi bi-eye-slash" id="eyeIconE"></i>
+                    </button>
+                </div>
             </div>
-          </div>
+            <div class="mb-3">
+                <label for="confirmPasswordE" class="form-label">Confirmar Contraseña</label>
+                <div class="input-group">
+                    <input type="password" name="confirmPasswordE" class="form-control" id="confirmPasswordE" placeholder="Confirme su contraseña">
+                    <button type="button" class="btn btn-outline-secondary toggle-password" data-target="confirmPasswordE">
+                        <i class="bi bi-eye-slash" id="eyeIconConfirmE"></i>
+                    </button>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- Datos del Particular -->
-        <div id="particularContainer" action="controlador/controlador_registro.php" style="display: none; ">
-          <div class="mb-3">
+    <!-- Datos del Particular -->
+    <div id="particularContainer" action="controlador/controlador_registro.php" style="display: none; ">
+        <div class="mb-3">
             <label for="nombre" class="form-label">Nombres</label>
             <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese sus nombres "  >
-          </div>
-          <div class="mb-3">
+        </div>
+        <div class="mb-3">
             <label for="rut" class="form-label">Rut</label>
             <input type="text" name="rut" class="form-control" id="rut" placeholder="Ingrese rut">
             <div id="rutError" style="display:none; color: red;">Rut inválido</div>
-          </div>
-          <div class="row">
+        </div>
+        <div class="row">
             <div class="col-md-6 mb-3">
-              <label for="apPat" class="form-label">Apellido Paterno</label>
-              <input type="text" name="app_paterno" class="form-control" id="apPat" placeholder="Ingrese su apellido paterno" >
+                <label for="apPat" class="form-label">Apellido Paterno</label>
+                <input type="text" name="app_paterno" class="form-control" id="apPat" placeholder="Ingrese su apellido paterno" >
             </div>
             <div class="col-md-6 mb-3">
-              <label for="apMat" class="form-label">Apellido Materno</label>
-              <input type="text" name="app_materno" class="form-control" id="apMat" placeholder="Ingrese su apellido materno" >
+                <label for="apMat" class="form-label">Apellido Materno</label>
+                <input type="text" name="app_materno" class="form-control" id="apMat" placeholder="Ingrese su apellido materno" >
             </div>
-          </div>
-          <div class="row">
+        </div>
+        <div class="row">
             <div class="col-md-6 mb-3">
-              <label for="email" class="form-label">Correo Electrónico</label>
-              <input type="email" name="correo" class="form-control" id="email" placeholder="Ingrese su correo electrónico" >
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input type="email" name="correo" class="form-control" id="email" placeholder="Ingrese su correo electrónico" >
             </div>
             <div class="col-md-6 mb-3">
-              <label for="fonoUser" class="form-label">Teléfono</label>
-              <input type="text" name="telefono" class="form-control" id="fonoUser" placeholder="Ingrese su teléfono de contacto">
+                <label for="fonoUser" class="form-label">Teléfono</label>
+                <input type="text" name="telefono" class="form-control" id="fonoUser" placeholder="Ingrese su teléfono de contacto">
             </div>
-          </div>
-          <div class="mb-3">
+        </div>
+        <div class="mb-3">
             <label for="passwordP" class="form-label">Contraseña</label>
             <div class="input-group">
-              <input type="password" name="passwordP" class="form-control" id="passwordP" placeholder="Ingrese una contraseña">
-              <button type="button" class="btn btn-outline-secondary toggle-password" data-target="passwordP">
-                <i class="bi bi-eye-slash" id="eyeIconP"></i>
-              </button>
+                <input type="password" name="passwordP" class="form-control" id="passwordP" placeholder="Ingrese una contraseña">
+                <button type="button" class="btn btn-outline-secondary toggle-password" data-target="passwordP">
+                    <i class="bi bi-eye-slash" id="eyeIconP"></i>
+                </button>
             </div>
-          </div>
-          <div class="mb-3">
+        </div>
+        <div class="mb-3">
             <label for="confirmPasswordP" class="form-label">Confirmar Contraseña</label>
             <div class="input-group">
-              <input type="password" name="confirmPasswordP" class="form-control" id="confirmPasswordP" placeholder="Confirme su contraseña">
-              <button type="button" class="btn btn-outline-secondary toggle-password" data-target="confirmPasswordP">
-                <i class="bi bi-eye-slash" id="eyeIconConfirmP"></i>
-              </button>
+                <input type="password" name="confirmPasswordP" class="form-control" id="confirmPasswordP" placeholder="Confirme su contraseña">
+                <button type="button" class="btn btn-outline-secondary toggle-password" data-target="confirmPasswordP">
+                    <i class="bi bi-eye-slash" id="eyeIconConfirmP"></i>
+                </button>
             </div>
-          </div>
         </div>
-        
-        <!-- Contenedor fijo para el botón de registro -->
-        <div class="button-container">
-          <button type="submit" class="btn btn-primary" style="display: none;" id="registerButton">Registrarse</button>
-          <p class="toggle-text">¿Ya tienes cuenta? <a href="#" id="showLogin">Inicia Sesión</a></p>
-        </div>
-      </form>
+    </div>
+
+    <!-- Contenedor fijo para el botón de registro -->
+    <div class="button-container">
+        <button type="submit" class="btn btn-primary" style="display: none;" id="registerButton">Registrarse</button>
+        <p class="toggle-text">¿Ya tienes cuenta? <a href="#" id="showLogin">Inicia Sesión</a></p>
+    </div>
+</form>
+
 
       <script src="formateo.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
