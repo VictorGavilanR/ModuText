@@ -37,12 +37,6 @@ function validarFormatoContraseña($password) {
 
 // Función para validar si el RUT ya está registrado
 function validarRut($rut, $conexion) {
-    
-    if (strlen($rut) != 12) {
-        $_SESSION['errores'][] = "Rut inválido.";
-        return array(null, true);
-    }
-
     $rut_check = $conexion->prepare("SELECT rut_usuario FROM usuario WHERE rut_usuario = ?");
     if ($rut_check) {
         $rut_check->bind_param("s", $rut);
@@ -50,17 +44,15 @@ function validarRut($rut, $conexion) {
         $rut_check->store_result();
         
         if ($rut_check->num_rows > 0) {
-            $_SESSION['errores'][] = "El Rut ya está registrado.";
             $rut_check->close();
-            return array(null, true);
+            $_SESSION['errores'][] = "El rut ya está registrado.";
+            return true; // El rut ya está registrado
         }
         $rut_check->close();
-        
-        return array($rut, false); 
     } else {
         $_SESSION['errores'][] = "Error en la preparación de la consulta: " . $conexion->error;
-        return array(null, true); 
     }
+    return false; // El rut no está registrado
 }
 
 // Función para validar el telefono
@@ -83,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['errores'] = []; // Inicializar el array de errores
 
     if ($tipo_usuario === 'PARTICULAR') {
+
         // Datos del usuario "PARTICULAR"
         $rut = htmlspecialchars($_POST['rut']);
         $nombre = htmlspecialchars($_POST['nombre']);
@@ -97,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Validación de campos
         if (verificarCamposVacios($rut, $nombre, $apellido_paterno, $apellido_materno, $correo, $fono_per, $password, $confirm_password) ||
             validarContraseñasCoinciden($password, $confirm_password) ||
-            !validarFormatoContraseña($password) || 
+            !validarFormatoContraseña($password) ||
             validarRut($rut, $conexion) || $fonoOK) {
             $errores = true;
             // Convertir los errores de sesión a HTML
@@ -129,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 $conexion->commit();
-                
+                echo "<p class='success'>Registro exitoso. Redirigiendo...</p>"; // Respuesta HTML en caso de éxito
             } catch (Exception $e) {
                 $conexion->rollback();
                 echo "<p class='error'>Error: " . $e->getMessage() . "</p>";               
@@ -156,11 +149,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             !validarFormatoContraseña($password) ||
             validarRut($rut_usuario, $conexion) || $fonoOK) {
             $errores = true;
-            
+            // Convertir los errores de sesión a HTML
             foreach ($_SESSION['errores'] as $error) {
                 $html_errores .= "<p class='error' style='color: red;'>$error</p>";
             }
-            echo $html_errores; 
+            echo $html_errores; // Devolver HTML con errores
             exit();
         }
         }
@@ -187,14 +180,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 
                 $conexion->commit();
-                
+                echo "<p class='success'>Registro exitoso. Redirigiendo...</p>"; // Respuesta HTML en caso de éxito
             } catch (Exception $e) {
                 $conexion->rollback();
                 echo "<p class='error'>Error: " . $e->getMessage() . "</p>";
             }
             exit();
         } else {
-            header("Location: ../login.php"); 
+            header("Location: ../login.php"); // Redirigir de vuelta al formulario
             exit();
         }
     }
