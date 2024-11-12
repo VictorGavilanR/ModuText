@@ -47,18 +47,10 @@
     <p class="toggle-text">¿No tienes cuenta? <a href="#" id="showRegister">Regístrate</a></p>
 </form>
 
-
             <!-- Formulario de Registro -->
             <form id="registerForm" class="form-container hidden register-form" action="controlador/controlador_registro.php" method="POST">
+                <div id="messageContainer"></div>  
                 <h3>Registro</h3>
-                <?php if (isset($_SESSION['errores']) && !empty($_SESSION['errores'])): ?>
-                    <div class="alert alert-danger">
-                        <?php foreach ($_SESSION['errores'] as $error): ?>
-                            <p><?= $error ?></p>
-                        <?php endforeach; ?>
-                    </div>
-                    <?php unset($_SESSION['errores']); ?>
-                <?php endif; ?>
                 <div class="mb-3">
                     <label for="tipo_usuario" class="form-label">Tipo de Usuario</label>
                     <select class="form-select" name="tipo_usuario" id="tipo_usuario">
@@ -73,7 +65,7 @@
                     <div class="mb-3">
                         <label for="rut_emp" class="form-label">RUT de la Empresa</label>
                         <input type="text" name="rut_emp" class="form-control" id="rut_emp" placeholder="Ingrese el RUT de la empresa">
-                        <div id="rutEmpresaError" style="display:none; color: red;">Rut inválido</div>
+                        <div id="rutError" style="display:none; color: red;">Rut inválido</div>
                     </div>
                     <div class="mb-3">
                         <label for="razon_social" class="form-label">Razón Social</label>
@@ -118,7 +110,7 @@
                     <div class="mb-3">
                         <label for="rut_part" class="form-label">Rut</label>
                         <input type="text" name="rut" class="form-control" id="rut_part" placeholder="Ingrese su rut">
-                        <div id="rutParticularError" style="display:none; color: red;">Rut inválido</div>
+                        <div id="rutError" style="display:none; color: red;">Rut inválido</div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -143,7 +135,7 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Contraseña</label>
                         <div class="input-group">
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Ingrese una contraseña">
+                            <input type="password" name="passwordP" class="form-control" id="password" placeholder="Ingrese una contraseña">
                             <button type="button" class="btn btn-outline-secondary toggle-password" data-target="password">
                                 <i class="bi bi-eye-slash" id="eyeIcon"></i>
                             </button>
@@ -152,7 +144,7 @@
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
                         <div class="input-group">
-                            <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirme su contraseña">
+                            <input type="password" name="confirmPasswordP" class="form-control" id="confirmPassword" placeholder="Confirme su contraseña">
                             <button type="button" class="btn btn-outline-secondary toggle-password" data-target="confirmPassword">
                                 <i class="bi bi-eye-slash" id="eyeIconConfirm"></i>
                             </button>
@@ -170,17 +162,53 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
       <script src="mensajes.js"></script>
       <script>
-        // Verifica si el parámetro "registro" está en la URL y tiene el valor "exitoso"
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('registro') && urlParams.get('registro') === 'exitoso') {
-            Swal.fire({
-                icon: 'success',
-                title: 'Registro exitoso',
-                text: '¡Tu cuenta ha sido creada con éxito!',
-                confirmButtonText: 'Aceptar'
+        // Mostrar mensaje de éxito si el parámetro "registro=exitoso" está en la URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('registro') && urlParams.get('registro') === 'exitoso') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro exitoso',
+                    text: '¡Tu cuenta ha sido creada con éxito!',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+
+            // Procesar el formulario de registro
+            const registerForm = document.getElementById('registerForm');
+            registerForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const formData = new FormData(registerForm);
+
+                try {
+                    const response = await fetch('controlador/controlador_registro.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const htmlResponse = await response.text();
+                    console.log(htmlResponse); // Para verificar la respuesta en consola
+
+                    // Insertar el HTML de respuesta en un contenedor de errores o éxito
+                    let messageContainer = document.getElementById('messageContainer');
+                    if (!messageContainer) {
+                        messageContainer = document.createElement('div');
+                        messageContainer.id = 'messageContainer';
+                        registerForm.insertBefore(messageContainer, registerForm.firstChild);
+                    }
+                    messageContainer.innerHTML = htmlResponse;
+
+                    // Redirigir en caso de éxito
+                    if (htmlResponse.includes('Registro exitoso')) {
+                        window.location.href = 'login.php?registro=exitoso';
+                    }
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
             });
-        }
-      </script>
+        });
+        </script>
     </div>
   </div>
 </body>
