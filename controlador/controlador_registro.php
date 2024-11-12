@@ -132,11 +132,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
             } catch (Exception $e) {
                 $conexion->rollback();
-                echo "<p class='error' style='color: red;'>Error: " . $e->getMessage() . "</p>";               
+                echo "<p class='error'>Error: " . $e->getMessage() . "</p>";               
             }
             exit();
         } else {
-            header("Location: ../registro.php"); 
+            header("Location: ../registro.php"); // Redirigir de vuelta al formulario
             exit();
         }
     } elseif ($tipo_usuario === 'EMPRESA') {
