@@ -1,9 +1,17 @@
 <?php
 session_start();
 
-// Verificar si hay una sesión activa
-if (empty($_SESSION["rut_usuario"])) {
-    header("Location: login.php");
+echo $_SESSION["rut_usuario"];  // Imprime el rut_usuario
+echo $_SESSION["email_usuario"]; // Imprime el correo
+echo $_SESSION["id_per"]; // Imprime el id_per si es persona natural
+echo $_SESSION["id_emp"]; // Imprime el id_emp si es empresa
+
+// Verificar si el usuario está logueado
+if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
+    $rutUsuario = $_SESSION["rut_usuario"];
+    $usuarioEmail = $_SESSION["email_usuario"];
+} else {
+    echo "Error: No se han encontrado los datos del usuario en la sesión.";
     exit();
 }
 ?>
@@ -94,7 +102,7 @@ if (empty($_SESSION["rut_usuario"])) {
                 </select>
 </div>
 
-<!-- lo que va en value es el id de la direccion  -->
+
                     
                     <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
                     <a href="sucursales.php" class="btn btn-primary">Administrar Direcciones</a>
