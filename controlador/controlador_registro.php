@@ -69,6 +69,7 @@ function validarTelefono($telefono) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $html_errores = '';
     $tipo_usuario = htmlspecialchars($_POST['tipo_usuario']);
     $errores = false;
     $_SESSION['errores'] = []; // Inicializar el array de errores
@@ -91,6 +92,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             !validarFormatoContraseña($password) ||
             validarRut($rut, $conexion) || $fonoOK) {
             $errores = true;
+            // Convertir los errores de sesión a HTML
+            foreach ($_SESSION['errores'] as $error) {
+                $html_errores .= "<p class='error'>$error</p>";
+            }
+            echo $html_errores; // Devolver HTML con errores
+            exit();
         }
 
         if (!$errores) {
@@ -114,14 +121,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 $conexion->commit();
-                header("Location: ../login.php?registro=exitoso");
-                exit();
+                
             } catch (Exception $e) {
                 $conexion->rollback();
-                $_SESSION['errores'][] = "Error: " . $e->getMessage();
-                header("Location: ../registro.php"); // Redirigir de vuelta al formulario
-                exit();
+                echo "<p class='error'>Error: " . $e->getMessage() . "</p>";               
             }
+            exit();
         } else {
             header("Location: ../registro.php"); // Redirigir de vuelta al formulario
             exit();
@@ -143,6 +148,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             !validarFormatoContraseña($password) ||
             validarRut($rut_usuario, $conexion) || $fonoOK) {
             $errores = true;
+            // Convertir los errores de sesión a HTML
+            foreach ($_SESSION['errores'] as $error) {
+                $html_errores .= "<p class='error'>$error</p>";
+            }
+            echo $html_errores; // Devolver HTML con errores
+            exit();
+        }
         }
 
         if (!$errores) {
@@ -167,18 +179,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 
                 $conexion->commit();
-                header("Location: ../login.php?registro=exitoso");
-                exit();
+                
             } catch (Exception $e) {
                 $conexion->rollback();
-                $_SESSION['errores'][] = "Error: " . $e->getMessage();
-                header("Location: ../login.php"); // Redirigir de vuelta al formulario
-                exit();
+                echo "<p class='error'>Error: " . $e->getMessage() . "</p>";
             }
+            exit();
         } else {
             header("Location: ../login.php"); // Redirigir de vuelta al formulario
             exit();
         }
     }
-}
+
 ?>
