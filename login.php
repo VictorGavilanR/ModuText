@@ -208,7 +208,8 @@
                 }
             });
         });
-        </script>
+    </script>
+
     </div>
   </div>
 </body>

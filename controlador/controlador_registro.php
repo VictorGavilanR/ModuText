@@ -75,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['errores'] = []; // Inicializar el array de errores
 
     if ($tipo_usuario === 'PARTICULAR') {
+
         // Datos del usuario "PARTICULAR"
         $rut = htmlspecialchars($_POST['rut']);
         $nombre = htmlspecialchars($_POST['nombre']);
@@ -94,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errores = true;
             // Convertir los errores de sesión a HTML
             foreach ($_SESSION['errores'] as $error) {
-                $html_errores .= "<p class='error'>$error</p>";
+                $html_errores .= "<p class='error' style='color: red;'>$error</p>";
             }
             echo $html_errores; // Devolver HTML con errores
             exit();
@@ -121,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 $conexion->commit();
-                
+                echo "<p class='success'>Registro exitoso. Redirigiendo...</p>"; // Respuesta HTML en caso de éxito
             } catch (Exception $e) {
                 $conexion->rollback();
                 echo "<p class='error'>Error: " . $e->getMessage() . "</p>";               
@@ -150,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errores = true;
             // Convertir los errores de sesión a HTML
             foreach ($_SESSION['errores'] as $error) {
-                $html_errores .= "<p class='error'>$error</p>";
+                $html_errores .= "<p class='error' style='color: red;'>$error</p>";
             }
             echo $html_errores; // Devolver HTML con errores
             exit();
@@ -179,7 +180,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 
                 $conexion->commit();
-                
+                echo "<p class='success'>Registro exitoso. Redirigiendo...</p>"; // Respuesta HTML en caso de éxito
             } catch (Exception $e) {
                 $conexion->rollback();
                 echo "<p class='error'>Error: " . $e->getMessage() . "</p>";
