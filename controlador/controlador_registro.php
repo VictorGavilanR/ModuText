@@ -36,7 +36,7 @@ function validarFormatoContraseña($password) {
 }
 
 // Función para validar si el RUT ya está registrado
-function validarRut($rut, $conexion) {
+function validarRutRegistrado($rut, $conexion) {
     $rut_check = $conexion->prepare("SELECT rut_usuario FROM usuario WHERE rut_usuario = ?");
     if ($rut_check) {
         $rut_check->bind_param("s", $rut);
@@ -54,6 +54,32 @@ function validarRut($rut, $conexion) {
     }
     return false; // El rut no está registrado
 }
+
+// Función para validar el formato de RUT
+function validarRUT($rut) {
+    $rut = preg_replace('/[.\-]/', '', $rut);
+
+    $cuerpo = substr($rut, 0, -1);
+    $dv = strtoupper(substr($rut, -1));
+
+    $suma = 0;
+    $multiplo = 2;
+
+    for ($i = strlen($cuerpo) - 1; $i >= 0; $i--) {
+        $suma += $multiplo * intval($cuerpo[$i]);
+        $multiplo = ($multiplo === 7) ? 2 : $multiplo + 1;
+    }
+
+    $dvEsperado = 11 - ($suma % 11);
+    $dvEsperado = ($dvEsperado == 11) ? '0' : ($dvEsperado == 10 ? 'K' : (string)$dvEsperado);
+    if ($dv !== $dvEsperado || strlen($rut) < 8 || strlen($rut) > 9) {
+        $_SESSION['errores'][] = "El Rut ingresado no es válido.";
+        return true;
+    }
+
+    return false;
+}
+
 
 // Función para validar el telefono
 function validarTelefono($telefono) {
@@ -90,8 +116,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Validación de campos
         if (verificarCamposVacios($rut, $nombre, $apellido_paterno, $apellido_materno, $correo, $fono_per, $password, $confirm_password) ||
             validarContraseñasCoinciden($password, $confirm_password) ||
-            !validarFormatoContraseña($password) ||
-            validarRut($rut, $conexion) || $fonoOK) {
+            !validarFormatoContraseña($password) || validarRut($rut) ||
+            validarRutRegistrado($rut, $conexion) || $fonoOK) {
             $errores = true;
             // Convertir los errores de sesión a HTML
             foreach ($_SESSION['errores'] as $error) {
@@ -146,8 +172,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Validación de campos
         if (verificarCamposVacios($rut_usuario, $razon_social, $correo_emp, $fono_emp, $password, $confirm_password) ||
             validarContraseñasCoinciden($password, $confirm_password) ||
-            !validarFormatoContraseña($password) ||
-            validarRut($rut_usuario, $conexion) || $fonoOK) {
+            !validarFormatoContraseña($password) || validarRut($rut_usuario) ||
+            validarRutRegistrado($rut_usuario, $conexion) || $fonoOK) {
             $errores = true;
             // Convertir los errores de sesión a HTML
             foreach ($_SESSION['errores'] as $error) {

@@ -29,23 +29,23 @@
             </div>
             <!-- Formulario de Login -->
             <form id="loginForm" class="form-container login-form" method="post" action="">
-    <h3>Iniciar Sesión</h3>
-    <?php
-    include "conexion.php";
-    include "controlador/controlador_login.php";
-    ?>
-    <div class="mb-3">
-        <label for="rutUsuario" class="form-label">Rut</label>
-        <input type="text" class="form-control" id="rutUsuario" placeholder="Ingrese su rut" name="rut_usuario">
-        <div id="rutLoginError" style="display:none; color: red;">Rut inválido</div>
-    </div>
-    <div class="mb-3">
-        <label for="loginPassword" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="loginPassword" placeholder="Ingrese su contraseña" name="password_usuario">
-    </div>
-    <button name="btningresar" class="btn btn-primary">Iniciar Sesión</button>
-    <p class="toggle-text">¿No tienes cuenta? <a href="#" id="showRegister">Regístrate</a></p>
-</form>
+                <?php
+                include "conexion.php";
+                include "controlador/controlador_login.php";
+                ?>
+                <h3>Iniciar Sesión</h3>
+                <div class="mb-3">
+                    <label for="rutUsuario" class="form-label">Rut</label>
+                    <input type="text" class="form-control" id="rutUsuario" placeholder="Ingrese su rut" name="rut_usuario">
+                    <div id="rutLoginError" style="display:none; color: red;">Rut inválido</div>
+                </div>
+                <div class="mb-3">
+                    <label for="loginPassword" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="loginPassword" placeholder="Ingrese su contraseña" name="password_usuario">
+                </div>
+                <button name="btningresar" class="btn btn-primary">Iniciar Sesión</button>
+                <p class="toggle-text">¿No tienes cuenta? <a href="#" id="showRegister">Regístrate</a></p>
+            </form>
 
             <!-- Formulario de Registro -->
             <form id="registerForm" class="form-container hidden register-form" action="controlador/controlador_registro.php" method="POST">
@@ -63,8 +63,8 @@
                 <div id="empresaContainer" class="empresa-container">
                     <h3>Datos de la Empresa</h3>
                     <div class="mb-3">
-                        <label for="rut_emp" class="form-label">RUT de la Empresa</label>
-                        <input type="text" name="rut_emp" class="form-control" id="rut_emp" placeholder="Ingrese el RUT de la empresa">
+                        <label for="rut_emp" class="form-label">Rut de la Empresa</label>
+                        <input type="text" name="rut_emp" class="form-control" id="rut_emp" data-error="rutError" placeholder="Ingrese el RUT de la empresa">
                         <div id="rutError" style="display:none; color: red;">Rut inválido</div>
                     </div>
                     <div class="mb-3">
@@ -109,7 +109,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="rut_part" class="form-label">Rut</label>
-                        <input type="text" name="rut" class="form-control" id="rut_part" placeholder="Ingrese su rut">
+                        <input type="text" name="rut" class="form-control" id="rut_part" data-error="rutError" placeholder="Ingrese su rut">
                         <div id="rutError" style="display:none; color: red;">Rut inválido</div>
                     </div>
                     <div class="row">
@@ -157,59 +157,9 @@
             </form>
         </div>
     </div>
-
       <script src="formateo.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
       <script src="mensajes.js"></script>
-      <script>
-        // Mostrar mensaje de éxito si el parámetro "registro=exitoso" está en la URL
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('registro') && urlParams.get('registro') === 'exitoso') {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Registro exitoso',
-                    text: '¡Tu cuenta ha sido creada con éxito!',
-                    confirmButtonText: 'Aceptar'
-                });
-            }
-
-            // Procesar el formulario de registro
-            const registerForm = document.getElementById('registerForm');
-            registerForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const formData = new FormData(registerForm);
-
-                try {
-                    const response = await fetch('controlador/controlador_registro.php', {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    const htmlResponse = await response.text();
-                    console.log(htmlResponse); // Para verificar la respuesta en consola
-
-                    // Insertar el HTML de respuesta en un contenedor de errores o éxito
-                    let messageContainer = document.getElementById('messageContainer');
-                    if (!messageContainer) {
-                        messageContainer = document.createElement('div');
-                        messageContainer.id = 'messageContainer';
-                        registerForm.insertBefore(messageContainer, registerForm.firstChild);
-                    }
-                    messageContainer.innerHTML = htmlResponse;
-
-                    // Redirigir en caso de éxito
-                    if (htmlResponse.includes('Registro exitoso')) {
-                        window.location.href = 'login.php?registro=exitoso';
-                    }
-
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            });
-        });
-    </script>
-
     </div>
   </div>
 </body>

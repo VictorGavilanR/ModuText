@@ -55,15 +55,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: retiro.php");
                 exit();
             } else {
-                echo "<div>Contraseña incorrecta.</div>";
+                echo "<div style='color: red;'>Contraseña incorrecta.</div><br>";
             }
         } else {
-            echo "<div>Usuario no registrado.</div>";
+            echo "<div style='color: red;'>Usuario no registrado.</div><br>";
         }
 
         $stmt->close();
     } else {
-        echo "<div>Campos vacíos.</div>";
+        echo "<div style='color: red;'>Campos vacíos.</div><br>";
     }
 }
 ?>
