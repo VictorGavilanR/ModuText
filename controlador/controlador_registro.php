@@ -124,9 +124,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
             } catch (Exception $e) {
                 $conexion->rollback();
+<<<<<<< HEAD
                 $_SESSION['errores'][] = "Error: " . $e->getMessage();
                 header("Location: ../login.php"); // Redirigir de vuelta al formulario
                 exit();
+=======
+                echo "<p class='error'>Error: " . $e->getMessage() . "</p>";               
+>>>>>>> e9d1df778170fc9fc190eac706851177942b6846
             }
             exit();
         } else {
