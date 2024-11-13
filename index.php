@@ -1,3 +1,11 @@
+<?php
+// Incluir el controlador que calcula los kilos
+include 'controlador/controlador_kilos.php'; 
+
+// Acceder al total de kilos desde la sesión
+$totalKilos = isset($_SESSION['total_kilos']) ? $_SESSION['total_kilos'] : 0;
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -199,6 +207,8 @@
     
     <!--Contador-->
 
+    
+
     <div class="counter-section">
         <h2 class="section-title">Nuestras Cifras
             <hr class="separador">
@@ -207,7 +217,8 @@
         <div class="counter-container">
             <div class="counter-item">
                 <h3>Telas Recogidas</h3>
-                <div class="counter" data-target="1500">0</div>
+                <!-- Mostrar el total de kilos desde la sesión -->
+                <div class="counter" id="kilos-recogidos" data-target="<?php echo $totalKilos; ?>">0</div>
             </div>
             <div class="counter-item">
                 <h3>Socios</h3>
