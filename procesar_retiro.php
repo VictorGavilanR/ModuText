@@ -92,8 +92,8 @@ try {
     $mail->isSMTP();
 $mail->Host = 'smtp.gmail.com';
 $mail->SMTPAuth = true;
-$mail->Username = 'drackracer@gmail.com'; // Tu dirección de correo de Gmail
-$mail->Password = 'iyphkooslbxszvsc'; // Contraseña de aplicación (sin espacios)
+$mail->Username = 'poner correo'; // Tu dirección de correo de Gmail
+$mail->Password = 'contraseña'; // Contraseña de aplicación (sin espacios)
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 587;
     $mail->SMTPDebug = 2;
@@ -102,7 +102,7 @@ $mail->Port = 587;
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
     // Configurar los datos del mensaje
-    $mail->setFrom('drackracer@gmail.com', 'Equipo de Retiro de Telas');
+    $mail->setFrom('correo ', 'Equipo de Retiro de Telas');
     $mail->addAddress($usuarioEmail);
 
     // Contenido del correo
