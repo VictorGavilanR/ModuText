@@ -17,10 +17,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $comuna_dir = htmlspecialchars($_POST["comuna_dir"]); // Nuevo campo comuna_dir
 
 
-        // Obtener los IDs de la sesión
-        $id_per = isset($_SESSION["id_per"]) ? $_SESSION["id_per"] : NULL;
-        $id_emp = isset($_SESSION["id_emp"]) ? $_SESSION["id_emp"] : NULL;
+      // Obtener los IDs de la sesión
+$id_per = isset($_SESSION["id_per"]) ? $_SESSION["id_per"] : null;
+$id_emp = isset($_SESSION["id_emp"]) ? $_SESSION["id_emp"] : null;
 
+// Verificar que los IDs estén correctamente configurados
+if (!$id_per && !$id_emp) {
+    echo "Error: No se pudo identificar al usuario. ID de usuario no encontrado.";
+    exit();
+}
         // Asegurarse de que solo uno de los ID esté presente
         if ($id_per && !$id_emp) {
             // Insertar los datos en la tabla direccion_retiro con id_per

@@ -143,7 +143,7 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Contraseña</label>
                         <div class="input-group">
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Ingrese una contraseña">
+                            <input type="password" name="passwordP" class="form-control" id="password" placeholder="Ingrese una contraseña">
                             <button type="button" class="btn btn-outline-secondary toggle-password" data-target="password">
                                 <i class="bi bi-eye-slash" id="eyeIcon"></i>
                             </button>
@@ -152,7 +152,7 @@
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
                         <div class="input-group">
-                            <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirme su contraseña">
+                            <input type="password" name="confirmPasswordP" class="form-control" id="confirmPassword" placeholder="Confirme su contraseña">
                             <button type="button" class="btn btn-outline-secondary toggle-password" data-target="confirmPassword">
                                 <i class="bi bi-eye-slash" id="eyeIconConfirm"></i>
                             </button>
