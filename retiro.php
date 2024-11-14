@@ -1,14 +1,9 @@
 <?php
 session_start();
 
-
-
-// Verificar si el usuario está logueado
-if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
-    $rutUsuario = $_SESSION["rut_usuario"];
-    $usuarioEmail = $_SESSION["email_usuario"];
-} else {
-    echo "Error: No se han encontrado los datos del usuario en la sesión.";
+// Verificar si hay una sesión activa
+if (empty($_SESSION["rut_usuario"])) {
+    header("Location: login.php");
     exit();
 }
 ?>
@@ -87,9 +82,11 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
                                     ?>
                                 </option>
                             <?php endwhile; ?>
-                            <?php $stmt->close(); ?>
-                        </select>
-                    </div>
+                         <?php $stmt->close(); ?>
+                </select>
+</div>
+
+<!-- lo que va en value es el id de la direccion  -->
                     
                     <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
                     <a href="sucursales.php" class="btn btn-primary">Administrar Direcciones</a>
