@@ -12,31 +12,26 @@ menu.onclick = () => {
 /*Contador*/
 
 document.addEventListener("DOMContentLoaded", () => {
-  const counters = document.querySelectorAll(".counter");
-  
-  counters.forEach(counter => {
-      counter.innerText = '0';
-      
-      const updateCounter = () => {
-          const target = parseFloat(counter.getAttribute('data-target')); // Asegurarse de que sea un número
-          if (isNaN(target)) {
-              console.error("El valor de 'data-target' no es un número válido:", counter.getAttribute('data-target'));
-              return;  // Si no es un número válido, no continuar con la actualización
-          }
-
-          const current = parseFloat(counter.innerText);
-          const increment = target / 200; // Ajusta este valor para controlar la velocidad
-          
-          if (current < target) {
-              counter.innerText = Math.ceil(current + increment);
-              setTimeout(updateCounter, 10); // Controla la velocidad de actualización
-          } else {
-              counter.innerText = target;
-          }
-      };
-
-      updateCounter();
-  });
+    const counters = document.querySelectorAll(".counter");
+    
+    counters.forEach(counter => {
+        counter.innerText = '0';
+        
+        const updateCounter = () => {
+            const target = +counter.getAttribute('data-target'); // Convertir a número
+            const current = +counter.innerText;
+            const increment = target / 200; // Ajusta este valor para controlar la velocidad
+            
+            if(current < target) {
+                counter.innerText = Math.ceil(current + increment);
+                setTimeout(updateCounter, 10); // Controla la velocidad de actualización
+            } else {
+                counter.innerText = target;
+            }
+        };
+        
+        updateCounter();
+    });
 });
 
 /*SLIDE*/
