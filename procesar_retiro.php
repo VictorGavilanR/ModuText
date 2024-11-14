@@ -1,22 +1,43 @@
 <?php
-
 session_start();
-include 'conexion.php'; // Asegúrate de que tienes este archivo para conectar a tu base de datos
 
-// Verificar si hay una sesión activa
-if (empty($_SESSION["rut_usuario"])) {
-    header("Location: login.php");
+// Incluir las clases necesarias de PHPMailer
+require 'PHPMailer/PHPMailer.php';  
+require 'PHPMailer/SMTP.php';       
+require 'PHPMailer/Exception.php';  
+include 'conexion.php';
+
+// Importar las clases desde el espacio de nombres correcto
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+// Verificar si el usuario está logueado
+if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
+    $rutUsuario = $_SESSION["rut_usuario"];
+    $usuarioEmail = $_SESSION["email_usuario"];
+} else {
+    echo "Error: No se han encontrado los datos del usuario en la sesión.";
     exit();
 }
 
-// Validar que los datos hayan sido enviados correctamente
-if (isset($_POST['tipoTela'], $_POST['cantidad'], $_POST['direccionRetiro'])) {
-    // Obtener datos del formulario
-    $rut_usuario = $_SESSION['rut_usuario'];
-    $tipoTela = $_POST['tipoTela'];
-    $cantidad = $_POST['cantidad'];
-    $direccionRetiro = $_POST['direccionRetiro'];
-    $fechaSolicitud = date('Y-m-d H:i:s');
+// Obtener datos del formulario
+$tipoTela = $_POST['tipoTela'];
+$cantidad = $_POST['cantidad'];
+$direccionRetiro = $_POST['direccionRetiro'];
+
+// Información del usuario
+if (isset($_SESSION['email_usuario'])) {
+    $usuarioEmail = $_SESSION['email_usuario']; // Ahora el correo está en la sesión
+} else {
+    // Si no existe el correo en la sesión, mostrar un error
+    echo "Error: No se ha encontrado el correo del usuario en la sesión.";
+    exit();
+}
+
+// Obtener datos del formulario
+$rut_usuario = $_SESSION['rut_usuario'];
+$fechaSolicitud = date('Y-m-d H:i:s');
 
 // Validar que la cantidad es un número válido
 if (is_numeric($cantidad) && $cantidad > 0) {
@@ -39,29 +60,69 @@ if (is_numeric($cantidad) && $cantidad > 0) {
         $rowRes = $resultRes->fetch_assoc();
         $id_residuo = $rowRes['id_res'];
 
-        // Insertar la solicitud en la tabla `solicitud`
-        $queryInsert = "INSERT INTO solicitud (rut_usuario, id_dir, id_res, fecha_sol) VALUES (?, ?, ?, ?)";
-        $stmtInsert = $conexion->prepare($queryInsert);  // Usar $conexion en lugar de $conn
-        $stmtInsert->bind_param("siis", $rut_usuario, $direccionRetiro, $id_residuo, $fechaSolicitud);
+        // Insertar la solicitud en la tabla `solicitud` con `cant_res` para la cantidad de kilos
+        $queryInsert = "INSERT INTO solicitud (rut_usuario, id_dir, id_res, fecha_sol, cant_res) VALUES (?, ?, ?, ?, ?)";
+        $stmtInsert = $conexion->prepare($queryInsert);
 
-        if ($stmtInsert->execute()) {
-            echo "Solicitud enviada con éxito.";
-            header("Location: retiro.php?mensaje=success"); // Redirigir con mensaje de éxito
-        } else {
-            echo "Error al enviar la solicitud. Inténtalo de nuevo.";
+        // Verificar si la preparación de la consulta de inserción falló
+        if ($stmtInsert === false) {
+            // Mostrar error de preparación de la consulta
+            echo "Error al preparar la consulta de inserción: " . $conexion->error;
+            exit();
         }
 
-        $stmtInsert->close();
+        $stmtInsert->bind_param("siiss", $rut_usuario, $direccionRetiro, $id_residuo, $fechaSolicitud, $cantidad);
+
+        // Ejecutar la consulta de inserción
+        $stmtInsert->execute();
     } else {
         echo "No se encontró el tipo de tela especificado.";
     }
-    echo "Hubo un error al enviar el correo: " . $mail->ErrorInfo;
 
     $stmtRes->close();
     $stmtInsert->close();
 } else {
-    echo "Error: Todos los campos son obligatorios.";
+    echo "Cantidad no válida.";
 }
 
-$conexion->close();  // Usar $conexion en lugar de $conn
+// Crear una nueva instancia de PHPMailer
+$mail = new PHPMailer(); 
+try {
+    // Configuración del servidor SMTP
+    $mail->isSMTP();
+$mail->Host = 'smtp.gmail.com';
+$mail->SMTPAuth = true;
+$mail->Username = 'drackracer@gmail.com'; // Tu dirección de correo de Gmail
+$mail->Password = 'iyphkooslbxszvsc'; // Contraseña de aplicación (sin espacios)
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+$mail->Port = 587;
+    $mail->SMTPDebug = 2;
+
+    // Habilitar la depuración SMTP
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+
+    // Configurar los datos del mensaje
+    $mail->setFrom('drackracer@gmail.com', 'Equipo de Retiro de Telas');
+    $mail->addAddress($usuarioEmail);
+
+    // Contenido del correo
+    $mail->isHTML(true);
+    $mail->Subject = 'Confirmacion de Solicitud de Retiro de Telas';
+    $mail->Body = "
+    <p>Estimado/a {$_SESSION['rut_usuario']},</p>
+    <p>Gracias por enviar su solicitud de retiro de telas. A continuación los detalles de su solicitud:</p>
+    <ul>
+        <li><strong>Tipo de Tela:</strong> $tipoTela</li>
+        <li><strong>Cantidad:</strong> $cantidad kg</li>
+        <li><strong>Dirección de Retiro:</strong> $direccionRetiro</li>
+    </ul>
+    <p>Nos pondremos en contacto pronto para confirmar los detalles.</p>
+    <p>Saludos,<br>Equipo de Retiro de Telas</p>";
+
+    // Enviar el correo
+    $mail->send();
+    echo "Correo enviado con éxito.";
+} catch (Exception $e) {
+    echo "Error al enviar el correo: {$mail->ErrorInfo}";
+}
 ?>
