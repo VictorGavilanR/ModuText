@@ -82,47 +82,8 @@ if (is_numeric($cantidad) && $cantidad > 0) {
     $stmtRes->close();
     $stmtInsert->close();
 } else {
-    echo "Cantidad no válida.";
+    echo "Error: Todos los campos son obligatorios.";
 }
 
-// Crear una nueva instancia de PHPMailer
-$mail = new PHPMailer(); 
-try {
-    // Configuración del servidor SMTP
-    $mail->isSMTP();
-$mail->Host = 'smtp.gmail.com';
-$mail->SMTPAuth = true;
-$mail->Username = 'drackracer@gmail.com'; // Tu dirección de correo de Gmail
-$mail->Password = 'iyphkooslbxszvsc'; // Contraseña de aplicación (sin espacios)
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 587;
-    $mail->SMTPDebug = 2;
-
-    // Habilitar la depuración SMTP
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-
-    // Configurar los datos del mensaje
-    $mail->setFrom('drackracer@gmail.com', 'Equipo de Retiro de Telas');
-    $mail->addAddress($usuarioEmail);
-
-    // Contenido del correo
-    $mail->isHTML(true);
-    $mail->Subject = 'Confirmacion de Solicitud de Retiro de Telas';
-    $mail->Body = "
-    <p>Estimado/a {$_SESSION['rut_usuario']},</p>
-    <p>Gracias por enviar su solicitud de retiro de telas. A continuación los detalles de su solicitud:</p>
-    <ul>
-        <li><strong>Tipo de Tela:</strong> $tipoTela</li>
-        <li><strong>Cantidad:</strong> $cantidad kg</li>
-        <li><strong>Dirección de Retiro:</strong> $direccionRetiro</li>
-    </ul>
-    <p>Nos pondremos en contacto pronto para confirmar los detalles.</p>
-    <p>Saludos,<br>Equipo de Retiro de Telas</p>";
-
-    // Enviar el correo
-    $mail->send();
-    echo "Correo enviado con éxito.";
-} catch (Exception $e) {
-    echo "Error al enviar el correo: {$mail->ErrorInfo}";
-}
+$conexion->close();  // Usar $conexion en lugar de $conn
 ?>
