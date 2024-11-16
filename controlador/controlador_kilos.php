@@ -24,5 +24,5 @@ $huellaCarbono = $totalKilos * 2; // Ajusta según tu fórmula
 $_SESSION["huella_carbono"] = $huellaCarbono;
 
 // Opcional: Verifica que los datos estén disponibles
-echo "Total Kilos: " . $totalKilos . " KG - Huella de Carbono: " . $huellaCarbono . " CO₂";
+//echo "Total Kilos: " . $totalKilos . " KG - Huella de Carbono: " . $huellaCarbono . " CO₂";
 ?>
