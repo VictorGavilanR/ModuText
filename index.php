@@ -208,23 +208,20 @@ include 'controlador/controlador_kilos.php';
     <!--Contador-->
 
     <div class="counter-section">
-        <h2 class="section-title">Nuestras Cifras
-            <hr class="separador">
-        </h2>
+    <h2 class="section-title">Nuestras Cifras</h2>
+    <hr class="separador">
 
-        <div class="counter-container">
-            <div class="counter-item">
-                <h3>Telas Recogidas</h3>
-                <!-- Mostrar el total de kilos desde la sesión -->
-                <div class="counter" id="kilos-recogidos" data-target="<?php echo $totalKilos; ?>">0</div>
-            </div>
-            <div class="counter-item">
-                <h3>Huella de Carbono CO₂</h3>
-                <div class="counter" data-target="<?php echo $_SESSION['huella_carbono']; ?>">0</div>
-                <p></p>
-            </div>  
+    <div class="counter-container">
+        <div class="counter-item">
+            <h3>Telas Recogidas</h3>
+            <div class="counter" data-target="<?php echo $_SESSION['total_kilos']; ?>">0<span class="unit"> kg</span></div>
+        </div>
+        <div class="counter-item">
+            <h3>Huella de Carbono</h3>
+            <div class="counter" data-target="<?php echo $_SESSION['huella_carbono']; ?>">0<span class="unit"> CO₂</span></div>
         </div>
     </div>
+</div>
 
     
 <!-- Contacto -->
