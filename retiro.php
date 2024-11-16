@@ -1,10 +1,7 @@
 <?php
 session_start();
 
-echo $_SESSION["rut_usuario"];  // Imprime el rut_usuario
-echo $_SESSION["email_usuario"]; // Imprime el correo
-echo $_SESSION["id_per"]; // Imprime el id_per si es persona natural
-echo $_SESSION["id_emp"]; // Imprime el id_emp si es empresa
+
 
 // Verificar si el usuario está logueado
 if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
@@ -30,7 +27,7 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
 </head>
 <body>
     <a href="controlador/controlador_cerrar_session.php" class="logout-button btn-custom">Cerrar sesión</a>
-  
+
     <div class="main-container">
         <div class="right-section">
             <img src="img/lateral-retiro.jpg" class="img-fluid">
@@ -39,14 +36,11 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
             <div class="d-flex justify-content-between align-items-start mt-4">
                 <img class="logo" src="./img/Marca - Blanco.png" alt="">
             </div>
-            <div class="container ">
-                <form method="post" action="procesar_retiro.php">
-                <h2 class="saludo">
-                    <?php
-                    // Mostrar el RUT del usuario desde la sesión
-                     echo "Hola, " . $_SESSION["rut_usuario"];
-                     ?>
-                </h2>
+            <div class="container">
+                <form id="retiroForm">
+                    <h2 class="saludo">
+                        <?php echo "Hola, " . $_SESSION["rut_usuario"]; ?>
+                    </h2>
                     <h2 class="mb-4">Solicitud de Retiro de Telas</h2>
                     <div class="mb-3">
                         <label for="tipoTela" class="form-label">Tipo de Tela</label>
@@ -59,7 +53,6 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
                             <option value="otro">Otro</option>
                         </select>
                     </div>
-                    
                     <div class="mb-3">
                         <label for="cantidad" class="form-label">Cantidad (kg)</label>
                         <input type="range" id="sliderValue" class="form-range" min="1" max="50" value="25" oninput="syncManualInput(this.value)">
@@ -68,29 +61,25 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
                             <span class="input-group-text">kg</span>
                         </div>
                     </div>
-                    
                     <div class="mb-3">
-                    <label for="direccionRetiro" class="form-label">Dirección de Retiro</label>
-                    <select class="form-select" id="direccionRetiro" name="direccionRetiro" required>
-                        <option selected disabled>Seleccione una dirección</option>
+                        <label for="direccionRetiro" class="form-label">Dirección de Retiro</label>
+                        <select class="form-select" id="direccionRetiro" name="direccionRetiro" required>
+                            <option selected disabled>Seleccione una dirección</option>
                             <?php
-                                include "conexion.php";  // Asegúrate de incluir la conexión a la base de datos.
+                                include "conexion.php";
 
                                 $id_per = isset($_SESSION["id_per"]) ? $_SESSION["id_per"] : null;
                                 $id_emp = isset($_SESSION["id_emp"]) ? $_SESSION["id_emp"] : null;
 
-                                // Consultar direcciones del usuario
                                 $stmt = $conexion->prepare("SELECT id_dir, nom_dir, calle_dir, num_calle_dir, comuna_dir FROM direccion_retiro WHERE id_per = ? OR id_emp = ?");
                                 $stmt->bind_param("ii", $id_per, $id_emp);
                                 $stmt->execute();
                                 $result = $stmt->get_result();
 
-                                // Llenar las opciones del select con las direcciones
                                 while ($sucursal = $result->fetch_assoc()):
-                                 ?>
+                            ?>
                                 <option value="<?php echo $sucursal['id_dir']; ?>">
-                                    <?php 
-                                        // Concatenar comuna, nombre de dirección, calle y número
+                                    <?php
                                         echo htmlspecialchars($sucursal['comuna_dir']) . " - " .
                                             htmlspecialchars($sucursal['nom_dir']) . " - " .
                                             htmlspecialchars($sucursal['calle_dir']) . " " . 
@@ -98,16 +87,17 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
                                     ?>
                                 </option>
                             <?php endwhile; ?>
-                         <?php $stmt->close(); ?>
-                </select>
-</div>
-
-
+                            <?php $stmt->close(); ?>
+                        </select>
+                    </div>
                     
                     <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
                     <a href="sucursales.php" class="btn btn-primary">Administrar Direcciones</a>
 
                 </form>
+                <div id="successMessage" class="alert alert-success mt-4" style="display: none;">
+                    Solicitud de retiro enviada con éxito.
+                </div>
             </div>
         </div>
     </div>
@@ -115,12 +105,28 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function syncManualInput(value) {
-            document.getElementById('cantidadManual').value = value; // Sincroniza el valor del slider con el input manual
+            document.getElementById('cantidadManual').value = value;
         }
 
         function syncSliderInput(value) {
-            document.getElementById('sliderValue').value = value; // Sincroniza el valor del input manual con el slider
+            document.getElementById('sliderValue').value = value;
         }
+
+        document.getElementById("retiroForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch("procesar_retiro.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("successMessage").style.display = "block";
+            })
+            .catch(error => console.error("Error al enviar la solicitud:", error));
+        });
     </script>
 </body>
 </html>
