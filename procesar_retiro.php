@@ -1,13 +1,14 @@
 <?php
+
 session_start();
 
 // Incluir las clases necesarias de PHPMailer
-require 'PHPMailer/PHPMailer.php';  
-require 'PHPMailer/SMTP.php';       
-require 'PHPMailer/Exception.php';  
-include 'conexion.php';
+require 'correo/PHPMailer.php';  
+require 'correo/SMTP.php';       
+require 'correo/Exception.php';  
+include 'conexion.php'; 
 
-// Importar las clases desde el espacio de nombres correcto
+// Importar las clases necesarias de PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -20,7 +21,6 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
     echo "Error: No se han encontrado los datos del usuario en la sesión.";
     exit();
 }
-
 // Obtener datos del formulario
 $tipoTela = $_POST['tipoTela'];
 $cantidad = $_POST['cantidad'];
@@ -74,55 +74,72 @@ if (is_numeric($cantidad) && $cantidad > 0) {
         $stmtInsert->bind_param("siiss", $rut_usuario, $direccionRetiro, $id_residuo, $fechaSolicitud, $cantidad);
 
         // Ejecutar la consulta de inserción
-        $stmtInsert->execute();
+        if ($stmtInsert->execute()) {
+            // Crear una nueva instancia de PHPMailer
+            $mail = new PHPMailer(); 
+
+            try {
+                // Configuración del servidor SMTP
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com'; // Cambia esto por tu servidor SMTP (Ej.: smtp.gmail.com para Gmail)
+                $mail->SMTPAuth = true;
+                $mail->Username = 'asdasd'; // Cambia esto por tu dirección de correo
+                $mail->Password = 'asdasd.'; // Cambia esto por tu contraseña de correo
+                $mail->SMTPSecure = 'tls'; // Puede ser tls o ssl
+                $mail->Port = 587; // Este es el puerto estándar para SMTP seguro; puede variar según el proveedor
+
+                // Configurar los datos del mensaje
+                $mail->setFrom('asdasd', 'Equipo de Retiro de Telas');
+                $mail->addAddress($usuarioEmail); // Dirección de correo del usuario
+
+                // Contenido del correo
+                $mail->isHTML(true);
+                $mail->Subject = 'Confirmación de Solicitud de Retiro de Telas';
+                $mail->Body = "
+                <p>Estimado/a {$_SESSION['rut_usuario']},</p>
+                <p>Gracias por enviar su solicitud de retiro de telas. A continuación los detalles de su solicitud:</p>
+                <ul>
+                    <li><strong>Tipo de Tela:</strong> $tipoTela</li>
+                    <li><strong>Cantidad:</strong> $cantidad kg</li>
+                    <li><strong>Dirección de Retiro:</strong> $direccionRetiro</li>
+                </ul>
+                <p>Nos pondremos en contacto pronto para confirmar los detalles.</p>
+                <p>Saludos,<br>Equipo de Retiro de Telas</p>";
+
+                // Enviar el correo
+                $mail->send();
+                     // Alerta modal 
+                     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+                     echo "<script>
+                         Swal.fire({
+                             icon: 'success',
+                             title: '¡Éxito!',
+                             text: 'Correo de confirmación enviado con éxito.',
+                             confirmButtonText: 'Aceptar'
+                         }).then(function() {
+                             window.location.href = 'confirmacion.php';  // Redirigir a confirmacion.php después de la alerta
+                         });
+                     </script>";
+                echo "Correo de confirmación enviado con éxito.";
+            } catch (Exception $e) {
+                echo "Hubo un error al enviar el correo de confirmación: {$mail->ErrorInfo}";
+            }
+
+            
+        } else {
+            echo "Error al enviar la solicitud. Inténtalo de nuevo.";
+        }
+
+        $stmtInsert->close();
     } else {
-        echo "No se encontró el tipo de tela especificado.";
+        echo "Error: Tipo de tela no encontrado.";
     }
+    echo "Hubo un error al enviar el correo: " . $mail->ErrorInfo;
 
     $stmtRes->close();
-    $stmtInsert->close();
 } else {
-    echo "Cantidad no válida.";
+    echo "Error: La cantidad debe ser un número válido y mayor a 0.";
 }
 
-// Crear una nueva instancia de PHPMailer
-$mail = new PHPMailer(); 
-try {
-    // Configuración del servidor SMTP
-    $mail->isSMTP();
-$mail->Host = 'smtp.gmail.com';
-$mail->SMTPAuth = true;
-$mail->Username = 'drackracer@gmail.com'; // Tu dirección de correo de Gmail
-$mail->Password = 'iyphkooslbxszvsc'; // Contraseña de aplicación (sin espacios)
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 587;
-    $mail->SMTPDebug = 2;
-
-    // Habilitar la depuración SMTP
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-
-    // Configurar los datos del mensaje
-    $mail->setFrom('drackracer@gmail.com', 'Equipo de Retiro de Telas');
-    $mail->addAddress($usuarioEmail);
-
-    // Contenido del correo
-    $mail->isHTML(true);
-    $mail->Subject = 'Confirmacion de Solicitud de Retiro de Telas';
-    $mail->Body = "
-    <p>Estimado/a {$_SESSION['rut_usuario']},</p>
-    <p>Gracias por enviar su solicitud de retiro de telas. A continuación los detalles de su solicitud:</p>
-    <ul>
-        <li><strong>Tipo de Tela:</strong> $tipoTela</li>
-        <li><strong>Cantidad:</strong> $cantidad kg</li>
-        <li><strong>Dirección de Retiro:</strong> $direccionRetiro</li>
-    </ul>
-    <p>Nos pondremos en contacto pronto para confirmar los detalles.</p>
-    <p>Saludos,<br>Equipo de Retiro de Telas</p>";
-
-    // Enviar el correo
-    $mail->send();
-    echo "Correo enviado con éxito.";
-} catch (Exception $e) {
-    echo "Error al enviar el correo: {$mail->ErrorInfo}";
-}
+$conexion->close();
 ?>

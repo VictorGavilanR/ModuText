@@ -3,7 +3,7 @@
 include 'controlador/controlador_kilos.php'; 
 
 // Acceder al total de kilos desde la sesión
-//$totalKilos = isset($_SESSION['total_kilos']) ? $_SESSION['total_kilos'] : 0;
+$totalKilos = isset($_SESSION['total_kilos']) ? $_SESSION['total_kilos'] : 0;
 ?>
 
 <!DOCTYPE html>
