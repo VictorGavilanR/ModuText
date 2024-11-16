@@ -1,10 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     const rutInputs = document.querySelectorAll('input[id^="rut"]'); // Selecciona todos los campos de RUT
-    const rutErrors = document.querySelectorAll('#rutError'); // Selecciona el elemento de error
 
     // Para cada campo de RUT encontrado en los formularios
-    rutInputs.forEach((rutInput, index) => {
-        let rutError = rutErrors[index];
+    rutInputs.forEach((rutInput) => {
+      const rutError = rutInput.nextElementSibling;
 
         rutInput.addEventListener('input', function () {
             let rut = rutInput.value.replace(/\./g, '').replace(/-/g, '').replace(/[^\dkK]/g, '');
@@ -225,3 +224,49 @@ document.querySelectorAll('.toggle-password').forEach(function(button) {
   });
 });
 
+// Mostrar mensaje de éxito si el parámetro "registro=exitoso" está en la URL
+document.addEventListener('DOMContentLoaded', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('registro') && urlParams.get('registro') === 'exitoso') {
+      Swal.fire({
+          icon: 'success',
+          title: 'Registro exitoso',
+          text: '¡Tu cuenta ha sido creada con éxito!',
+          confirmButtonText: 'Aceptar'
+      });
+  }
+
+  // Procesar el formulario de registro
+  const registerForm = document.getElementById('registerForm');
+  registerForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(registerForm);
+
+      try {
+          const response = await fetch('controlador/controlador_registro.php', {
+              method: 'POST',
+              body: formData
+          });
+
+          const htmlResponse = await response.text();
+          console.log(htmlResponse); // Para verificar la respuesta en consola
+
+          // Insertar el HTML de respuesta en un contenedor de errores o éxito
+          let messageContainer = document.getElementById('messageContainer');
+          if (!messageContainer) {
+              messageContainer = document.createElement('div');
+              messageContainer.id = 'messageContainer';
+              registerForm.insertBefore(messageContainer, registerForm.firstChild);
+          }
+          messageContainer.innerHTML = htmlResponse;
+
+          // Redirigir en caso de éxito
+          if (htmlResponse.includes('Registro exitoso')) {
+              window.location.href = 'login.php?registro=exitoso';
+          }
+
+      } catch (error) {
+          console.error('Error:', error);
+      }
+  });
+});
