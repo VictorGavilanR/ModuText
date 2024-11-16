@@ -33,16 +33,16 @@
                     <div id="mensaje" class="alert" role="alert" style="display: none;"></div>
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre Dirección</label>
-                        <input type="text" name="nombre_dir" class="form-control" id="nombre" placeholder="Ingrese Dirección de retiro" >
+                        <input type="text" name="nombre_dir" class="form-control" id="nombre" placeholder="Almacén Central" >
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-8">
                             <label for="calle" class="form-label">Calle</label>
-                            <input type="text" name="calle_dir" class="form-control" id="calle" placeholder="Calle" >
+                            <input type="text" name="calle_dir" class="form-control" id="calle" placeholder="Chacabuco" >
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="numcalle" class="form-label">Número</label>
-                            <input type="number" name="num_calle_dir" class="form-control" id="numcalle" placeholder="Nº de calle" >
+                            <input type="number" name="num_calle_dir" class="form-control" id="numcalle" placeholder="#333" >
                         </div>
                     </div>
                     <div class="mb-3">
@@ -51,7 +51,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="comuna" class="form-label">Comuna</label>
-                        <input type="text" name="comuna_dir" class="form-control" id="comuna" placeholder="Ingrese Comuna" >
+                        <input type="text" name="comuna_dir" class="form-control" id="comuna" placeholder="Concepción" >
                     </div>
                     <button type="button" class="btn btn-primary" onclick="confirmarFormulario()">Añadir Dirección</button>
 
