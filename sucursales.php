@@ -13,7 +13,7 @@
     </head>
     <body>
 
-    <div class="e">
+    <div>
         <a href="retiro.php" class="back-button btn btn-custom">Volver</a>
         <h1 class="saludo">
             <?php

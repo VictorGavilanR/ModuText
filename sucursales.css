@@ -231,7 +231,7 @@ ul.sucursal-list li {
 @media (max-width: 1000px) {
     body {
         font-size: 16px;
-        display: block;
+        
     }
     
     .container {
@@ -298,7 +298,7 @@ ul.sucursal-list li {
 @media (max-width: 768px) {
     body {
         font-size: 14px;
-        display: block;
+        
     }
 
     .back-button {
@@ -347,4 +347,73 @@ ul.sucursal-list li {
     }
 
 
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 12px; /* Reducción del tamaño de fuente para una mejor visualización en móviles */
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    .back-button {
+        width: 70px; /* Ajustar el tamaño del botón para pantallas pequeñas */
+    }
+
+    .table th, .table td {
+        padding: 4px 6px; /* Reducir el espacio entre celdas para ahorrar espacio */
+    }
+
+    .btn-primary, .btn-orange {
+        padding: 4px 10px; /* Botones más pequeños */
+        font-size: 12px;
+    }
+
+    .form-container input, .form-container select, .form-container button {
+        font-size: 12px; /* Reducir el tamaño de fuente en formularios */
+        padding: 6px; /* Reducir el padding */
+    }
+
+    .saludo {
+        font-size: 18px; /* Ajustar el tamaño de los textos de bienvenida */
+    }
+
+    .container {
+        padding: 8px; /* Ajustar el padding */
+        width: 73%; /* Asegurarse de que la caja ocupe más espacio disponible */
+        min-width: 280px; /* Minimizar el ancho */
+    }
+
+    .table-container {
+        font-size: 12px; /* Reducir el tamaño de la fuente en las tablas */
+    }
+
+    .table {
+        font-size: 12px; /* Ajustar las tablas */
+        border-spacing: 0;
+    }
+
+    .form-container {
+        margin-top: 8px; /* Reducir el margen superior */
+    }
+
+    .form-range {
+        width: 100%; /* Asegurarse de que los controles de rango no se corten */
+    }
+
+    /* Ajuste de elementos de navegación */
+    .nav-link {
+        font-size: 14px; /* Tamaño adecuado para enlaces de navegación */
+    }
+
+    .header {
+        font-size: 16px; /* Ajuste del tamaño de la cabecera */
+    }
+
+    /* Ajuste de imágenes */
+    .img-responsive {
+        width: 100%; /* Asegurarse de que las imágenes no se corten en pantallas pequeñas */
+        height: auto;
+    }
 }
