@@ -21,23 +21,25 @@ document.addEventListener("DOMContentLoaded", () => {
           const target = parseFloat(counter.getAttribute('data-target')); // Asegurarse de que sea un número
           if (isNaN(target)) {
               console.error("El valor de 'data-target' no es un número válido:", counter.getAttribute('data-target'));
-              return;  // Si no es un número válido, no continuar con la actualización
+              return;
           }
 
           const current = parseFloat(counter.innerText);
           const increment = target / 200; // Ajusta este valor para controlar la velocidad
           
           if (current < target) {
-              counter.innerText = Math.ceil(current + increment);
-              setTimeout(updateCounter, 10); // Controla la velocidad de actualización
+              counter.innerText = (current + increment).toFixed(2); // Incrementar con 2 decimales
+              setTimeout(updateCounter, 10);
           } else {
-              counter.innerText = target;
+              counter.innerText = Number.isInteger(target) ? target : target.toFixed(2);
           }
       };
 
       updateCounter();
   });
 });
+
+
 
 /*SLIDE*/
 

@@ -3,7 +3,7 @@
 include 'controlador/controlador_kilos.php'; 
 
 // Acceder al total de kilos desde la sesión
-$totalKilos = isset($_SESSION['total_kilos']) ? $_SESSION['total_kilos'] : 0;
+//$totalKilos = isset($_SESSION['total_kilos']) ? $_SESSION['total_kilos'] : 0;
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +95,7 @@ $totalKilos = isset($_SESSION['total_kilos']) ? $_SESSION['total_kilos'] : 0;
         <div class="card card--izquierda">
             <div class="mision-vision-contenedor">
                 <a href="#">
-                    <img class="card-img" src="/img/mision.png" alt="" />
+                    <img class="card-img" src="img/mision.png" alt="" />
                 </a>
             </div>
 
@@ -111,7 +111,7 @@ $totalKilos = isset($_SESSION['total_kilos']) ? $_SESSION['total_kilos'] : 0;
         <div class="card card--derecha  ">
             <div class="mision-vision-contenedor">
                 <a href="#">
-                    <img class="card-img" src="/img/vision.png" alt="" />
+                    <img class="card-img" src="img/vision.png" alt="" />
                 </a>
             </div>
             <div class="card-content">
@@ -207,8 +207,6 @@ $totalKilos = isset($_SESSION['total_kilos']) ? $_SESSION['total_kilos'] : 0;
     
     <!--Contador-->
 
-    
-
     <div class="counter-section">
         <h2 class="section-title">Nuestras Cifras
             <hr class="separador">
@@ -221,13 +219,10 @@ $totalKilos = isset($_SESSION['total_kilos']) ? $_SESSION['total_kilos'] : 0;
                 <div class="counter" id="kilos-recogidos" data-target="<?php echo $totalKilos; ?>">0</div>
             </div>
             <div class="counter-item">
-                <h3>Socios</h3>
-                <div class="counter" data-target="3200">0</div>
-            </div>
-            <div class="counter-item">
-                <h3>Sucursales</h3>
-                <div class="counter" data-target="500">0</div>
-            </div>
+                <h3>Huella de Carbono CO₂</h3>
+                <div class="counter" data-target="<?php echo $_SESSION['huella_carbono']; ?>">0</div>
+                <p></p>
+            </div>  
         </div>
     </div>
 

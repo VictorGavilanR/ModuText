@@ -21,7 +21,7 @@
                 if (!isset($_SESSION["nombres_usuario"])) {
                     $_SESSION["nombres_usuario"] = "Usuario"; // Muestra "Usuario" si no se tiene un nombre
                 }
-                echo "Hola, " . $_SESSION["nombres_usuario"];
+                //echo "Hola, " . $_SESSION["nombres_usuario"];
             ?>
         </h1>
 
