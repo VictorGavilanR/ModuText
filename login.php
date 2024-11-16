@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login y Registro</title>
+    <title>Acceder a Modutex</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -25,7 +25,7 @@
             <div class="fixed-logo">
                 <img class="logo" id="logo-l" src="./img/Logo - Color.png" alt="Logo grande">
                 <img class="logo" id="logo-s" src="./img/Marca - Color.png" alt="Logo pequeño">
-                <a href="index.html" class="logout-button btn btn-custom">Volver</a>
+                <a href="index.php" class="logout-button btn btn-custom">Volver</a>
             </div>
             <!-- Formulario de Login -->
             <form id="loginForm" class="form-container login-form" method="post" action="">
