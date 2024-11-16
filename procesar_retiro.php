@@ -1,13 +1,12 @@
 <?php
 session_start();
 
-// Incluir las clases necesarias de PHPMailer
+// Incluir PHPMailer y conexión
 require 'PHPMailer/PHPMailer.php';  
 require 'PHPMailer/SMTP.php';       
 require 'PHPMailer/Exception.php';  
 include 'conexion.php';
 
-// Importar las clases desde el espacio de nombres correcto
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -24,107 +23,100 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
 // Obtener datos del formulario
 $tipoTela = $_POST['tipoTela'];
 $cantidad = $_POST['cantidad'];
-$direccionRetiro = $_POST['direccionRetiro'];
+$direccionRetiro = $_POST['direccionRetiro']; // Esto contiene el id_dir enviado desde el formulario
 
-// Información del usuario
-if (isset($_SESSION['email_usuario'])) {
-    $usuarioEmail = $_SESSION['email_usuario']; // Ahora el correo está en la sesión
-} else {
-    // Si no existe el correo en la sesión, mostrar un error
-    echo "Error: No se ha encontrado el correo del usuario en la sesión.";
+// Validar cantidad
+if (!is_numeric($cantidad) || $cantidad <= 0) {
+    echo "Cantidad no válida.";
     exit();
 }
 
-// Obtener datos del formulario
-$rut_usuario = $_SESSION['rut_usuario'];
-$fechaSolicitud = date('Y-m-d H:i:s');
+// Obtener la dirección completa desde la base de datos usando el id_dir
+$queryDir = "SELECT nom_dir, calle_dir, num_calle_dir, comuna_dir 
+             FROM direccion_retiro 
+             WHERE id_dir = ?";
+$stmtDir = $conexion->prepare($queryDir);
 
-// Validar que la cantidad es un número válido
-if (is_numeric($cantidad) && $cantidad > 0) {
-    // Obtener el ID del residuo en la tabla `residuo` según el tipo de tela
-    $queryRes = "SELECT id_res FROM residuo WHERE nombre_res = ?";
-    $stmtRes = $conexion->prepare($queryRes);
-
-    // Verificar si la preparación de la consulta falló
-    if ($stmtRes === false) {
-        // Mostrar error de preparación de la consulta
-        echo "Error al preparar la consulta de tipo de tela: " . $conexion->error;
-        exit();
-    }
-
-    $stmtRes->bind_param("s", $tipoTela);
-    $stmtRes->execute();
-    $resultRes = $stmtRes->get_result();
-
-    if ($resultRes->num_rows > 0) {
-        $rowRes = $resultRes->fetch_assoc();
-        $id_residuo = $rowRes['id_res'];
-
-        // Insertar la solicitud en la tabla `solicitud` con `cant_res` para la cantidad de kilos
-        $queryInsert = "INSERT INTO solicitud (rut_usuario, id_dir, id_res, fecha_sol, cant_res) VALUES (?, ?, ?, ?, ?)";
-        $stmtInsert = $conexion->prepare($queryInsert);
-
-        // Verificar si la preparación de la consulta de inserción falló
-        if ($stmtInsert === false) {
-            // Mostrar error de preparación de la consulta
-            echo "Error al preparar la consulta de inserción: " . $conexion->error;
-            exit();
-        }
-
-        $stmtInsert->bind_param("siiss", $rut_usuario, $direccionRetiro, $id_residuo, $fechaSolicitud, $cantidad);
-
-        // Ejecutar la consulta de inserción
-        $stmtInsert->execute();
-    } else {
-        echo "No se encontró el tipo de tela especificado.";
-    }
-
-    $stmtRes->close();
-    $stmtInsert->close();
-} else {
-    echo "Cantidad no válida.";
+if ($stmtDir === false) {
+    echo "Error al preparar la consulta de dirección: " . $conexion->error;
+    exit();
 }
 
+$stmtDir->bind_param("i", $direccionRetiro);
+$stmtDir->execute();
+$resultDir = $stmtDir->get_result();
+
+if ($resultDir->num_rows > 0) {
+    $rowDir = $resultDir->fetch_assoc();
+    $direccion = $rowDir['nom_dir'] . ", " . $rowDir['calle_dir'] . " " . $rowDir['num_calle_dir'] . ", " . $rowDir['comuna_dir'];
+} else {
+    echo "Error: No se encontró la dirección especificada.";
+    exit();
+}
+
+$stmtDir->close();
+
+// Insertar solicitud en la base de datos
+$fechaSolicitud = date('Y-m-d H:i:s');
+$queryInsert = "INSERT INTO solicitud (rut_usuario, id_dir, id_res, fecha_sol, cant_res) VALUES (?, ?, ?, ?, ?)";
+$stmtInsert = $conexion->prepare($queryInsert);
+
+if ($stmtInsert === false) {
+    echo "Error al preparar la consulta de inserción: " . $conexion->error;
+    exit();
+}
+
+$queryRes = "SELECT id_res FROM residuo WHERE nombre_res = ?";
+$stmtRes = $conexion->prepare($queryRes);
+
+$stmtRes->bind_param("s", $tipoTela);
+$stmtRes->execute();
+$resultRes = $stmtRes->get_result();
+
+if ($resultRes->num_rows > 0) {
+    $rowRes = $resultRes->fetch_assoc();
+    $id_residuo = $rowRes['id_res'];
+    $stmtInsert->bind_param("siiss", $rutUsuario, $direccionRetiro, $id_residuo, $fechaSolicitud, $cantidad);
+    $stmtInsert->execute();
+} else {
+    echo "No se encontró el tipo de tela especificado.";
+    exit();
+}
+
+$stmtInsert->close();
+$stmtRes->close();
+
+// Configurar PHPMailer para enviar el correo
 $mail = new PHPMailer(); 
 try {
-    // Configuración del servidor SMTP
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'drackracer@gmail.com'; // Tu dirección de correo de Gmail
-    $mail->Password = 'iyphkooslbxszvsc'; // Contraseña de aplicación (sin espacios)
+    $mail->Username = 'drackracer@gmail.com';
+    $mail->Password = 'iyphkooslbxszvsc';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
-
-    // Habilitar la depuración SMTP
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
-    // Configurar los datos del mensaje
     $mail->setFrom('drackracer@gmail.com', 'Equipo de Retiro de Telas');
-    
-    // Dirección del usuario
     $mail->addAddress($usuarioEmail);
+    $mail->addAddress('drackracer@gmail.com'); // Copia al administrador
 
-    // Dirección del administrador (el mismo correo que envía)
-    $mail->addAddress('drackracer@gmail.com'); // Recibe una copia del correo
-
-    // Contenido del correo
     $mail->isHTML(true);
-    $mail->Subject = 'Confirmacion de Solicitud de Retiro de Telas ModuTex';
+    $mail->Subject = 'Confirmacion de Solicitud de Retiro de Telas';
     $mail->Body = "
     <p>Estimado/a {$_SESSION['rut_usuario']},</p>
-    <p>Gracias por enviar su solicitud de retiro de telas. A continuación los detalles de su solicitud:</p>
+    <p>Gracias por enviar su solicitud de retiro de telas. A continuación, los detalles de su solicitud:</p>
     <ul>
         <li><strong>Tipo de Tela:</strong> $tipoTela</li>
         <li><strong>Cantidad:</strong> $cantidad kg</li>
-        <li><strong>Dirección de Retiro:</strong> $direccionRetiro</li>
+        <li><strong>Dirección de Retiro:</strong> $direccion</li>
     </ul>
     <p>Nos pondremos en contacto pronto para confirmar los detalles.</p>
     <p>Saludos,<br>Equipo de Retiro de Telas</p>";
 
-    // Enviar el correo
     $mail->send();
-    echo "Correo enviado con éxito al usuario y al administrador (copia).";
+    echo "Correo enviado con éxito al usuario y al administrador.";
 } catch (Exception $e) {
     echo "Error al enviar el correo: {$mail->ErrorInfo}";
 }
