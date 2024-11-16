@@ -20,7 +20,6 @@ function confirmarFormulario() {
     const telefonoInput = document.getElementById("fono");
     const telefonoValue = telefonoInput.value.trim().replace(/\s+/g, ''); // Elimina espacios
 
-    // Si el teléfono no tiene el formato correcto, marcamos como inválido
     if (telefonoValue && !/^\+56\d{9}$/.test(telefonoValue)) {
         telefonoValido = false;
         telefonoInput.classList.add("is-invalid"); // Marca el campo como inválido
@@ -28,7 +27,6 @@ function confirmarFormulario() {
         telefonoInput.classList.remove("is-invalid"); // Si es válido, quita la clase
     }
 
-    // Si hay campos vacíos o teléfono inválido, mostramos un solo mensaje de error
     if (camposVacios) {
         let mensajeError = "Por favor, completa todos los campos.";
 
@@ -99,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const phoneNumber = value.slice(2, 2 + maxDigits);
         phoneInput.value = `+56 ${phoneNumber}`;
     
-        // Validar la longitud del teléfono (debe ser 9 dígitos después del prefijo)
         if (phoneNumber.length !== 9) {
             phoneInput.setCustomValidity("Teléfono inválido.");
             phoneInput.classList.add("is-invalid"); // Marca el campo como inválido
@@ -126,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Función para validar el teléfono y enviar el formulario si es válido
     window.validarYEnviarFormulario = function () {
         const form = document.getElementById('ingSucursales');
         // Validar el teléfono antes de enviar
@@ -163,27 +159,36 @@ function eliminarFormulario(id_dir) {
         if (result.isConfirmed) {
             // Hacer una solicitud a eliminar_sucursal.php usando Fetch API
             fetch(`crud_sucursales/eliminar_sucursal.php?id_dir=${id_dir}`)
-                .then(response => response.text())
+                .then(response => response.text()) // Leer respuesta como texto
                 .then(data => {
-                    Swal.fire({
-                        title: "¡Eliminado!",
-                        text: data,
-                        icon: "success"
-                    }).then(() => {
-                        // Redirigir o actualizar la página después de eliminar
-                        window.location.href = './sucursales.php';
-                    });
+                    if (data.includes("eliminada correctamente")) {
+                        Swal.fire({
+                            title: "¡Eliminado!",
+                            text: data,
+                            icon: "success"
+                        }).then(() => {
+                            // Redirigir o actualizar la página después de eliminar
+                            window.location.href = './sucursales.php';
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "¡Error!",
+                            text: data,
+                            icon: "error",
+                        });
+                    }
                 })
                 .catch(error => {
                     Swal.fire({
                         title: "¡Error!",
-                        text: "Hubo un error al eliminar la dirección.",
+                        text: "Hubo un error al procesar la solicitud.",
                         icon: "error"
                     });
                 });
         }
     });
 }
+
 
 //Actualizar sucursales
 document.addEventListener('DOMContentLoaded', (event) => {
