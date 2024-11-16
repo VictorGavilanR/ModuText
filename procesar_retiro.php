@@ -85,29 +85,32 @@ if (is_numeric($cantidad) && $cantidad > 0) {
     echo "Cantidad no válida.";
 }
 
-// Crear una nueva instancia de PHPMailer
 $mail = new PHPMailer(); 
 try {
     // Configuración del servidor SMTP
     $mail->isSMTP();
-$mail->Host = 'smtp.gmail.com';
-$mail->SMTPAuth = true;
-$mail->Username = 'drackracer@gmail.com'; // Tu dirección de correo de Gmail
-$mail->Password = 'iyphkooslbxszvsc'; // Contraseña de aplicación (sin espacios)
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 587;
-    $mail->SMTPDebug = 2;
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'drackracer@gmail.com'; // Tu dirección de correo de Gmail
+    $mail->Password = 'iyphkooslbxszvsc'; // Contraseña de aplicación (sin espacios)
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
 
     // Habilitar la depuración SMTP
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
     // Configurar los datos del mensaje
     $mail->setFrom('drackracer@gmail.com', 'Equipo de Retiro de Telas');
+    
+    // Dirección del usuario
     $mail->addAddress($usuarioEmail);
+
+    // Dirección del administrador (el mismo correo que envía)
+    $mail->addAddress('drackracer@gmail.com'); // Recibe una copia del correo
 
     // Contenido del correo
     $mail->isHTML(true);
-    $mail->Subject = 'Confirmacion de Solicitud de Retiro de Telas';
+    $mail->Subject = 'Confirmacion de Solicitud de Retiro de Telas ModuTex';
     $mail->Body = "
     <p>Estimado/a {$_SESSION['rut_usuario']},</p>
     <p>Gracias por enviar su solicitud de retiro de telas. A continuación los detalles de su solicitud:</p>
@@ -121,8 +124,7 @@ $mail->Port = 587;
 
     // Enviar el correo
     $mail->send();
-    echo "Correo enviado con éxito.";
+    echo "Correo enviado con éxito al usuario y al administrador (copia).";
 } catch (Exception $e) {
     echo "Error al enviar el correo: {$mail->ErrorInfo}";
 }
-?>
