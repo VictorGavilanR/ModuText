@@ -1025,7 +1025,6 @@ input, button, textarea, select {
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     flex: 1;
-    max-width: 200px;
     min-width: 150px; /* Para evitar que los elementos se vuelvan demasiado pequeños */
     margin-bottom: 20px;
 }
@@ -1034,15 +1033,25 @@ input, button, textarea, select {
 .counter-item h3 {
     font-size: 1.25rem;
     margin-bottom: 10px;
-    color: #555;
 }
 
 /* Estilo para los números de los contadores */
 .counter {
-    font-size: 2.5rem;
+    font-size: 2rem; /* Tamaño del número */
+    margin-left: 4px; /* Espacio entre el número y la unidad */
+
     font-weight: bold;
-    color: #601270;
+    color: var(--color-primario);
+    display: inline-block;
 }
+
+.counter .unit {
+    font-size: 1rem; /* Tamaño del texto "KG" o "CO₂" */
+    font-weight: normal; /* Opcional para hacer menos prominente la unidad */
+    margin-left: 4px; /* Espacio entre el número y la unidad */
+    color: inherit; /* Respetar el color del número */
+}
+
 
 /* Responsivo para pantallas medianas (tablets) */
 @media (max-width: 768px) {
@@ -1062,7 +1071,6 @@ input, button, textarea, select {
     }
 
     .counter-item {
-        max-width: 180px;
         padding: 15px;
     }
 

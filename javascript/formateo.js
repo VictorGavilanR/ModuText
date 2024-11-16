@@ -227,12 +227,18 @@ document.querySelectorAll('.toggle-password').forEach(function(button) {
 // Mostrar mensaje de éxito si el parámetro "registro=exitoso" está en la URL
 document.addEventListener('DOMContentLoaded', function() {
   const urlParams = new URLSearchParams(window.location.search);
+
+  // Mostrar mensaje de éxito si el parámetro "registro=exitoso" está presente
   if (urlParams.has('registro') && urlParams.get('registro') === 'exitoso') {
       Swal.fire({
           icon: 'success',
           title: 'Registro exitoso',
           text: '¡Tu cuenta ha sido creada con éxito!',
           confirmButtonText: 'Aceptar'
+      }).then(() => {
+          // Eliminar el parámetro "registro" de la URL después de mostrar el mensaje
+          const newUrl = window.location.origin + window.location.pathname;
+          window.history.replaceState({}, document.title, newUrl);
       });
   }
 

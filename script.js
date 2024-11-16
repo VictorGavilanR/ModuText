@@ -10,28 +10,25 @@ menu.onclick = () => {
 
 
 /*Contador*/
-
 document.addEventListener("DOMContentLoaded", () => {
   const counters = document.querySelectorAll(".counter");
   
   counters.forEach(counter => {
-      counter.innerText = '0';
-      
-      const updateCounter = () => {
-          const target = parseFloat(counter.getAttribute('data-target')); // Asegurarse de que sea un número
-          if (isNaN(target)) {
-              console.error("El valor de 'data-target' no es un número válido:", counter.getAttribute('data-target'));
-              return;
-          }
+      const target = parseInt(counter.getAttribute('data-target')); // Convertir a entero
+      const unitSpan = counter.querySelector(".unit"); // Encontrar el span de la unidad
+      const originalUnit = unitSpan.innerText; // Guardar el texto de la unidad
+      unitSpan.innerText = ""; // Temporalmente vaciar el contenido de la unidad
 
-          const current = parseFloat(counter.innerText);
-          const increment = target / 200; // Ajusta este valor para controlar la velocidad
-          
+      let current = 0;
+
+      const updateCounter = () => {
+          const increment = Math.ceil(target / 200); // Controla la velocidad
           if (current < target) {
-              counter.innerText = (current + increment).toFixed(2); // Incrementar con 2 decimales
-              setTimeout(updateCounter, 10);
+              current += increment;
+              counter.innerHTML = `${current}${originalUnit}`;
+              setTimeout(updateCounter, 10); // Velocidad de animación
           } else {
-              counter.innerText = Number.isInteger(target) ? target : target.toFixed(2);
+              counter.innerHTML = `${target}${originalUnit}`;
           }
       };
 
