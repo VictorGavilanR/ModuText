@@ -27,8 +27,8 @@ if ($id_dir && ($id_per || $id_emp)) {
 
     if ($stmt->affected_rows > 0) {
         header("Location: ../sucursales.php?updated=success");
-    } else {
-        header("Location: ../sucursales.php?updated=error");
+    } else if($stmt->affected_rows == 0) {
+        header("Location: ../sucursales.php?updated=no-changes");
     }
     $stmt->close();
 } else {
