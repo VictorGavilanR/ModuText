@@ -117,3 +117,5 @@ observer.observe(counterSection);
 observer.observe(proposito);
 objetivos.forEach(objetivo => observer.observe(objetivo));
 observer.observe(contacto);
+
+

@@ -352,7 +352,7 @@ input, button, textarea, select {
 }
 
 .card-button-home:hover {
-    background-color: var(--color-neutro-oscuro);
+    background-color: #0d8823;
 }
 
 .card-button-home:focus {
@@ -373,7 +373,7 @@ input, button, textarea, select {
 }
 
 .img-content img {
-    width: 30%;
+    width: 80%;
     position: absolute;
     bottom: 0px;
     right: 30px;
@@ -389,6 +389,12 @@ input, button, textarea, select {
         left: 3%;
         width: 50%; /* Expande el ancho del texto */
     }
+    #menu-icon {
+    font-size: 50px;
+    color: var(--color-primario);
+    cursor: pointer;
+    z-index: 10001;
+    }
 
     .text-content h2 {
         font-size: 1.5rem; /* Disminuye el tamaño del título */
@@ -403,7 +409,7 @@ input, button, textarea, select {
     }
 
     .img-content img {
-        width: 30%; /* Ajusta el tamaño de la imagen */
+        width: 56%; /* Ajusta el tamaño de la imagen */
     }
 }
 
@@ -424,7 +430,7 @@ input, button, textarea, select {
     }
 
     .img-content img {
-        width: 40%; /* Ajusta el tamaño de la imagen para pantallas pequeñas */
+        width: 70%; /* Ajusta el tamaño de la imagen para pantallas pequeñas */
     }
 }
 
@@ -589,7 +595,7 @@ input, button, textarea, select {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%; /* Asegura que las tarjetas ocupen todo el ancho en pantallas pequeñas */
     margin: 10px;
-    height: 550px;
+    height: 600px;
 }
 
 .card--derecha {
@@ -642,6 +648,7 @@ input, button, textarea, select {
 }
 
 .card-title {
+    margin-top: 50px;
     margin-bottom: 0.5rem;
     font-size: 1.5rem;
     font-weight: 700;

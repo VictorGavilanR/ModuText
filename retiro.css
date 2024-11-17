@@ -11,7 +11,6 @@ body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
     color: #F4F4F9;
-    background-color: #2C1A47;
 }
 
 h1, h2 {
@@ -31,46 +30,76 @@ form label {
 }
 
 .logo {
-    max-height: 100px;
+    max-height: 80px;
     margin-left: auto; /* Asegura que el logo se alinee a la derecha */
+
 }
 
 .main-container {
     display: flex;
     flex: 1;
-    background-color: #2C1A47; 
 }
 
 .left-section {
-    flex: 1; /* Ocupa 1/3 de la pantalla */
-    padding: 20px; /* Añade un poco de padding */
+    position: relative; /* Necesario para que el pseudo-elemento funcione */
+    flex: 1;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-end; /* Alinea los elementos hacia la derecha */
-    text-align: left; /* Alinea el texto hacia la derecha */
+    align-items: flex-end;
+    text-align: left;
+    background-color: rebeccapurple; /* Color base */
+    color: #F4F4F9;
+    overflow: hidden; /* Evita que el pseudo-elemento se salga del contenedor */
 }
+
+.left-section::before {
+    content: ''; /* Obligatorio para pseudo-elementos */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black; /* Color oscuro */
+    opacity: 0.5; /* Ajusta la opacidad para oscurecer */
+    z-index: 1; /* Asegúrate de que la capa oscura esté detrás del contenido */
+}
+
+.left-section * {
+    position: relative; /* Mantén el contenido por encima de la capa oscura */
+    z-index: 2;
+}
+
 
 .saludo {
     font-size: 20px;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
 }
 
 .right-section {
     flex: 2;
+    display: flex;
+    justify-content: center; /* Centra la imagen horizontalmente */
+    align-items: center; /* Centra la imagen verticalmente */
+}
+
+.right-section * {
+    position: relative;
+    z-index: 2;
 }
 
 .right-section img {
-    height: 100vh;
-    width: 100%;
-    object-fit: cover;
+    max-height: 100vh; /* Limita la altura máxima de la imagen */
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho */
+    object-fit: contain; /* Asegura que la imagen se ajuste sin distorsión */
 }
 
 a.logout-button {
     position: absolute;
     top: 10px;
     left: 20px;
-    background-color: #5F288F;
+    background-color: #7a3bb1;
     color: white;
     border-radius: 5px;
     text-decoration: none;
@@ -78,6 +107,7 @@ a.logout-button {
     font-family: 'Canada', sans-serif;
     padding: 10px 20px;
     border-radius: 5px;
+    z-index: 9999999;
 }
 
 a.logout-button:hover {
@@ -85,7 +115,7 @@ a.logout-button:hover {
 }
 
 .btn-primary {
-    background-color: #14c532;
+    background-color: #0bae27;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -95,7 +125,7 @@ a.logout-button:hover {
 }
 
 .btn-primary:hover {
-    background-color: #FFC857;
+    background-color: #0d8823;
 }
 
 /* Barra de rango */
@@ -131,6 +161,7 @@ input[type="range"]::-webkit-slider-thumb:active {
     }
 
     .right-section img {
+        margin-top: 70px;
         height: 80vh;
     }
 }
@@ -142,5 +173,7 @@ input[type="range"]::-webkit-slider-thumb:active {
 
     .right-section img {
         height: 40vh;
+        margin-top: 70px;
+
     }
 }

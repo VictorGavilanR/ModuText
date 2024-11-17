@@ -30,14 +30,14 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
 
     <div class="main-container">
         <div class="right-section">
-            <img src="img/lateral-retiro.jpg" class="img-fluid">
+            <img src="img/retiro.png">
         </div>
         <div class="left-section">
             <div class="d-flex justify-content-between align-items-start mt-4">
                 <img class="logo" src="./img/Marca - Blanco.png" alt="">
             </div>
             <div class="container">
-                <form id="retiroForm">
+                <form  id="retiroForm">
                     <h2 class="saludo">
                         <?php echo "Hola, " . $_SESSION["rut_usuario"]; ?>
                     </h2>

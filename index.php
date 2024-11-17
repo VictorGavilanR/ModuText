@@ -52,7 +52,8 @@ include 'controlador/controlador_kilos.php';
                 </a>
             </div>
             <div class="img-content">
-                <img src="img/pixelcut-export.png" alt="Descripción de la imagen" >
+                
+                <img src="img/imagen-inicio-morado.png" alt="Descripción de la imagen" >
             </div>
         </div>
     </div>
@@ -91,7 +92,7 @@ include 'controlador/controlador_kilos.php';
       </div>
 
     <!--Vision - Mision -->
-    <div class="mision-vision  ">
+    <div class="mision-vision ">
         <div class="card card--izquierda">
             <div class="mision-vision-contenedor">
                 <a href="#">
@@ -104,15 +105,12 @@ include 'controlador/controlador_kilos.php';
                     <h5 class="card-title">Misión</h5>
                 </a>
                 <p class="card-description">Nuestra misión es reducir el impacto ambiental de la industria textil a través de la revalorización de residuos textiles. Transformamos desechos en revestimientos sólidos y duraderos, contribuyendo a una economía circular y ayudando a las empresas a cumplir con las normativas ambientales."</p>
-
             </div>
         </div>
     
         <div class="card card--derecha  ">
             <div class="mision-vision-contenedor">
-                <a href="#">
-                    <img class="card-img" src="img/vision.png" alt="" />
-                </a>
+                    <img class="card-img" src="img/visi.png" alt="" />
             </div>
             <div class="card-content">
                 <a href="#">
@@ -302,7 +300,6 @@ include 'controlador/controlador_kilos.php';
     </div>
 </footer>
     
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
