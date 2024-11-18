@@ -246,16 +246,16 @@ include 'controlador/controlador_kilos.php';
     <!-- Información de contacto -->
     <div class="contact-info mt-5 text-center">
         <ul class="contact-list">
-            <li><i class='bx bxs-map' style='color:#5f288f' ></i> Av. Siempre Viva</li>
-            <li><i class='bx bxs-phone' style='color:#5f288f' ></i> +5699999999</li>
-            <li><i class='bx bx-envelope' style='color:#5f288f' ></i> correo@modutex.cl</li>
+            <li><i class='bx bxs-map' style='color:#5f288f' ></i> Bartolomé del Pozo 259 N°22, Concepción</li>
+            <li><i class='bx bxs-phone' style='color:#5f288f' ></i> +56935541069</li>
+            <li><i class='bx bx-envelope' style='color:#5f288f' ></i> modulartex@gmail.com</li>
         </ul>
 
         <!-- Redes Sociales -->
         <div class="social-media mt-4">
             <a href="#" class="social-icon"><i class='bx bxl-facebook' style='color:#5f288f'  ></i></a>
-            <a href="#" class="social-icon"><i class='bx bxl-instagram-alt' style='color:#5f288f' ></i></a>
-            <a href="#" class="social-icon"><i class='bx bx-world' style='color:#5f288f'></i></a>
+            <a href="https://www.instagram.com/modutex_biobio/" class="social-icon"><i class='bx bxl-instagram-alt' style='color:#5f288f' ></i></a>
+            <a href="https://www.linkedin.com/in/modular-tex-37533a319/" class="social-icon"><i class='bx bxl-linkedin' style='color:#5f288f'></i></a>
         </div>
     </div>
 </div>
@@ -271,8 +271,8 @@ include 'controlador/controlador_kilos.php';
                     <p>Soluciones y diseños sostenibles.</p>
                     <div class="footer-social">
                         <a href="#"><i class='bx bxl-facebook'></i></a>
-                        <a href="#"><i class='bx bxl-instagram' ></i></a>
-                        <a href="#"><i class='bx bxl-tiktok' ></i></a>
+                        <a href="https://www.instagram.com/modutex_biobio/"><i class='bx bxl-instagram' ></i></a>
+                        <a href="https://www.linkedin.com/in/modular-tex-37533a319/"><i class='bx bxl-linkedin' ></i></a>
                     </div>
                 </div>
                 <div class="single-footer single-footer-menu">
@@ -285,12 +285,12 @@ include 'controlador/controlador_kilos.php';
                     </ul>
                 </div>
                 <div class="single-footer single-footer-contacto">
-                    <h4>Contácto</h4>
+                    <h4>Contacto</h4>
                     <ul>
-                        <li><a href="#"><i class='bx bx-map' ></i>direccion #3432</a></li>
-                        <li><a href="#"><i class='bx bx-mobile' ></i>+56999999</a></li>
-                        <li><a href="#"><i class='bx bx-envelope' ></i>modutext@gmail.com</a></li>
-                        <li><a href="#"><i class='bx bx-globe' ></i>www.modutex.com</a></li>
+                        <li><i class='bx bx-map' ></i>Bartolomé del Pozo 259 N°22, Concepción</a></li>
+                        <li><i class='bx bx-mobile' ></i>+56935541069</a></li>
+                        <li><i class='bx bx-envelope' ></i>modulartex@gmail.com</a></li>
+                        <li><i class='bx bx-globe' ></i>www.modutex.com</a></li>
                     </ul>
                 </div>
             </div>
