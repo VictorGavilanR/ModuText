@@ -200,30 +200,73 @@ ul.sucursal-list li {
 }
 
 /* Estilos para los botones de SweetAlert2 */
-.swal2-confirm,
-.swal2-cancel,
-.swal2-deny {
-    background-color: #5F288F !important; /* Color de fondo */
-    color: white !important; /* Color del texto */
-    border: none !important; /* Sin borde */
-    border-radius: 5px !important; /* Borde redondeado */
-    padding: 10px 20px !important; /* Espaciado interno */
-    font-family: 'Canada', sans-serif !important; /* Fuente */
-    font-size: 16px !important; /* Tamaño de fuente */
-    margin: 5px !important; /* Margen entre botones */
-    box-sizing: border-box !important; /* Asegura que el padding esté incluido en el ancho */
+
+/* Botón Confirmar (Morado) */
+.btn-morado {
+    background-color: #5F288F !important; /* Color morado */
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 10px 15px !important;
+    font-size: 14px !important;
 }
 
-/* Estilo de los botones al pasar el ratón */
-.swal2-confirm:hover,
-.swal2-deny:hover {
-    background-color: #14c532 !important; /* Color de fondo al pasar el ratón */
+.btn-morado:hover {
+    background-color: #7a3fb5 !important; /* Morado más claro */
+}
+
+/* Botón Cancelar (Rojo) */
+.btn-rojo {
+    background-color: #d32f2f !important; /* Color rojo */
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 10px 15px !important;
+    font-size: 14px !important;
+}
+
+.btn-rojo:hover {
+    background-color: #b71c1c !important; /* Rojo más oscuro */
+}
+/* Botón Confirmar - Morado */
+.swal2-confirm {
+    background-color: #fc0101 !important; /* Morado */
+    color: white !important; /* Color del texto */
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 10px 20px !important;
+    font-family: 'Canada', sans-serif !important;
+    font-size: 16px !important;
+    margin: 5px !important;
+    box-sizing: border-box !important;
+    box-shadow: none !important;
+
+    
+}
+
+/* Botón Cancelar - Rojo */
+.swal2-cancel {
+    background-color: #5F288F!important; /* Rojo */
+    color: white !important; /* Color del texto */
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 10px 20px !important;
+    font-family: 'Canada', sans-serif !important;
+    font-size: 16px !important;
+    margin: 5px !important;
+    box-sizing: border-box !important;
+    box-shadow: none !important;
+}
+
+/* Efectos hover */
+.swal2-confirm:hover {
+    background-color:  #b71c1c !important; /* Morado más claro */
 }
 
 .swal2-cancel:hover {
-    background-color: darkgray !important; /* Color de fondo al pasar el ratón */
+    background-color: #7a3fb5 !important; /* Rojo más oscuro */
 }
-/* Estilo para el botón deshabilitado */
+
 
 
 /* Ajustes generales para pantallas pequeñas */

@@ -68,7 +68,7 @@ include 'controlador/controlador_kilos.php';
           </div>
           <div class="contenedor__texto">
             <h2 class="contenedor__titulo">¿Quiénes somos?</h2>
-            <p class="contenedor__descripcion">   <span class="verde">En Modutex</span>, somos una empresa comprometida con la <span class="verdeverdeenibilidad</span> y la <span class="verde">innovación</span>. Nacimos para enfrentar la <span class="verde">problemática de los residuos textiles</span>, buscando soluciones que contribuyan a la <span class="verde">economía circular</span>. A través de un <span class="verde">proceso avanzado de reciclaje</span> y un <span class="verde">ecosistema digital</span> para la gestión eficiente de residuos, transformamos desechos en productos útiles y responsables con el medio ambiente. Nuestro <span class="verde">material termoacústico</span>, elaborado a partir de <span class="verde">textiles reciclados</span>, es una muestra de nuestro compromiso con la sostenibilidad, ofreciendo soluciones para la <span class="verde">construcción y decoración de interiores</span>, alineadas con nuestros valores de <span class="verde">diseño y responsabilidad ambiental</span>.
+            <p class="contenedor__descripcion">   <span class="morado">En Modutex</span>, somos una empresa comprometida con la <span class="morado">innovación</span>. Nacimos para enfrentar la <span class="morado">problemática de los residuos textiles</span>, buscando soluciones que contribuyan a la <span class="morado">economía circular</span>. A través de un <span class="morado">proceso avanzado de reciclaje</span> y un <span class="morado">ecosistema digital</span> para la gestión eficiente de residuos, transformamos desechos en productos útiles y responsables con el medio ambiente. Nuestro <span class="morado">material termoacústico</span>, elaborado a partir de <span class="morado">textiles reciclados</span>, es una muestra de nuestro compromiso con la sostenibilidad, ofreciendo soluciones para la <span class="morado">construcción y decoración de interiores</span>, alineadas con nuestros valores de <span class="morado">diseño y responsabilidad ambiental</span>.
 
           </div>
         </div>
@@ -111,7 +111,7 @@ include 'controlador/controlador_kilos.php';
     
         <div class="card card--derecha  ">
             <div class="mision-vision-contenedor">
-                    <img class="card-img" src="img/visi.png" alt="" />
+                    <img class="card-img" src="img/vision.png" alt="" />
             </div>
             <div class="card-content">
                 <a href="#">
@@ -252,18 +252,31 @@ include 'controlador/controlador_kilos.php';
 
     <!-- El resto del código permanece igual -->
     <div class="contact-info mt-5 text-center">
-        <ul class="contact-list">
-            <li><i class='bx bxs-map' style='color:#5f288f'></i> Bartolomé del Pozo 259 N°22, Concepción</li>
-            <li><i class='bx bxs-phone' style='color:#5f288f'></i> +56935541069</li>
-            <li><i class='bx bx-envelope' style='color:#5f288f'></i> modulartex@gmail.com</li>
-        </ul>
+    <ul class="contact-list">
+    <li>
+        <a href="https://www.google.com/maps?q=Bartolomé+del+Pozo+259+N°22,+Concepción" target="_blank">
+            <i class='bx bxs-map' style='color:#5f288f'></i> Bartolomé del Pozo 259 N°22, Concepción
+        </a>
+    </li>
+    <li>
+        <a href="tel:+56935541069">
+            <i class='bx bxs-phone' style='color:#5f288f'></i> +56935541069
+        </a>
+    </li>
+    <li>
+        <a href="mailto:modulartex@gmail.com">
+            <i class='bx bx-envelope' style='color:#5f288f'></i> modulartex@gmail.com
+        </a>
+    </li>
+</ul>
+
 
         <div class="social-media mt-4">
             
           <!--  <a href="#" class="social-icon"><i class='bx bxl-facebook' style='color:#5f288f'></i></a> -->
             
-            <a href="https://www.instagram.com/modutex_biobio/" class="social-icon"><i class='bx bxl-instagram-alt' style='color:#5f288f'></i></a>
-            <a href="https://www.linkedin.com/in/modular-tex-37533a319/" class="social-icon"><i class='bx bxl-linkedin' style='color:#5f288f'></i></a>
+            <a href="https://www.instagram.com/modutex_biobio/" target="_blank" class="social-icon"><i class='bx bxl-instagram-alt' style='color:#5f288f'></i></a>
+            <a href="https://www.linkedin.com/in/modular-tex-37533a319/" target="_blank" class="social-icon"><i class='bx bxl-linkedin' style='color:#5f288f'></i></a>
         </div>
     </div>
 </div>
@@ -282,9 +295,8 @@ include 'controlador/controlador_kilos.php';
 
                     <p>Soluciones y diseños sostenibles.</p>
                     <div class="footer-social">
-                        <a href="#"><i class='bx bxl-facebook'></i></a>
-                        <a href="https://www.instagram.com/modutex_biobio/"><i class='bx bxl-instagram' ></i></a>
-                        <a href="https://www.linkedin.com/in/modular-tex-37533a319/"><i class='bx bxl-linkedin' ></i></a>
+                        <a href="https://www.instagram.com/modutex_biobio/" target="_blank"><i class='bx bxl-instagram' ></i></a>
+                        <a href="https://www.linkedin.com/in/modular-tex-37533a319/" target="_blank"><i class='bx bxl-linkedin' ></i></a>
                     </div>
                 </div>
                 <div class="single-footer single-footer-menu">
@@ -299,10 +311,30 @@ include 'controlador/controlador_kilos.php';
                 <div class="single-footer single-footer-contacto">
                     <h4>Contacto</h4>
                     <ul>
-                        <li><i class='bx bx-map' ></i>Bartolomé del Pozo 259 N°22, Concepción</a></li>
-                        <li><i class='bx bx-mobile' ></i>+56935541069</a></li>
-                        <li><i class='bx bx-envelope' ></i>modulartex@gmail.com</a></li>
-                        <li><i class='bx bx-globe' ></i>www.modutex.com</a></li>
+                        <li>
+                            <i class='bx bx-map'></i>
+                            <a href="https://www.google.com/maps?q=Bartolomé+del+Pozo+259+N°22,+Concepción" target="_blank">
+                                Bartolomé del Pozo 259 N°22, Concepción
+                            </a>
+                        </li>
+                        <li>
+                            <i class='bx bx-mobile'></i>
+                            <a href="tel:+56935541069">
+                                +56935541069
+                            </a>
+                        </li>
+                        <li>
+                            <i class='bx bx-envelope'></i>
+                            <a href="mailto:modulartex@gmail.com">
+                                modulartex@gmail.com
+                            </a>
+                        </li>
+                        <li>
+                            <i class='bx bx-globe'></i>
+                            <a href="https://www.modutex.com" target="_blank">
+                                www.modutex.com
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -317,19 +349,26 @@ include 'controlador/controlador_kilos.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="script.js"></script>
     <!-- scritp contacto -->
-<script>
+   
+    <script>
 document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    
+
     const formData = new FormData(this);
 
-    // Mostrar el spinner de carga
+    // Mostrar un SweetAlert2 con una imagen personalizada de carga con rotación
     Swal.fire({
         title: 'Enviando...',
-        text: 'Por favor espera un momento.',
+        html: `
+            <div style="display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                <img src="img/Marca - Color.png" alt="Cargando" 
+                    style="width: 50px; height: 50px; animation: spin 2s linear infinite;">
+            </div>
+        `,
+        showConfirmButton: false,
         allowOutsideClick: false,
-        didOpen: () => {
-            Swal.showLoading(); // Activa el spinner
+        customClass: {
+            popup: 'no-scroll-popup'
         }
     });
 
@@ -339,7 +378,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     })
     .then(response => response.json())
     .then(data => {
-        // Cerrar el spinner
+        // Cerrar el SweetAlert2
         Swal.close();
 
         // Mostrar mensaje basado en la respuesta del servidor
@@ -363,7 +402,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         }
     })
     .catch(error => {
-        // Cerrar el spinner
+        // Cerrar el SweetAlert2
         Swal.close();
 
         console.error('Error:', error);
@@ -377,6 +416,29 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     });
 });
 </script>
+
+<style>
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Evitar desbordamiento y barra de scroll */
+.no-scroll-popup {
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 0;
+}
+
+.swal2-popup {
+    margin: 0 auto; /* Centrado en el viewport */
+}
+</style>
 
 </body>
 </html>

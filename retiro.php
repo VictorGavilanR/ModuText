@@ -82,8 +82,10 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
                             ?>
                                 <option value="<?php echo $sucursal['id_dir']; ?>">
                                     <?php
-                                        echo htmlspecialchars($sucursal['comuna_dir']) . " - " .
+                                        echo 
+                                           
                                             htmlspecialchars($sucursal['nom_dir']) . " - " .
+                                            htmlspecialchars($sucursal['comuna_dir']) . " - " .
                                             htmlspecialchars($sucursal['calle_dir']) . " " . 
                                             htmlspecialchars($sucursal['num_calle_dir']);
                                     ?>
