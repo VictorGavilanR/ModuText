@@ -231,34 +231,79 @@ include 'controlador/controlador_kilos.php';
     </p>
 
     <div class="contact-form">
-        <form>
-          <label  for="name">Nombre:</label>
-          <input type="text" required="" placeholder="Ingrese Nombre">
+        <!-- Removemos el action y agregamos un id al formulario -->
+        <form id="contactForm" method="POST">
+          <label for="name">Nombre:</label>
+          <input type="text" id="name" name="name" required>
+          
           <label for="email">Correo:</label>
-          <input type="email" id="email" name="email" required="" placeholder="Ingrese Correo">
-          <label for="message">Mensaje</label>
-          <textarea id="message"  name="message" required="" ></textarea>
+          <input type="email" id="email" name="email" required>
+          
+          <label for="message">Mensaje:</label>
+          <textarea id="message" name="message" required></textarea>
+          
           <button type="submit">Enviar Correo</button>
         </form>
-      </div>
-      
+        
+        <!-- Agregamos un div para mostrar mensajes -->
+        <div id="formMessage" class="mt-3" style="display: none;"></div>
+    </div>
 
-    <!-- Información de contacto -->
+    <!-- El resto del código permanece igual -->
     <div class="contact-info mt-5 text-center">
         <ul class="contact-list">
-            <li><i class='bx bxs-map' style='color:#5f288f' ></i> Bartolomé del Pozo 259 N°22, Concepción</li>
-            <li><i class='bx bxs-phone' style='color:#5f288f' ></i> +56935541069</li>
-            <li><i class='bx bx-envelope' style='color:#5f288f' ></i> modulartex@gmail.com</li>
+            <li><i class='bx bxs-map' style='color:#5f288f'></i> Bartolomé del Pozo 259 N°22, Concepción</li>
+            <li><i class='bx bxs-phone' style='color:#5f288f'></i> +56935541069</li>
+            <li><i class='bx bx-envelope' style='color:#5f288f'></i> modulartex@gmail.com</li>
         </ul>
 
-        <!-- Redes Sociales -->
         <div class="social-media mt-4">
-            <a href="#" class="social-icon"><i class='bx bxl-facebook' style='color:#5f288f'  ></i></a>
-            <a href="https://www.instagram.com/modutex_biobio/" class="social-icon"><i class='bx bxl-instagram-alt' style='color:#5f288f' ></i></a>
+            <a href="#" class="social-icon"><i class='bx bxl-facebook' style='color:#5f288f'></i></a>
+            <a href="https://www.instagram.com/modutex_biobio/" class="social-icon"><i class='bx bxl-instagram-alt' style='color:#5f288f'></i></a>
             <a href="https://www.linkedin.com/in/modular-tex-37533a319/" class="social-icon"><i class='bx bxl-linkedin' style='color:#5f288f'></i></a>
         </div>
     </div>
 </div>
+
+<!-- scritp contacto -->
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('enviar_correo.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        const messageDiv = document.getElementById('formMessage');
+        messageDiv.style.display = 'block';
+        
+        if(data.status === 'success') {
+            messageDiv.className = 'alert alert-success';
+            messageDiv.innerHTML = data.message;
+            document.getElementById('contactForm').reset();
+        } else {
+            messageDiv.className = 'alert alert-danger';
+            messageDiv.innerHTML = data.message;
+        }
+        
+        // Ocultar el mensaje después de 5 segundos
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 5000);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        const messageDiv = document.getElementById('formMessage');
+        messageDiv.style.display = 'block';
+        messageDiv.className = 'alert alert-danger';
+        messageDiv.innerHTML = 'Error en el envío. Por favor, intenta nuevamente.';
+    });
+});
+</script>
 
 <!--FOOTER-->
      <footer class="footer-area">

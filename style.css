@@ -1284,6 +1284,24 @@ textarea {
         height: 28px;
     }
 }
+/*alerta*/
+.alert {
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
 
 /* Media queries para tabletas */
 @media (max-width: 1024px) {
