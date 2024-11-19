@@ -276,3 +276,21 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   });
 });
+
+//Bloquear boton registro
+document.addEventListener("DOMContentLoaded", function () {
+  const tipoUsuarioSelect = document.getElementById("tipo_usuario");
+  const registerButton = document.getElementById("registerButton");
+
+  // Agregar atributo disabled al botón al cargar la página
+  registerButton.disabled = true;
+
+  // Habilitar o deshabilitar el botón según la selección
+  tipoUsuarioSelect.addEventListener("change", function () {
+      if (tipoUsuarioSelect.value !== "") {
+          registerButton.disabled = false;
+      } else {
+          registerButton.disabled = true;
+      }
+  });
+});

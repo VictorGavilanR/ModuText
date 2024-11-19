@@ -152,7 +152,7 @@
                     </div>
                 </div>
 
-                <button type="submit" name="btnregistrar" class="btn btn-primary">Registrarse</button>
+                <button type="submit" name="btnregistrar" id="registerButton" class="btn btn-primary">Registrarse</button>
                 <p class="toggle-text">¿Ya tienes una cuenta? <a href="#" id="showLogin">Inicia sesión</a></p>
             </form>
         </div>

@@ -59,7 +59,7 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
                         <label for="cantidad" class="form-label">Cantidad (kg)</label>
                         <input type="range" id="sliderValue" class="form-range" min="1" max="300" value="25" oninput="syncManualInput(this.value)">
                         <div class="input-group">
-                            <input type="number" class="form-control" id="cantidadManual" name="cantidad" min="1" max="300" value="150.5" step="0.01" oninput="syncSliderInput(this.value)">
+                            <input type="number" class="form-control" id="cantidadManual" name="cantidad" min="1" max="300" value="150.5" step="0.1" oninput="syncSliderInput(this.value)">
                             <span class="input-group-text">kg</span>
                         </div>
                     </div>
@@ -100,8 +100,8 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
                     Solicitud de retiro enviada con éxito.
                 </div>
                 <div id="errorMessage" class="alert alert-danger mt-4" style="display: none;">
-    Por favor, completa todos los campos obligatorios antes de enviar la solicitud.
-</div>
+                    Por favor, completa todos los campos obligatorios antes de enviar la solicitud.
+                </div>
             </div>
         </div>
     </div>
