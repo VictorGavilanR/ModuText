@@ -16,6 +16,7 @@ include 'controlador/controlador_kilos.php';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>ModuTex</title>
 </head>
@@ -258,52 +259,18 @@ include 'controlador/controlador_kilos.php';
         </ul>
 
         <div class="social-media mt-4">
-            <a href="#" class="social-icon"><i class='bx bxl-facebook' style='color:#5f288f'></i></a>
+            
+          <!--  <a href="#" class="social-icon"><i class='bx bxl-facebook' style='color:#5f288f'></i></a> -->
+            
             <a href="https://www.instagram.com/modutex_biobio/" class="social-icon"><i class='bx bxl-instagram-alt' style='color:#5f288f'></i></a>
             <a href="https://www.linkedin.com/in/modular-tex-37533a319/" class="social-icon"><i class='bx bxl-linkedin' style='color:#5f288f'></i></a>
         </div>
     </div>
 </div>
 
-<!-- scritp contacto -->
-<script>
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(this);
-    
-    fetch('enviar_correo.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        const messageDiv = document.getElementById('formMessage');
-        messageDiv.style.display = 'block';
-        
-        if(data.status === 'success') {
-            messageDiv.className = 'alert alert-success';
-            messageDiv.innerHTML = data.message;
-            document.getElementById('contactForm').reset();
-        } else {
-            messageDiv.className = 'alert alert-danger';
-            messageDiv.innerHTML = data.message;
-        }
-        
-        // Ocultar el mensaje después de 5 segundos
-        setTimeout(() => {
-            messageDiv.style.display = 'none';
-        }, 5000);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        const messageDiv = document.getElementById('formMessage');
-        messageDiv.style.display = 'block';
-        messageDiv.className = 'alert alert-danger';
-        messageDiv.innerHTML = 'Error en el envío. Por favor, intenta nuevamente.';
-    });
-});
-</script>
+
+
+
 
 <!--FOOTER-->
      <footer class="footer-area">
@@ -349,6 +316,67 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="script.js"></script>
+    <!-- scritp contacto -->
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+
+    // Mostrar el spinner de carga
+    Swal.fire({
+        title: 'Enviando...',
+        text: 'Por favor espera un momento.',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading(); // Activa el spinner
+        }
+    });
+
+    fetch('enviar_correo.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Cerrar el spinner
+        Swal.close();
+
+        // Mostrar mensaje basado en la respuesta del servidor
+        if (data.status === 'success') {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: data.message,
+                confirmButtonText: 'OK',
+                timer: 5000
+            });
+            document.getElementById('contactForm').reset(); // Limpiar el formulario
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message,
+                confirmButtonText: 'OK',
+                timer: 5000
+            });
+        }
+    })
+    .catch(error => {
+        // Cerrar el spinner
+        Swal.close();
+
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error en el envío. Por favor, intenta nuevamente.',
+            confirmButtonText: 'OK',
+            timer: 5000
+        });
+    });
+});
+</script>
 
 </body>
 </html>

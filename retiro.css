@@ -123,6 +123,13 @@ a.logout-button:hover {
     margin-top: 20px;
     font-family: 'Canada', sans-serif;
 }
+/* Estilo para el botón deshabilitado */
+button:disabled {
+    background-color: #5f288f; /* Morado oscuro */
+    color: #ffffff; /* Texto blanco para mejor contraste */
+    cursor: not-allowed; /* Cambia el cursor para indicar que está deshabilitado */
+    opacity: 0.7; /* Añade un efecto visual para destacar que está inactivo */
+}
 
 .btn-primary:hover {
     background-color: #0d8823;
