@@ -638,6 +638,13 @@ input, button, textarea, select {
     height: 300px;
 
 }
+/* Estilo para el botón deshabilitado */
+button:disabled {
+    background-color: #5f288f; /* Morado oscuro */
+    color: #ffffff; /* Texto blanco para mejor contraste */
+    cursor: not-allowed; /* Cambia el cursor para indicar que está deshabilitado */
+    opacity: 0.7; /* Añade un efecto visual para destacar que está inactivo */
+}
 
 
 .card-content {
@@ -1560,4 +1567,63 @@ textarea {
     font-size: 16px;
     color: #666;
     margin-bottom: 20px;
+}
+
+/* Contenedor principal de SweetAlert2 */
+.swal2-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999 !important;
+}
+
+/* Popup de SweetAlert2 */
+.swal2-popup {
+    width: 90% !important; /* Ancho relativo para dispositivos pequeños */
+    max-width: 500px !important; /* Máximo ancho para dispositivos más grandes */
+    max-height: 80% !important; /* Máxima altura para evitar overflow en dispositivos pequeños */
+    overflow: auto !important; /* Permitir desplazamiento si es necesario */
+    padding: 20px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important; /* Asegura que el padding esté incluido en el ancho */
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 600px) {
+    .swal2-popup {
+        padding: 10px !important; /* Reducir padding en dispositivos pequeños */
+        font-size: 14px !important; /* Ajustar tamaño de fuente en dispositivos pequeños */
+    }
+}
+
+/* Estilos para los botones de SweetAlert2 */
+.swal2-confirm,
+.swal2-cancel,
+.swal2-deny {
+    background-color: #5F288F !important; /* Color de fondo */
+    color: white !important; /* Color del texto */
+    border: none !important; /* Sin borde */
+    border-radius: 5px !important; /* Borde redondeado */
+    padding: 10px 20px !important; /* Espaciado interno */
+    font-family: 'Canada', sans-serif !important; /* Fuente */
+    font-size: 16px !important; /* Tamaño de fuente */
+    margin: 5px !important; /* Margen entre botones */
+    box-sizing: border-box !important; /* Asegura que el padding esté incluido en el ancho */
+}
+
+/* Estilo de los botones al pasar el ratón */
+.swal2-confirm:hover,
+.swal2-deny:hover {
+    background-color: #14c532 !important; /* Color de fondo al pasar el ratón */
+}
+
+.swal2-cancel:hover {
+    background-color: darkgray !important; /* Color de fondo al pasar el ratón */
 }

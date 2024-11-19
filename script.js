@@ -119,3 +119,4 @@ objetivos.forEach(objetivo => observer.observe(objetivo));
 observer.observe(contacto);
 
 
+// Mensaje de contacto

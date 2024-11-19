@@ -223,6 +223,7 @@ ul.sucursal-list li {
 .swal2-cancel:hover {
     background-color: darkgray !important; /* Color de fondo al pasar el ratón */
 }
+/* Estilo para el botón deshabilitado */
 
 
 /* Ajustes generales para pantallas pequeñas */
