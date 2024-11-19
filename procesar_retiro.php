@@ -1,5 +1,6 @@
 <?php
 session_start();
+header('Content-Type: application/json'); // Aseguramos que la respuesta sea JSON
 
 // Incluir PHPMailer y conexión
 require 'PHPMailer/PHPMailer.php';  
@@ -11,84 +12,97 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// Verificar si el usuario está logueado
-if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
+// Preparar la respuesta JSON
+$response = array(
+    'status' => 'error',
+    'message' => 'Ocurrió un error desconocido'
+);
+
+try {
+    // Verificar si el usuario está logueado
+    if (!isset($_SESSION["rut_usuario"]) || !isset($_SESSION["email_usuario"])) {
+        throw new Exception('No se han encontrado los datos del usuario en la sesión.');
+    }
+
     $rutUsuario = $_SESSION["rut_usuario"];
     $usuarioEmail = $_SESSION["email_usuario"];
-} else {
-    echo "Error: No se han encontrado los datos del usuario en la sesión.";
-    exit();
-}
 
-// Obtener datos del formulario
-$tipoTela = $_POST['tipoTela'];
-$cantidad = $_POST['cantidad'];
-$direccionRetiro = $_POST['direccionRetiro']; // Esto contiene el id_dir enviado desde el formulario
+    // Verificar si se recibieron los datos del formulario
+    if (!isset($_POST['tipoTela']) || !isset($_POST['cantidad']) || !isset($_POST['direccionRetiro'])) {
+        throw new Exception('Datos del formulario incompletos.');
+    }
 
-// Validar cantidad
-if (!is_numeric($cantidad) || $cantidad <= 0) {
-    echo "Cantidad no válida.";
-    exit();
-}
+    // Obtener datos del formulario
+    $tipoTela = $_POST['tipoTela'];
+    $cantidad = $_POST['cantidad'];
+    $direccionRetiro = $_POST['direccionRetiro'];
 
-// Obtener la dirección completa desde la base de datos usando el id_dir
-$queryDir = "SELECT nom_dir, calle_dir, num_calle_dir, comuna_dir 
-             FROM direccion_retiro 
-             WHERE id_dir = ?";
-$stmtDir = $conexion->prepare($queryDir);
+    // Validar cantidad
+    if (!is_numeric($cantidad) || $cantidad <= 0) {
+        throw new Exception('Cantidad no válida.');
+    }
 
-if ($stmtDir === false) {
-    echo "Error al preparar la consulta de dirección: " . $conexion->error;
-    exit();
-}
+    // Obtener la dirección completa
+    $queryDir = "SELECT nom_dir, calle_dir, num_calle_dir, comuna_dir 
+                 FROM direccion_retiro 
+                 WHERE id_dir = ?";
+    $stmtDir = $conexion->prepare($queryDir);
+    
+    if (!$stmtDir) {
+        throw new Exception('Error al preparar la consulta de dirección: ' . $conexion->error);
+    }
 
-$stmtDir->bind_param("i", $direccionRetiro);
-$stmtDir->execute();
-$resultDir = $stmtDir->get_result();
+    $stmtDir->bind_param("i", $direccionRetiro);
+    $stmtDir->execute();
+    $resultDir = $stmtDir->get_result();
 
-if ($resultDir->num_rows > 0) {
+    if ($resultDir->num_rows == 0) {
+        throw new Exception('No se encontró la dirección especificada.');
+    }
+
     $rowDir = $resultDir->fetch_assoc();
     $direccion = $rowDir['nom_dir'] . ", " . $rowDir['calle_dir'] . " " . $rowDir['num_calle_dir'] . ", " . $rowDir['comuna_dir'];
-} else {
-    echo "Error: No se encontró la dirección especificada.";
-    exit();
-}
+    $stmtDir->close();
 
-$stmtDir->close();
+    // Obtener ID del residuo
+    $queryRes = "SELECT id_res FROM residuo WHERE nombre_res = ?";
+    $stmtRes = $conexion->prepare($queryRes);
+    
+    if (!$stmtRes) {
+        throw new Exception('Error al preparar la consulta de residuo: ' . $conexion->error);
+    }
 
-// Insertar solicitud en la base de datos
-$fechaSolicitud = date('Y-m-d H:i:s');
-$queryInsert = "INSERT INTO solicitud (rut_usuario, id_dir, id_res, fecha_sol, cant_res) VALUES (?, ?, ?, ?, ?)";
-$stmtInsert = $conexion->prepare($queryInsert);
+    $stmtRes->bind_param("s", $tipoTela);
+    $stmtRes->execute();
+    $resultRes = $stmtRes->get_result();
 
-if ($stmtInsert === false) {
-    echo "Error al preparar la consulta de inserción: " . $conexion->error;
-    exit();
-}
+    if ($resultRes->num_rows == 0) {
+        throw new Exception('No se encontró el tipo de tela especificado.');
+    }
 
-$queryRes = "SELECT id_res FROM residuo WHERE nombre_res = ?";
-$stmtRes = $conexion->prepare($queryRes);
-
-$stmtRes->bind_param("s", $tipoTela);
-$stmtRes->execute();
-$resultRes = $stmtRes->get_result();
-
-if ($resultRes->num_rows > 0) {
     $rowRes = $resultRes->fetch_assoc();
     $id_residuo = $rowRes['id_res'];
+    $stmtRes->close();
+
+    // Insertar solicitud
+    $fechaSolicitud = date('Y-m-d H:i:s');
+    $queryInsert = "INSERT INTO solicitud (rut_usuario, id_dir, id_res, fecha_sol, cant_res) VALUES (?, ?, ?, ?, ?)";
+    $stmtInsert = $conexion->prepare($queryInsert);
+    
+    if (!$stmtInsert) {
+        throw new Exception('Error al preparar la consulta de inserción: ' . $conexion->error);
+    }
+
     $stmtInsert->bind_param("siiss", $rutUsuario, $direccionRetiro, $id_residuo, $fechaSolicitud, $cantidad);
-    $stmtInsert->execute();
-} else {
-    echo "No se encontró el tipo de tela especificado.";
-    exit();
-}
+    
+    if (!$stmtInsert->execute()) {
+        throw new Exception('Error al insertar la solicitud: ' . $stmtInsert->error);
+    }
+    
+    $stmtInsert->close();
 
-$stmtInsert->close();
-$stmtRes->close();
-
-// Configurar PHPMailer para enviar el correo
-$mail = new PHPMailer(); 
-try {
+    // Enviar correo
+    $mail = new PHPMailer(true);
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
@@ -96,11 +110,11 @@ try {
     $mail->Password = 'iyphkooslbxszvsc';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    $mail->SMTPDebug = 0; // Desactivar debug
 
     $mail->setFrom('drackracer@gmail.com', 'Equipo de Retiro de Telas');
     $mail->addAddress($usuarioEmail);
-    $mail->addAddress('drackracer@gmail.com'); // Copia al administrador
+    $mail->addAddress('drackracer@gmail.com');
 
     $mail->isHTML(true);
     $mail->Subject = 'Confirmacion de Solicitud de Retiro de Telas';
@@ -116,7 +130,21 @@ try {
     <p>Saludos,<br>Equipo de Retiro de Telas</p>";
 
     $mail->send();
-    echo "Correo enviado con éxito al usuario y al administrador.";
+
+    // Si llegamos aquí, todo salió bien
+    $response['status'] = 'success';
+    $response['message'] = 'Solicitud enviada correctamente. Se ha enviado un correo de confirmación.';
+
 } catch (Exception $e) {
-    echo "Error al enviar el correo: {$mail->ErrorInfo}";
+    $response['status'] = 'error';
+    $response['message'] = $e->getMessage();
+} finally {
+    // Asegurarnos de que la conexión se cierre
+    if (isset($conexion)) {
+        $conexion->close();
+    }
 }
+
+// Enviar la respuesta JSON
+echo json_encode($response);
+exit;
