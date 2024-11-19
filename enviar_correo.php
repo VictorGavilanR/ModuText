@@ -10,6 +10,7 @@ require 'PHPMailer/Exception.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = htmlspecialchars($_POST['name']);
     $email = htmlspecialchars($_POST['email']);
+    $phone = htmlspecialchars($_POST['phone']);
     $message = htmlspecialchars($_POST['message']);
 
     if (!empty($name) && !empty($email) && !empty($message)) {
@@ -35,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h1>Nuevo Mensaje</h1>
                 <p><strong>Nombre:</strong> $name</p>
                 <p><strong>Correo:</strong> $email</p>
+                <p><strong>Teléfono:</strong> $phone</p>
                 <p><strong>Mensaje:</strong><br>$message</p>
             ";
 

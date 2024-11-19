@@ -240,6 +240,9 @@ include 'controlador/controlador_kilos.php';
           <label for="email">Correo:</label>
           <input type="email" id="email" name="email" required>
           
+          <label for="phone">Teléfono:</label>
+          <input type="tel" id="phone" name="phone" required>
+          
           <label for="message">Mensaje:</label>
           <textarea id="message" name="message" required></textarea>
           
