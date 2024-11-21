@@ -112,15 +112,15 @@ try {
     $mail->Port = 587;
     $mail->SMTPDebug = 0; // Desactivar debug
 
-    $mail->setFrom('drackracer@gmail.com', 'Equipo de Retiro de Telas');
+    $mail->setFrom('drackracer@gmail.com', 'Equipo de Retiro de Telas Modutext');
     $mail->addAddress($usuarioEmail);
     $mail->addAddress('drackracer@gmail.com');
 
     $mail->isHTML(true);
-    $mail->Subject = 'Confirmacion de Solicitud de Retiro de Telas';
+    $mail->Subject = 'Confirmacion de Solicitud de Retiro de Telas Modutext';
     $mail->Body = "
     <p>Estimado/a {$_SESSION['rut_usuario']},</p>
-    <p>Gracias por enviar su solicitud de retiro de telas. A continuación, los detalles de su solicitud:</p>
+    <p>Gracias por enviar su solicitud de retiro de telas Modutext. A continuacion, los detalles de su solicitud:</p>
     <ul>
         <li><strong>Tipo de Tela:</strong> $tipoTela</li>
         <li><strong>Cantidad:</strong> $cantidad kg</li>
