@@ -57,9 +57,9 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
                     </div>
                     <div class="mb-3">
                         <label for="cantidad" class="form-label">Cantidad (kg)</label>
-                        <input type="range" id="sliderValue" class="form-range" min="1" max="300" value="25" oninput="syncManualInput(this.value)">
+                        <input type="range" id="sliderValue" class="form-range" min="1" max="300" value="0" oninput="syncManualInput(this.value)">
                         <div class="input-group">
-                            <input type="number" class="form-control" id="cantidadManual" name="cantidad" min="1" max="300" value="150.5" step="0.1" oninput="syncSliderInput(this.value)">
+                            <input type="number" class="form-control" id="cantidadManual" name="cantidad" min="1" max="300" value="0" step="0.1" oninput="syncSliderInput(this.value)">
                             <span class="input-group-text">kg</span>
                         </div>
                     </div>

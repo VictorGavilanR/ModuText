@@ -14,7 +14,6 @@
     <body>
 
     <div>
-        <a href="retiro.php" class="back-button btn btn-custom">Volver</a>
         <h1 class="saludo">
             <?php
                 session_start();
@@ -56,6 +55,7 @@
                     <button type="button" class="btn btn-primary" onclick="confirmarFormulario()">Añadir Dirección</button>
 
                 </form>
+                <a href="retiro.php" class="back-button btn btn-custom">Volver</a>
             </div>
 
             <!-- Tabla para listar sucursales -->
@@ -162,6 +162,5 @@
         }
 
         </style>
-        <script src="formateo.js"></script>
     </body>
     </html>
