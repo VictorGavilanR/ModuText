@@ -1,28 +1,38 @@
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mis Direcciones</title>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"> <!-- Bootstrap Icons -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <link rel="stylesheet" href="sucursales.css">
+<?php
+session_start();
 
-    </head>
-    <body>
+// Verificar si el usuario está logueado
+if (!isset($_SESSION["rut_usuario"]) || !isset($_SESSION["email_usuario"])) {
+    header("Location: login.php"); // Redirige al login si no está logueado
+    exit();
+}
 
-    <div>
-        <h1 class="saludo">
-            <?php
-                session_start();
-                if (!isset($_SESSION["nombres_usuario"])) {
-                    $_SESSION["nombres_usuario"] = "Usuario"; // Muestra "Usuario" si no se tiene un nombre
-                }
-                //echo "Hola, " . $_SESSION["nombres_usuario"];
-            ?>
-        </h1>
+// Variables de sesión
+$rutUsuario = $_SESSION["rut_usuario"];
+$usuarioEmail = $_SESSION["email_usuario"];
+$id_per = isset($_SESSION["id_per"]) ? $_SESSION["id_per"] : null;
+$id_emp = isset($_SESSION["id_emp"]) ? $_SESSION["id_emp"] : null;
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Direcciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="sucursales.css">
+</head>
+<body>
+
+<div>
+    <h1 class="saludo">
+        <?php
+        echo "Hola, " . ($_SESSION["nombres_usuario"] ?? "Usuario"); // Muestra "Usuario" si no hay nombre
+        ?>
+    </h1>
 
         <div class="container main-container">
             <!-- Formulario para añadir sucursales -->
