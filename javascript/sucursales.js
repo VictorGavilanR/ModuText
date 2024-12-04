@@ -220,3 +220,55 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 });
+
+/* PARA GUARDAR RETIRO
+//Datos de retiro anteriores
+window.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM completamente cargado');
+
+    // Obtener los elementos de los campos
+    const tipoTela = document.getElementById("tipoTela");
+    const cantidadManual = document.getElementById("cantidadManual");
+    const sliderValue = document.getElementById("sliderValue");
+    const direccionRetiro = document.getElementById("direccionRetiro");
+
+    // Establecer el valor para el <select> "tipoTela"
+    if (tipoTela) {
+        const tipoTelaValue = localStorage.getItem("tipoTela");
+        if (tipoTelaValue) {
+            tipoTela.value = tipoTelaValue; // Establece el valor seleccionado del select
+        } else {
+            tipoTela.selectedIndex = 0; // Si no hay valor en localStorage, selecciona el primer valor
+        }
+    } else {
+        console.error("Elemento con id 'tipoTela' no encontrado.");
+    }
+
+    // Establecer el valor para el campo "cantidadManual" y el slider
+    if (cantidadManual && sliderValue) {
+        const cantidadValue = localStorage.getItem("cantidad");
+        if (cantidadValue) {
+            cantidadManual.value = cantidadValue;  // Establece el valor del campo numérico
+            sliderValue.value = cantidadValue;  // Establece el valor del slider
+        } else {
+            cantidadManual.value = 0;  // Valor por defecto
+            sliderValue.value = 0;  // Valor por defecto
+        }
+    } else {
+        console.error("Elemento con id 'cantidadManual' o 'sliderValue' no encontrado.");
+    }
+
+    // Establecer el valor para el <select> "direccionRetiro"
+    if (direccionRetiro) {
+        const direccionRetiroValue = localStorage.getItem("direccionRetiro");
+        if (direccionRetiroValue) {
+            direccionRetiro.value = direccionRetiroValue; // Establece el valor seleccionado del select
+        } else {
+            direccionRetiro.selectedIndex = 0; // Si no hay valor en localStorage, selecciona el primer valor
+        }
+    } else {
+        console.error("Elemento con id 'direccionRetiro' no encontrado.");
+    }
+});
+
+*/

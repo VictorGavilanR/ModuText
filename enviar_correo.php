@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Port = 587;
 
             // Configuración del correo
+            $mail->CharSet = 'UTF-8';
             $mail->setFrom('drackracer@gmail.com', 'Formulario de Contacto');
             $mail->addAddress('drackracer@gmail.com');
 

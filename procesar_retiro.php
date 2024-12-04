@@ -112,15 +112,19 @@ try {
     $mail->Port = 587;
     $mail->SMTPDebug = 0; // Desactivar debug
 
-    $mail->setFrom('drackracer@gmail.com', 'Equipo de Retiro de Telas');
-    $mail->addAddress($usuarioEmail);
-    $mail->addAddress('drackracer@gmail.com');
+    // Configuración del correo
+    
+    $mail->CharSet = 'UTF-8'; // Asegura que los caracteres especiales se muestren correctamente
+    $mail->setFrom('drackracer@gmail.com', 'Equipo de Retiro de Telas Modutext'); // Remitente
+    $mail->addAddress($usuarioEmail); // Correo del destinatario
+    $mail->addAddress('drackracer@gmail.com'); // Opcional: Copia para el remitente
 
+    // Configuración del contenido
     $mail->isHTML(true);
-    $mail->Subject = 'Confirmacion de Solicitud de Retiro de Telas';
+    $mail->Subject = 'Confirmación de Solicitud de Retiro de Telas Modutext';
     $mail->Body = "
     <p>Estimado/a {$_SESSION['rut_usuario']},</p>
-    <p>Gracias por enviar su solicitud de retiro de telas. A continuación, los detalles de su solicitud:</p>
+    <p>Gracias por enviar su solicitud de retiro de telas Modutext. A continuación, los detalles de su solicitud:</p>
     <ul>
         <li><strong>Tipo de Tela:</strong> $tipoTela</li>
         <li><strong>Cantidad:</strong> $cantidad kg</li>
@@ -128,23 +132,25 @@ try {
     </ul>
     <p>Nos pondremos en contacto pronto para confirmar los detalles.</p>
     <p>Saludos,<br>Equipo de Retiro de Telas</p>";
-
+    
+    // Enviar el correo
     $mail->send();
 
-    // Si llegamos aquí, todo salió bien
+    // Respuesta de éxito
     $response['status'] = 'success';
     $response['message'] = 'Solicitud enviada correctamente. Se ha enviado un correo de confirmación.';
 
 } catch (Exception $e) {
+    // Manejo de errores
     $response['status'] = 'error';
-    $response['message'] = $e->getMessage();
+    $response['message'] = 'Error al enviar el correo: ' . $e->getMessage();
 } finally {
-    // Asegurarnos de que la conexión se cierre
+    // Cerrar conexión si está definida
     if (isset($conexion)) {
         $conexion->close();
     }
 }
 
-// Enviar la respuesta JSON
+// Enviar respuesta en formato JSON
 echo json_encode($response);
 exit;

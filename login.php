@@ -99,6 +99,9 @@
                             </button>
                         </div>
                     </div>
+                    <div>
+                        <p>La contraseña debe cumplir con:<br>- Mínimo 8 caracteres. <br>- Combinación de letras y números.</p>
+                    </div>
                 </div>
 
                 <!-- Datos del Particular -->
@@ -149,6 +152,9 @@
                                 <i class="bi bi-eye-slash" id="eyeIconConfirm"></i>
                             </button>
                         </div>
+                    </div>
+                    <div>
+                        <p>La contraseña debe cumplir con:<br>- Mínimo 8 caracteres. <br>- Combinación de letras y números.</p>
                     </div>
                 </div>
 

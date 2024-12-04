@@ -75,15 +75,16 @@ form label {
 
 .back-button {
     position: absolute;
-    top: 10px;
-    left: 20px;
+    bottom: 0px; /* Espacio desde la parte inferior */
+    right: 0px; /* Espacio desde la parte derecha */
     background-color: #5F288F;
     color: white;
     border-radius: 5px;
-    text-decoration: none;
     border: none;
     font-family: 'Canada', sans-serif;
     width: 100px;
+    margin-top: 20px;
+    padding: 10px 20px;
 }
 
 .back-button:hover {
