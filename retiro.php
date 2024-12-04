@@ -43,26 +43,8 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
                     <h2 class="saludo">
                         <?php echo "Hola, " . $_SESSION["rut_usuario"]; ?>
                     </h2>
+                    
                     <h2 class="mb-4">Solicitud de Retiro de Telas</h2>
-                    <div class="mb-3">
-                        <label for="tipoTela" class="form-label">Tipo de Tela</label>
-                        <select class="form-select" id="tipoTela" name="tipoTela" required>
-                            <option selected disabled>Seleccione un tipo de tela</option>
-                            <option value="algodon">Algodón</option>
-                            <option value="poliester">Poliéster</option>
-                            <option value="seda">Seda</option>
-                            <option value="lana">Lana</option>
-                            <option value="otro">Otro</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="cantidad" class="form-label">Cantidad (kg)</label>
-                        <input type="range" id="sliderValue" class="form-range" min="1" max="300" value="25" oninput="syncManualInput(this.value)">
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="cantidadManual" name="cantidad" min="1" max="300" value="150.5" step="0.1" oninput="syncSliderInput(this.value)">
-                            <span class="input-group-text">kg</span>
-                        </div>
-                    </div>
                     <div class="mb-3">
                         <label for="direccionRetiro" class="form-label">Dirección de Retiro</label>
                         <select class="form-select" id="direccionRetiro" name="direccionRetiro" required>
@@ -94,6 +76,26 @@ if (isset($_SESSION["rut_usuario"]) && isset($_SESSION["email_usuario"])) {
                             <?php $stmt->close(); ?>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="tipoTela" class="form-label">Tipo de Tela</label>
+                        <select class="form-select" id="tipoTela" name="tipoTela" required>
+                            <option selected disabled>Seleccione un tipo de tela</option>
+                            <option value="algodon">Algodón</option>
+                            <option value="poliester">Poliéster</option>
+                            <option value="seda">Seda</option>
+                            <option value="lana">Lana</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cantidad" class="form-label">Cantidad (kg)</label>
+                        <input type="range" id="sliderValue" class="form-range" min="1" max="300" value="25" oninput="syncManualInput(this.value)">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="cantidadManual" name="cantidad" min="1" max="300" value="0" step="0.1" oninput="syncSliderInput(this.value)">
+                            <span class="input-group-text">kg</span>
+                        </div>
+                    </div>
+                    
                     
                     <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
                     <a href="sucursales.php" class="btn btn-primary">Administrar Direcciones</a>
